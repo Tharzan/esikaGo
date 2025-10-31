@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make an Appointment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS fourni précédemment */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .appointment-page {
+            width: 100%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        /* Header and Navigation */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .navbar {
+            flex-grow: 1;
+        }
+
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-item a:hover {
+            color: #5a75ff;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            color: #5a75ff;
+        }
+
+        /* Main content layout */
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+
+        /* Left section: Introduction */
+        .intro-section {
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .intro-title {
+            font-size: 28px;
+            font-weight: bold;
+            font-style: oblique;
+            color: #f7a048;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .highlight {
+            color: #333;
+            font-size: 38px;font-style: normal;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .read-more-btn {
+            background-color: #5a75ff;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .read-more-btn:hover {
+            background-color: #4a65e0;
+        }
+
+        /* Right section: Appointment form and graphics */
+        .appointment-form-container {
+            position: relative;
+            width: 450px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e0e0e0;
+        }
+
+        .appointment-form {
+            padding: 20px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .date-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .date-selector select {
+            flex: 1;
+        }
+
+        .submit-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            width: 100%;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #555;
+        }
+
+        /* Icons and decorative elements */
+        .paper-plane-icon,
+        .calendar-icon,
+        .clock-icon {
+            position: absolute;
+        }
+
+        .paper-plane-icon {
+            top: -50px;
+            right: -20px;
+            width: 100px;
+            transform: rotate(-15deg);
+        }
+
+        .calendar-icon {
+            bottom: -30px;
+            left: -50px;
+            width: 120px;
+        }
+
+        .clock-icon {
+            top: 50%;
+            left: -50px;
+            transform: translateY(-50%);
+            width: 100px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .intro-section,
+            .appointment-form-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-list {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="appointment-page">
+        <header class="header">
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#">Home</a></li>
+                    <li class="nav-item"><a href="#">About</a></li>
+                    <li class="nav-item"><a href="#">Services</a></li>
+                    <li class="nav-item"><a href="#">Book Appointment</a></li>
+                    <li class="nav-item"><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="logo">LOGO</div>
+        </header>
+
+        <main class="main-content">
+            <div class="intro-section">
+                <h1 class="intro-title">Time to make an <span class="highlight">Appointment</span></h1>
+                <p class="intro-text">
+                    Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. tempor incididunt ut labore et magn aliqua incididunt ut labore et magn aliqua
+                </p>
+                <button class="read-more-btn">Read More</button>
+            </div>
+
+            <div class="appointment-form-container">
+                <div class="appointment-form">
+                    <h2 class="form-title">Select Service</h2>
+                    <div class="form-group">
+                        <label for="service">Name Service</label>
+                        <select id="service">
+                            <option>Name Service</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Select Date</label>
+                        <div class="date-selector">
+                            <select id="day">
+                                <option>01</option>
+                            </select>
+                            <select id="month">
+                                <option>January</option>
+                            </select>
+                            <select id="year">
+                                <option>20</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Select Time</label>
+                        <select id="time">
+                            <option>9:00 AM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Select Phone</label>
+                        <input type="text" id="phone" value="+38 066 ____ ___">
+                    </div>
+                    <button class="submit-btn">Make Appointment >></button>
+                </div>
+                <img class="paper-plane-icon" src="https://via.placeholder.com/100" alt="Paper plane icon">
+                <img class="calendar-icon" src="https://via.placeholder.com/120" alt="Calendar icon">
+                <img class="clock-icon" src="https://via.placeholder.com/100" alt="Clock icon">
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

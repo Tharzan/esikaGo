@@ -1,0 +1,262 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background-color: #f0f2f5;
+    color: #333;scrollbar-width: thin;
+}
+
+* {box-sizing: inherit;}
+#page_{padding: 0px;}
+
+/* Barre latérale (Sidebar) */
+
+/* Section principale (Main Content) */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;background-color: #ffffff;
+    margin-left: 55px;margin-top: 10px;
+}
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.header h2 { font-size: 28px; color: #333; margin: 0; 
+    
+    font-size: 35px;
+    font-weight: 400;
+    font-style: italic;
+     /* Couleur vert olive tirée de l'image */
+    margin-bottom: 20px;
+
+    font-size: 1.5em;
+            color: #555;
+            margin-top: 0;
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 5px;
+            display: inline-block;font-weight: 700;color: rgb(0,0,125);
+            font-style: italic;
+}
+.header .actions button { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
+.header .actions .primary { background-color: #f39c12; color: white;font-size: 16px; }
+.header .actions .primary a{text-decoration: none;color: white;}
+/* Barre de recherche et filtres */
+.toolbar { display: flex; justify-content: space-between; align-items: center; background-color: #fff; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.toolbar .search-bar input { border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; }
+.toolbar .filters select { border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; margin-left: 10px; }
+
+/* Tableau des locataires */
+.tenant-list { background-color: #fff; border-radius: 8px; overflow-x: auto;
+     scrollbar-width: thin;}
+
+.tenant-list table { width: 100%; border-collapse: collapse; }
+.tenant-list th, .tenant-list td { padding: 10px 10px; text-align: left; border: 1px solid #999; }
+.tenant-list th { background-color: #f8f9fa; font-weight: bold; color: #5a5a5a; text-align: center;}
+.tenant-list td { vertical-align: middle;font-weight: 500; font-size: 15px;}
+.tenant-list .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+     margin-right: 15px; border: 1px solid #999;}
+.tenant-list .tenant-info { display: flex; align-items: center; }
+.tenant-list .status { padding: 5px 10px; border-radius: 20px; font-weight: 500; font-size: 0.85em; }
+.tenant-list .status.active { background-color: #e8f5e9; color: #388e3c; } /* Locataire actif */
+.tenant-list .status.inactive { background-color: #ffebee; color: #d32f2f; } /* Locataire inactif */
+.tenant-list .action-buttons {  cursor: pointer;
+     justify-content: center;align-items: center;}
+.tenant-list .action-buttons a svg { width: 24px;height: 24px;gap: 15px;}
+.tenant-list .action-buttons a{ display: flex; cursor: pointer;background-color: #eee; margin-right: 5px;display: inline-block; }
+
+.employee-sexe {
+    font-size: 0.9em;
+    color: #777;
+}
+
+
+.name {
+    font-weight: bold;
+    color: #333;font-size: 15px;
+}
+
+.grid-container {background-color: #f4f4f4;padding: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background-color: #ffffff; padding: 25px;border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; }
+        .card-header h3 { margin: 0; color: #555;font-size: 18px; }
+        
+        .statistic-value { font-size: 2.5em; font-weight: bold; margin-top: 10px; }
+        .card.presence .statistic-value { color: #28a745; }
+        .card.absence .statistic-value { color: #dc3545; }
+        .card.late .statistic-value { color: #ffc107; }
+        .card.hours .statistic-value { color: #17a2b8; }
+.identifiant{margin: auto;display: block;text-align: center;}
+
+
+ .container {
+            width: 95%;
+            
+            background-color: #fff;
+            padding: 30px;
+            
+            align-items: center;
+            margin-top: 0px;
+            display: flex;justify-content: space-between;
+            
+        }
+
+       #grand-title {
+            
+            font-size: 1.2rem;
+    font-weight: 800;
+    color: rgb(0,0,125);
+    line-height: 1.1;margin: auto;
+    margin-bottom: 5px;
+    display: block;
+    max-width: 900px;text-align: left;
+    font-family: 'Poppins', sans-serif;
+        }
+        .line{display: block;height: 4px;background-color: #ffc107;margin-left: 0px;
+        border-radius: 3px;max-width: 200px;margin-bottom: 20px;}
+
+        .block-1,.block-2 {
+            width: 48%;
+        }
+.about {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;text-align: left;
+    
+    max-width: 950px; /* Limit paragraph width for better readability */
+    margin: auto;
+    margin-bottom: 50px;
+    font-weight: 400;
+   
+}
+.document{width: 100%;text-align: center;}
+.document img{width: 80%;border-radius: 8px;margin: auto;}
+        p {
+            margin-bottom: 15px;
+        }
+
+        .process-step {
+            
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+    color: #555;
+    line-height: 1.5;text-align: justify;
+    
+    /* Limit paragraph width for better readability */
+    margin: auto;
+    margin-bottom: 50px;
+    font-weight: 400;
+    
+        
+        }
+
+        .form-section {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 30px;
+            background-color: #f8f9fa;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box; /* S'assure que le padding n'augmente pas la largeur */
+        }
+
+        
+
+        /* Style spécifique pour les notes de sécurité */
+        .security-note {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: 1px solid #ffeeba;
+            border-left:  5px solid rgb(200,0,0);
+        }
+
+        
+.manuscrite-signature {
+            width: 95%;
+            
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            
+            margin-top: 0px;
+            
+        }
+
+
+.image-signature {display: flex;gap: 20px;justify-content: center;
+align-self: center;flex-direction: row-reverse;
+align-items: center;}
+.contnt-signature{width: 250px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+display: flex;align-items: center;
+justify-content: center;padding: 10px;
+border: 2px solid rgb(0,0,125);
+border-radius: 8px;}
+.resultat {padding: 20px;font-size: 30px;font-weight: 700;
+font-family: 'Poppins';}
+.contnt-signature img {max-width: 200px;display: block;}
+
+
+
+
+
+
+
+
+ .container-form { max-width: 600px; margin: 40px auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        h1 { 
+            
+            font-size: 1.3rem;
+    font-weight: 800;
+    color: #000;
+    line-height: 1.1;margin: auto;
+    margin-bottom: 5px;
+    display: block;
+    max-width: 900px;text-align: left;
+    font-family: 'Poppins', sans-serif;
+         }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; }
+        
+        /* Styles pour la vidéo et le canvas de capture */
+        #video-container { text-align: center; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; overflow: hidden; }
+        #camera-feed { width: 100%; max-height: 400px; background: #000; display: block; }
+        #camera-canvas { display: none; /* Le canvas est caché et sert uniquement à la capture */ }
+        #captured-image-preview { max-width: 100%; max-height: 200px; margin-top: 10px; border: 1px solid #ccc; display: none; }
+
+        .btn-capture, .btn-submit {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .btn-capture { background-color: #f39c12; color: white; margin-right: 10px; }
+        .btn-capture:hove { background-color: #1e7e34; }
+        .btn-submit { background-color: rgb(0,0,125); color: white; 
+            display: block; width: 300px; margin-top: 30px;display: block;
+        margin: auto; }
+        .btn-submit:hove { background-color: #0056b3; }
+
+.hide-desktop{display: none;}

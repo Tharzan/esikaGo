@@ -1,0 +1,92 @@
+
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+}
+* {box-sizing: inherit;}
+
+#page
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;align-items: center;
+    height: 100vh;
+
+}
+
+#connect h3 {
+    color: #f39c12; /* Couleur orange pour les titres */
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+#connect{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: auto;
+    /* Couleur de fond comme dans l'image */
+    color: #333; /* Couleur de texte principale */
+    font-family: Arial, sans-serif;
+    width: 250px;margin-top: 25px;
+}
+
+.footer-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+    box-sizing: border-box; /* Pour inclure padding et border dans la largeur */
+}
+
+.connect-btn {
+    padding: 10px;
+    background-color: rgb(0,0,125);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.connect-btn:hover {
+    background-color: #e68a00;
+}
+
+
+
+
+
+
+
+#blog-creation-compte{ width: calc(100% - 600px); text-align: center;
+    
+     height: 100%; display: flex;flex-direction: column;align-items: center;justify-content: center;}
+#formulaire{ width: 400px;margin-left: 1%; height: 300px; background-color: white;padding-top:20px ;
+    background-color: #f2f2f2; /* Couleur de fond comme dans l'image */}
+#img-connexion{width: 500px; height: auto;margin-top: 50px;}
+
+.line-2 label, .line-3 label{
+    width: 350px;height: 30px; display: block; text-align: center;font-size: 20px;margin: auto;}
+.line-2 input, .line-3 input{width: 250px;height: 30px; display: block; margin: auto;}
+
+.line-4{text-align: center;margin-top: 20px; height: 50px; position: relative;}
+
+.line-4 label{display: block; background-color: rgb(0,0,125); color: white;
+    font-weight:bold ;font-size: 20px;
+    border-radius: 8px; padding: 10px 60px 10px 60px;width: 200px;
+    display: inline-block;font-family: 'Courier New';font-style: oblique;margin-top: 20px;}
+.lien-connexion{color: rgb(0,0,125);font-family: 'Courier New';font-size: 20px;font-weight: bold;font-style: oblique;}
+
+
+.hide-desktop{display: none;}

@@ -1,0 +1,252 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+}
+* {box-sizing: inherit;}
+
+#pag_e
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;justify-content: center;align-items: center;
+    height: 100vh;
+
+}
+#contenu{display: flex;justify-content: center;flex-direction: column;}
+
+.label{color: #e68a00;font-size: 22px;display: flex;gap: 5px;padding-top: 5px;justify-content: center;
+    margin-top: 0px;text-align: center;margin-bottom: 5px;}  
+.label svg, .label span{display: block;} 
+
+
+.left-panel {
+    
+    box-sizing: border-box;
+    
+    /* S'assure qu'il y a du contenu à faire défiler */
+     /* Laisse de l'espace pour le panneau de droite */
+    background-color: #ffffff;width: 100%;
+    max-width: 500px;padding: 10px;
+}
+
+#right-menu{display: none;}
+
+/* Bloc de droite fixe */
+.right-panel {
+    width: 100%;
+    /* Permet le défilement du contenu de droite */
+    display: flex;justify-content: center;align-items: center;
+    box-sizing: border-box;
+    margin-top: 20px;flex-direction: column;
+     
+}
+.about-post{text-align: center;font-weight: 400;font-style: italic;padding: 5px;}
+.right-panel img{
+    width: 350px; /* La largeur peut être ajustée */
+    height: auto;
+    
+     
+}
+
+.form-container {
+    background-color: #ffffff;
+    
+    padding: 0px;
+    width: 100%;padding-top: 5px;
+    max-width: 600px;margin: auto;margin-top: 0px;
+    box-sizing: border-box;
+}
+
+.form-container fieldset {
+    background-color: #ffffff;
+    border-radius: 10px;
+    
+    padding: 40px;
+    width: 100%;padding-top: 20px;
+    position: relative;
+    max-width: 550px;margin: auto;margin-top: 0px;
+    box-sizing: border-box;margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);border: 1px solid #999;}
+.form-container fieldset legend {font-weight: 600;
+    padding: 8px 10px; text-align: center;font-size: 20px;}
+.form-container h2 {
+    text-align: center;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+
+
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+    .form-container h3 {
+        font-size: 1.2em;
+        color: #555;
+        margin-top: 0;text-align: left;
+        border-bottom: 2px solid #ff6347;
+        padding-bottom: 5px;
+        display: inline-block;font-weight: 700;
+        font-style: italic;margin-bottom: 40px;
+    }
+/* Séparation des sections */
+.section-separator {
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 30px 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 25px;justify-content: center;
+}
+
+.full-width {
+    grid-column: 1 / 3;
+}
+
+.form-group {
+    display: flex;max-width: 200px;
+    flex-direction: column;justify-content: center;
+}
+
+.form-group label {
+    margin-bottom: 3px;
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #555;
+    border-radius: 5px;max-width: 200px;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #333; /* Vert pour le focus */
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 35px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-cancel {
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+.btn-cancel:hover {
+    background-color: #d0d0d0;
+}
+
+.btn-submit {
+    background-color: #e68a00; /* Vert principal */
+    color: white;position: absolute;right: 55px;bottom: 20px;
+}
+
+@media (max-width: 508px) {
+    .form-container fieldset legend {font-weight: 600;
+        padding: 8px 10px; text-align: center;font-size: 20px;}
+    .form-grid {
+         display: block;width: 100%;
+    }
+    .form-group {
+        display: flex;max-width: 320px;gap: 10px;margin: auto;
+        width: 100%;flex-direction: row;justify-content: center;margin-bottom: 10px;
+    }
+    .btn {
+        width: 100%;
+        position: initial;margin-top: 10px;
+    }
+    .right-panel .form-input {
+        flex-grow: 1;
+        border: none;
+        padding: 8px 10px;
+        font-size: 16px;
+        outline: none;border: 1px solid #a333;
+    }
+    
+    .right-panel .form-btn {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .form-group label {
+       display: block; width: 120px; 
+    }
+    
+    .form-group input,
+    .form-group select {
+        display: block;width: 180px;
+    }
+
+    .form-container fieldset {
+        
+        
+        padding: 10px;
+        width: 100%;padding-top: 20px;
+        position: relative;
+        max-width: 550px;margin: auto;margin-top: 0px;
+        box-sizing: border-box;margin-bottom: 20px;
+        box-shadow: none;border: none;
+        border-top: 1px solid #999;border-radius: 0px;}
+    }
+
+
+    
+    

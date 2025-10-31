@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateforme de Gestion Scolaire</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    /* Règles de base */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* En-tête */
+.header {
+    background-color: #004d40;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header p {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+/* Contenu principal */
+.main-content {
+    padding: 40px 0;
+}
+
+/* Tableau de bord */
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.profile-card, .notifications {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #00796b;
+}
+
+.qr-code {
+    background-color: #eee;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.notifications ul {
+    list-style: none;
+    padding: 0;
+}
+
+.notifications li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.notifications li:last-child {
+    border-bottom: none;
+}
+
+.notifications a {
+    text-decoration: none;
+    color: #00796b;
+    transition: color 0.3s;
+}
+
+.notifications a:hover {
+    color: #004d40;
+}
+
+/* Accès rapide */
+.quick-access h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #004d40;
+}
+
+.access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+}
+
+.access-item {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #555;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.access-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.access-item .icon {
+    font-size: 2.5em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.access-item.admin-link {
+    background-color: #e0f2f1;
+    color: #004d40;
+}
+
+/* Pied de page */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+.footer-nav a:hover {
+    color: #00796b;
+}
+</style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1>Plateforme de Gestion Scolaire</h1>
+            <p>Connectez, gérez et innovez dans votre écosystème éducatif.</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="dashboard">
+                <div class="profile-card">
+                    <img src="https://via.placeholder.com/100" alt="Photo de profil" class="profile-pic">
+                    <h2>Mon Profil</h2>
+                    <p><strong>Nom :</strong> Tharcisse</p>
+                    <p><strong>Statut :</strong> Étudiant</p>
+                    <div class="qr-code">
+                        <span>QR Code d'accès</span>
+                    </div>
+                </div>
+                <div class="notifications">
+                    <h3>Notifications récentes</h3>
+                    <ul>
+                        <li><a href="#">Cours annulé : Mathématiques, 10h00</a></li>
+                        <li><a href="#">Nouveau devoir : Projet de développement web</a></li>
+                        <li><a href="#">Rappel de paiement des frais de scolarité</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="quick-access">
+                <h2>Accès Rapide</h2>
+                <div class="access-grid">
+                    <a href="#" class="access-item">
+                        <i class="icon">📚</i>
+                        <span>Programme d'Études</span>
+                    </a>
+                    <a href="#" class="access-item">
+                        <i class="icon">✍️</i>
+                        <span>Devoirs & Évaluations</span>
+                    </a>
+                    <a href="#" class="access-item">
+                        <i class="icon">📊</i>
+                        <span>Cahier de Notes</span>
+                    </a>
+                    <a href="#" class="access-item">
+                        <i class="icon">👤</i>
+                        <span>Annuaire</span>
+                    </a>
+                    <a href="#" class="access-item admin-link">
+                        <i class="icon">💼</i>
+                        <span>Espace DG</span>
+                    </a>
+                    <a href="#" class="access-item admin-link">
+                        <i class="icon">👨‍🎓</i>
+                        <span>Espace Chef des Étudiants</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Plateforme de Gestion Scolaire. Tous droits réservés.</p>
+            <nav class="footer-nav">
+                <a href="#">Contact</a>
+                <a href="#">Support</a>
+                <a href="#">FAQ</a>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+</html>

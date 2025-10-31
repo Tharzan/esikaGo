@@ -1,0 +1,133 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'my_user/css/edite_profil_user_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/edite_profil_user.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+
+        <div id="aside" >
+            <div id="bolc-aside">
+                <div class="line-3">
+                    Pour Une grande visibilité
+                </div>
+
+
+                Pour une meilleure visibilité ajouter une image de votre entiter, une video de maximum 5 munites  pour la  presentation de vos services 
+                          et autorisé la prise de positions pour permettre pontentiel clients de vous trouver facilement  
+                    
+                <hr>
+                
+                <div>
+                    <p class="vendre-avec-nous">
+                        <strong>Simple et facile</strong>
+                        Une fois votre blog ou page crée, pensez à completé le profile de votre page pour aidé les visiteurs et pontentiel
+                        clients à en savoir plus et en détail sur votre entreprise. 
+                        <br>
+                        <hr>
+                       <br> <strong>Vous êtes proffessionnel de coiffure et vous n'avez pas un salon </strong> ne vous inquièté pas crée un compte
+                        et specifié votre metier puis remplissez votre profil pour vous faire connître très rapidement
+                       et gratuitement
+                    <p class="message-aide">
+                        
+                        
+                        <a href="" class="estimation"> 
+                               <span>crée un compte</span></a>
+                        
+                        
+                        </p>
+
+
+                </div>
+                
+                
+                
+            </div></div>
+
+        <div id="contenu">
+
+       
+
+                <form action="{% url 'edite_user' user.id %}" method="post" enctype="multipart/form-data">
+                <div class="formulaire">
+                    {% csrf_token %}
+                    
+                    <p class="commune-p"><label for="commune">Télephone :</label>
+                        <input id="commune" type="text" name="contact_telephone"></p>
+                        <div class="commune-p"><label for="date"><span class="hide-mobile">Date de </span>naissance:</label>
+                            <input id="date" type="date" name="date_naissance">
+                        </div>
+                            
+
+
+                        <p class="line-2">
+                            <fieldset id="caract">
+                                <legend>Adresse</legend>
+    
+                                <span class="type-bien"><input type="text" value="commune" name="commune" ></span>
+                                <span class="type-bien"><input type="text" name="rue" value="rue"></span>
+                                <span class="type-bien"><input type="text" name="numero_rue" value="N°" id="numero_rue"></span>
+                                 </fieldset>
+                        </p>
+                   
+                    <div class="line-">
+                        <p class="description"><label for="description">Description :</label> <textarea name="description" id="description"></textarea></p>
+                        
+                    </div>
+                    <div class="line-3 hide-desktop">
+                        Pour une meilleure visibilité ajouter une image de votre entiter, une video de maximum 5 munites  pour la  presentation de vos services 
+                          et autorisé la prise de positions pour permettre pontentiel clients de vous trouver facilement  
+                    </div>
+                    
+
+                    
+                    <div class="line-4">
+                        
+
+                            <label for="video" class="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M0 12l11 3.1 7-8.1-8.156 5.672-4.312-1.202 15.362-7.68-3.974 14.57-3.75-3.339-2.17 2.925v-.769l-2-.56v7.383l4.473-6.031 4.527 4.031 6-22z"/></svg>
+                                video <span class="hide-mobile">présentation</span></label>
+
+                            <label for="image" class="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M0 12l11 3.1 7-8.1-8.156 5.672-4.312-1.202 15.362-7.68-3.974 14.57-3.75-3.339-2.17 2.925v-.769l-2-.56v7.383l4.473-6.031 4.527 4.031 6-22z"/></svg>
+                                image <span class="hide-mobile">couverture</span></label>
+
+                            
+                    </div>
+                    <div class="line-5">
+                        <p id="lance">
+
+                            <label for="send" id="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M0 12l11 3.1 7-8.1-8.156 5.672-4.312-1.202 15.362-7.68-3.974 14.57-3.75-3.339-2.17 2.925v-.769l-2-.56v7.383l4.473-6.031 4.527 4.031 6-22z"/></svg>
+                                valider</label>
+                            <input type="submit" hidden id="send">
+                            <input type="file" accept="image/*" hidden name="image" id="image">
+                            <input type="file" accept="video/*" hidden name="video" id="video"></p>
+                    </div>
+
+                </div>        
+                        
+                </form>
+        
+            
+
+
+        </div>
+    </div>
+    
+</body>
+</html>

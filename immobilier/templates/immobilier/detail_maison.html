@@ -1,0 +1,157 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'immobilier/css/detail_maison.css' %}">
+    <link rel="stylesheet"   media="(max-width:899px)" href="{% static 'immobilier/css/detail_maison_mobile.css' %}">
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        <div id="aside" class="hide-mobile">
+            <div id="bolc-aside">
+                <h3>Acheter et Vendre avec Nous</h3>
+                <p class="statistique">Vous voulez estimer le prix de votre bien immobilier pour la vente, la mise en location
+                    vous etes locataire et vous voulez une estimation d'une maison a louer selon 
+                    vos besoin ? Appuyer sur <a href="">Ce lien</a>
+                </p>
+                <hr>
+                <div>
+                    <img class="img-poigner-main" src="{% static 'img/poignermain.jpg' %}" alt="">
+                    <p class="vendre-avec-nous">
+                        <strong>Besoin de vendre ou louer votre maison, salle d'evenement</strong> en toute sérénité ? Confiez-nous votre projet ! Nous mettons à votre disposition notre expertise pour une estimation précise et une commercialisation efficace de votre propriété.<br>
+                        <strong>Vous cherchez le bien idéal à acheter ou à louer ?</strong>
+                         Notre équipe d'experts sélectionne et vérifie rigoureusement chaque annonce pour vous
+                          garantir des biens de qualité, correspondant à vos attentes avec les documents vérifier. <br>
+                          Faites-nous confiance pour concrétiser vos projets immobiliers. Contactez-nous dès aujourd'hui !
+                    </p>
+
+
+                </div>
+            </div></div>
+
+
+        <div id="contenu-page">
+            <div id="image-principale"><img src="{% static 'immobilier/img/1.jpg' %}" alt=""></div>
+            <div id="bloc-1">
+
+                <div id="div-identiter">
+                    <p class="identiter">
+                    <img class="img-profil" src="{% static 'img/images_profil/1.jpg' %}" alt="">
+                <span>Gerrard Muller</span><br>
+                <span class="time_post">
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffc107"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffc107"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"  height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffc107"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44zm.678 2.033v11.904l4.707 2.505-.951-5.236 3.851-3.662-5.314-.756z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="grey"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="gray"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+               
+                </p>
+                <p class="prix"></p>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="icon"><i class="fas fa-bed"></i></div>
+                    <div>
+                        <div class="label">Bedroom</div>
+                        <div class="value">5 Rooms</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon"><i class="fas fa-bath"></i></div>
+                    <div>
+                        <div class="label">Bathroom</div>
+                        <div class="value">3 Rooms</div>
+                    </div>
+                </div>
+            </div>
+
+                <hr>
+                <p class="description">
+                    <span>Description</span>
+                    Vous voulez estimer le prix de votre bien immobilier 
+                    pour la vente, la mise en location 
+                    
+                </p>
+                <hr>
+            </div>
+                <p class="title-galery">Galery</p>
+                <p class="images">
+                    
+                    <img src="{% static 'immobilier/img/home_1.jpg' %}" alt="">
+                    <img src="{% static 'immobilier/img/home_2.jpg' %}" alt="">
+                    <img src="{% static 'immobilier/img/2.jpg' %}" alt="">
+                    <img src="{% static 'immobilier/img/maison_2.jpg' %}" alt="">
+                    <img src="{% static 'immobilier/img/maison_3.jpg' %}" alt="">
+                    <img src="{% static 'immobilier/img/maison_4.jpg' %}" alt="">
+                </p>
+
+                <p class="contact">
+                    <span>Contacter l'Annonceur</span>
+
+                    Vous êtes intéressé par une annonce et souhaitez joindre l'annonceur pour
+                    la visite ou plus d'information, vous pouvez le faire en appelant directement ou avec un message.
+
+
+                    <p class="lien-contact">
+                             <span class="span-appel">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="white"><path d="M798-120q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/></svg>
+                                Appel
+                             </span>
+                             <span>
+                            
+<svg width="26px" height="26px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    
+    
+    <desc>Created with Sketch Beta.</desc>
+    <defs>
+
+</defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-207.000000, -257.000000)" fill="white">
+            <path d="M231,273 C229.896,273 229,272.104 229,271 C229,269.896 229.896,269 231,269 C232.104,269 233,269.896 233,271 C233,272.104 232.104,273 231,273 L231,273 Z M223,273 C221.896,273 221,272.104 221,271 C221,269.896 221.896,269 223,269 C224.104,269 225,269.896 225,271 C225,272.104 224.104,273 223,273 L223,273 Z M215,273 C213.896,273 213,272.104 213,271 C213,269.896 213.896,269 215,269 C216.104,269 217,269.896 217,271 C217,272.104 216.104,273 215,273 L215,273 Z M223,257 C214.164,257 207,263.269 207,271 C207,275.419 209.345,279.354 213,281.919 L213,289 L220.009,284.747 C220.979,284.907 221.977,285 223,285 C231.836,285 239,278.732 239,271 C239,263.269 231.836,257 223,257 L223,257 Z" id="comment-3" sketch:type="MSShapeGroup">
+
+</path>
+        </g>
+    </g>
+</svg>
+                             
+                             message</span>
+                        
+                    </p>
+                    <hr>
+                    <p class="signaler">
+                        Si vous rencontrez un problème avec une annonce et souhaitez nous le signaler, ou probleme de securité
+n'hésitez pas à nous contacter.
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 5.177l8.631 15.823h-17.262l8.631-15.823zm0-4.177l-12 22h24l-12-22zm-1 9h2v6h-2v-6zm1 9.75c-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25 1.25.56 1.25 1.25-.561 1.25-1.25 1.25z"/></svg>
+                        signaler l'annonce
+                    </span> 
+                        
+                    </p>
+
+                    
+                </p>
+            
+        </div>
+        
+
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+</body>
+</html>

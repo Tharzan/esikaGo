@@ -1,0 +1,449 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+}
+* {box-sizing: inherit;}
+
+#page_
+{
+     
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+#contenu{
+    
+    display: flex;justify-content: center;
+    vertical-align: top;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    padding-left: 0px;
+    text-align: center;
+    box-sizing: border-box;
+    min-height: 100vh;padding: 10px;margin-top: 0px;
+    margin-top: 10px; background-color: #ffffff;
+}
+
+
+
+.left-panel {
+    flex-grow: 1; /* Prend l'espace restant */
+    
+    box-sizing: border-box;
+     /* Laisse de l'espace pour le panneau de droite */
+    background-color: #ffffff;
+    width: 100%;max-width: 700px;
+}
+
+
+.right-panel {
+    max-width: 450px; /* La largeur peut être ajustée */
+    
+    display: flex;justify-content: center;align-items: center;
+    box-sizing: border-box;margin: auto;
+    margin-top: 20px;flex-direction: column;
+padding: 0px;
+     
+}
+
+
+.right-panel .container-img{
+    width: 280px; /* La largeur peut être ajustée */
+    border-radius: 10px;
+    left: 60px;
+    margin-top: 0px;
+     
+}
+
+
+.container-img img{
+    width: 100%; /* La largeur peut être ajustée */
+    border-radius: 10px;
+    left: 60px;
+    height: auto;
+     
+}
+
+.right-panel .about, .about{text-align: justify;
+font-weight: 400;
+font-size: 12px;
+color: #333;font-style: italic;font-family: 'Dancing Script', cursive;
+line-height: 1.5;}
+.right-panel .form-input {
+    flex-grow: 1;
+    border: none;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;border: 1px solid #a333;
+}
+
+.right-panel .form-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+@keyframes slideInFromBottom {
+    from {
+        bottom: -80px; /* Commence 100px sous sa position normale */
+        opacity: 0;
+    }
+    to {
+        bottom: 0; /* Revient à sa position normale (par rapport à son conteneur relatif) */
+        opacity: 1;
+    }
+}
+.add{position: absolute;bottom: 2px;right: 5px;}
+.section-catalogue {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    
+    border-radius: 8px;
+    text-align: center;margin-top: 0px;padding-top: 15px;
+    position: relative; /* Permet d'utiliser 'bottom' pour positionner */
+    bottom: -80px; /* Position de départ : 100px sous le bas de la vue */
+    opacity: 0; /* Commence invisible */
+    /* Définit la durée, la fonction de temporisation et le délai de l'animation */
+    animation: slideInFromBottom 1s ease-out forwards;
+    /* slideInFromBottom : nom de l'animation (définie ci-dessous)
+       1s : durée de l'animation
+       ease-out : la vitesse ralentit vers la fin
+       forwards : l'état final de l'animation est maintenu après sa fin
+    */
+    
+    animation-delay: 0.5s;
+}
+
+/* Titre de la section */
+
+/* Boutons de catégories */
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.category-button {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-button.active {
+    background-color: #d25d50;
+    color: #fff;
+    border-color: #d25d50;
+}
+
+/* Grille des plats */
+.dish-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;position: relative;border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);margin-bottom: 20px;
+}
+
+.dish-card img {
+    width: 100%;
+    height: 100px; /* Ajustez la hauteur si nécessaire */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.dish-card h3 {
+    font-size: 1.1em;
+    margin: 0;
+    color: #333;font-family: 'Dancing Script', cursive;
+}
+
+.dish-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #d25d50;padding-left: 10px;
+}
+
+.dish-price .rating {
+    font-size: 0.9em;
+    color: #666;font-weight: 700;
+    margin-left: 5px;padding: 5px 10px;
+    border: 2px solid #d25d50;border-radius: 15px;
+}
+.dish-price .rating svg{width: 15px;height: 15px;}
+.dish-price .star {
+    color: gold;
+}
+
+/* Bouton "Add to cart" */
+.add-to-cart-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 1px solid #d25d50;
+    background-color: #d25d50;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;display: none;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #fff;
+    color: #d25d50;display: none;
+}
+
+
+.form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Largeur fixe pour le formulaire */
+    width: 100%;margin: auto;border: 1px solid #ddd;
+}
+.item-form{border: 1px solid #e0e0e0;padding: 25px;border-radius: 10px;}
+.form-container h3 {
+    margin-top: 0;
+    padding-bottom: 5px;
+    display: inline-block;font-weight: 800;
+    
+    font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            font-weight: 700;
+            font-style: italic;
+}
+
+/* Titre principal de la page */
+.page-title {
+    text-align: center;
+    font-size: 2.2em;
+    color: #343a40;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* Titre du formulaire */
+.form-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    color: #343a40;
+    text-align: center;
+}
+.form-container h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8em;
+    color: #d25d50; /* Couleur rouge/rose pour le titre */
+    margin-bottom: 30px;margin-top: 0px;
+}
+
+/* Groupes de formulaires (label + input/select) */
+.form-group {
+    margin-bottom: 25px;width: 48%;
+    display: inline-block;
+}
+.full-group{width: 96%;margin: auto;display: flex;flex-direction: column;justify-content: center; margin-bottom: 25px; }
+.full-group input[type="text"]
+ {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-size: 1em;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-group label,.full-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #495057;
+    font-size: 1.05em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select {
+    width: 90%;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-size: 1em;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,#description:focus,
+.form-group select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+}
+
+/* Style spécifique pour le champ de prix */
+.price-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.price-input-group input {
+    padding-right: 40px; /* Espace pour le symbole d'unité */
+}
+
+.price-input-group .currency-symbol {
+    position: absolute;
+    right: 15px;
+    color: #6c757d;
+    font-weight: bold;
+}
+
+/* Message d'alerte */
+.alert-level {
+    display: flex;
+    align-items: center;
+    background-color: #fff3cd; /* Couleur jaune clair */
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #856404; /* Texte jaune foncé */
+    font-size: 0.95em;
+    margin-top: 10px;
+}
+
+.alert-level .icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+/* Champs de sélection d'unité (radio buttons) */
+.unit-options {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.unit-options .radio-group {
+    display: flex;
+    align-items: center;
+}
+
+.unit-options input[type="radio"] {
+    margin-right: 8px;
+    transform: scale(1.2); /* Agrandir légèrement les radios */
+}
+
+.unit-options label {
+    margin-bottom: 0; /* Pas de marge basse pour les labels des radios */
+    font-weight: normal;
+}
+
+/* Bouton d'enregistrement */
+.submit-button {
+    width: 250px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(0, 0, 125);
+    color: white;
+    font-size: 1.2em;
+    font-weight: 500;
+    cursor: pointer;margin: auto;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 10px;
+}
+:root {
+    --primary-color: rgb(200,0, 0);
+    --light-grey: #f4f4f4;
+    --dark-grey: #333;
+}
+.instruction {
+    font-size: 0.9em;
+    font-style: italic;
+    color: var(--dark-grey);
+    background-color: var(--light-grey);
+    padding: 10px;
+    border-left: 3px solid var(--primary-color);
+    margin: 20px 0;
+}
+
+.media-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(0, 0, 0);
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100px;margin: auto;display: block;height: 90px;position: relative;bottom: 10px;
+        }
+.full-width{display: flex;gap: 15px;align-items: center;position: relative;padding: 20px;}
+#description
+{
+    font-size: 1em;
+        padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            height: 90px;
+            width: calc(100% - 100px);margin: auto;margin-bottom: 20px;
+        }
+.media-button svg {
+            width: 35px;
+            height: 35px;
+            margin-bottom: 5px;
+            fill: #fff;
+        }
+
+@media (max-width:555px) {
+
+   .section-catalogue{width: 100%;padding: 0px;}
+.form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 0px;
+    box-shadow: none;border: none;
+    width: 100%; margin: 0px;
+}
+
+.form-group {
+    margin-bottom: 25px;width: 98%;
+    
+}
+.item-form{border: none;padding: 0px;border-radius: 10px;}
+.submit-button {
+    width: 250px;}
+    
+}
+        #right-menu{display: none;}
+ .hide-mobile{display: none;}

@@ -1,0 +1,229 @@
+/* General styling for the body and container */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.appointment-page {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Header and Navigation */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.navbar {
+    flex-grow: 1;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-item a:hover {
+    color: #5a75ff;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 24px;
+    color: #5a75ff;
+}
+
+/* Main content layout */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 50px;
+}
+
+/* Left section: Introduction */
+.intro-section {
+    max-width: 500px;
+    padding: 20px;
+}
+
+.intro-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #f7a048; /* Orange color from the image */
+}
+
+.intro-text {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.read-more-btn {
+    background-color: #5a75ff;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.read-more-btn:hover {
+    background-color: #4a65e0;
+}
+
+/* Right section: Appointment form and graphics */
+.appointment-form-container {
+    position: relative;
+    width: 450px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e0e0e0;
+}
+
+.appointment-form {
+    padding: 20px;
+}
+
+.form-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.date-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.date-selector select {
+    flex: 1;
+}
+
+.submit-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    width: 100%;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #555;
+}
+
+/* Icons and decorative elements */
+.paper-plane-icon,
+.calendar-icon,
+.clock-icon {
+    position: absolute;
+}
+
+.paper-plane-icon {
+    top: -50px;
+    right: -20px;
+    width: 100px; /* Adjust size as needed */
+    transform: rotate(-15deg);
+}
+
+.calendar-icon {
+    bottom: -30px;
+    left: -50px;
+    width: 120px; /* Adjust size as needed */
+}
+
+.clock-icon {
+    top: 50%;
+    left: -50px;
+    transform: translateY(-50%);
+    width: 100px; /* Adjust size as needed */
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .intro-section,
+    .appointment-form-container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .nav-list {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}

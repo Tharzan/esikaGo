@@ -1,0 +1,52 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    
+    font-family: 'Open Sans',Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+    
+}
+* {box-sizing: inherit;}
+
+#page_principale
+{
+    background-color: red;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+#contenu
+{
+    
+	vertical-align: top;
+	width: 100%;
+	text-align: center;
+	padding-left: 0px;
+}
+#head{display: flex;justify-content: center;flex-direction: column;}
+#create-appointment, #presence{font-style: oblique; border-radius: 10px; padding-top: 10px; width: 300px;
+    height: 50px; background-color: rgb(0,0,125);font-family: 'Courier New';color: white;
+    font-size:  20px;font-weight: bold;margin: auto;margin-bottom: 20px;margin-top: 5px;
+    }
+
+.message-info{margin-top: 0px;padding: 5px;font-size: 17px;margin-bottom: 30px;font-family: 'Courier New'; font-size: 20px;font-style: oblique;font-weight: bold;}
+
+@media (min-width: 445px) {
+    #bloc-aside{font-size: 16px; justify-content: center;}
+    
+}
+
+
+@media (min-width: 650px) {
+    #head{flex-direction: row;}
+    
+}
+
+
+
+.hide-mobile{display: none;}

@@ -1,0 +1,321 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/accueil_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'app_general/css/accueil.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Tableau de Bord</h2>
+
+                
+            </div>
+            
+            <div class="sidebar-nav">
+                
+                <ol>
+                    <li class="active" onclick="showTab('apercu')">
+                        <a href="#">Aperçu Général</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Rendez-vous</a>
+                    </li>
+                    
+                    <li onclick="showTab('salaires')">
+                        <a href="#">Alertes</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Travaux</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Actions</a>
+                    </li>
+                    
+                </ol>
+            </div>
+        </aside>
+    <div class="container">
+        <h1>Programme de la Journée</h1> 
+
+        <div class="intro-message">
+            <p>Bonjour ! Voici un aperçu des activités et des indicateurs clés pour la journée du <span id="current-date"></span>.</p>
+        </div>
+
+        <div class="reservation-container">
+            <section class="reservation-section">
+                
+                    <div class="section-header">
+                        <h3>Rendez-vous et réservations</h3>
+                    </div>
+
+                    <p>
+                       <strong>Gérez votre emploi du temps en un seul endroit.</strong> 
+            Cette page centralise toutes vos réservations et tous vos rendez-vous. 
+                Qu'il s'agisse d'une visite avec un client pour un bien immobilier,
+                 ou d'une réservation dans votre restaurant ou salon de coiffure préféré, 
+                retrouvez toutes vos informations clés pour une journée parfaitement organisée.
+                    </p>
+               
+    
+                <div class="stats-grid">
+                    <div class="stat-card total-confirmed">
+                        <h3>Confirmées</h3>
+                        <p>45</p>
+                    </div>
+                    <div class="stat-card total-cancelled">
+                        <h3>Annulées</h3>
+                        <p>8</p>
+                    </div>
+                    <div class="stat-card total-pending">
+                        <h3>En attente</h3>
+                        <p>12</p>
+                    </div>
+                    <div class="stat-card total-pending">
+                        <h3>Total</h3>
+                        <p>65</p>
+                    </div>
+                </div>
+                
+               
+    
+            </section>
+        </div>
+
+       
+        <div class="section alerts  sroll-section">
+            <div class="section-header">
+                <h3>Alertes et Notifications</h3>
+            </div>
+
+
+            <div class="stock-alert">
+            
+Gérez vos biens et location en toute simplicité. Cette section vous informe en temps réel des 
+paiements de loyers, ainsi que des alertes et du programme des travaux prévus.
+                
+                <ul>
+                    <li>
+                        <span class="product-name">Orange</span>
+                        <span class="stock-qty">5 pièces</span>
+                    </li>
+                    <li>
+                        <span class="product-name">Banane</span>
+                        <span class="stock-qty">20 pièces</span>
+                    </li>
+                    <li>
+                        <span class="product-name">Poulet</span>
+                        <span class="stock-qty">10 kg</span>
+                    </li>
+                </ul>
+            </div>
+           
+            
+        </div>
+
+        <div class="container_2 sroll-section">
+            <section class="blog-section">
+                <div class="header">
+                    <h1>Planification des Travaux</h1>
+                    <p>Informations importantes concernant les projets de maintenance et d'amélioration.</p>
+                </div>
+                
+                <div class="work-item">
+                    <h3>Réhabilitation du système de climatisation</h3>
+                    <div class="work-details">
+                        <div class="detail-item"><strong>Date prévue :</strong> 20/09/2025</div>
+                        <div class="detail-item"><strong>Budget estimé :</strong> 15 000 €</div>
+                             </div>
+                    <div class="description">
+                        <p>Remplacement complet de l'unité de climatisation centrale par un modèle plus moderne et écoénergétique. L'objectif est d'améliorer significativement le confort thermique et de réduire l'empreinte énergétique de notre établissement.</p>
+                    </div>
+                </div>
+    
+                <div class="work-item">
+                    <h3>Installation de thermostats intelligents</h3>
+                    <div class="work-details">
+                        <div class="detail-item"><strong>Date prévue :</strong> 20/09/2025</div>
+                        <div class="detail-item"><strong>Budget estimé :</strong> 2 500 €</div>
+                              </div>
+                    <div class="description">
+                        <p>Mise en place de thermostats connectés et programmables dans toutes les zones clés. Cette amélioration permettra un contrôle plus fin et automatisé de la température, optimisant la consommation d'énergie selon l'occupation.</p>
+                    </div>
+                </div>
+    
+                <div class="work-item">
+                    <h3>Nettoyage et désinfection des conduits d'air</h3>
+                    <div class="work-details">
+                        <div class="detail-item"><strong>Date prévue :</strong> 20/09/2025</div>
+                        <div class="detail-item"><strong>Budget estimé :</strong> 800 €</div>
+                           </div>
+                    <div class="description">
+                        <p>Un nettoyage professionnel et une désinfection complète des systèmes de ventilation et des conduits d'air sont prévus. Cela garantira une qualité d'air optimale, réduisant les risques d'allergies et améliorant l'environnement général.</p>
+                    </div>
+                </div>
+    
+                
+                
+                <div class="footer">
+                    <a href="#" class="read-more">Voir tous les projets planifiés</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="section actions">
+            <div class="section-header">
+                <h3>Actions Rapides</h3>
+            </div>
+            <div class="action-buttons">
+                <a href="{% url 'revenus' %}" class="btn btn-revenu">Ajouter Revenu</a>
+                <a href="{% url 'depenses' %}" class="btn btn-depense">Ajouter Dépense</a>
+                <a href="#" class="btn btn-dette">Ajouter Dette</a>
+                <a href="#" class="btn btn-autre">Autres Actions</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Afficher la date du jour
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            // Création du graphique des stocks
+            const stockData = {
+                labels: ['Café', 'Sucre', 'Farine', 'Lait'],
+                datasets: [{
+                    label: 'Niveau de Stock (kg)',
+                    data: [15, 50, 80, 20],
+                    backgroundColor: [
+                        'rgba(244, 67, 54, 0.6)', // Rouge pour le café (stock bas)
+                        'rgba(76, 175, 80, 0.6)', // Vert pour le sucre
+                        'rgba(33, 150, 243, 0.6)', // Bleu pour la farine
+                        'rgba(255, 152, 0, 0.6)'  // Orange pour le lait
+                    ],
+                    borderColor: [
+                        'rgba(244, 67, 54, 1)',
+                        'rgba(76, 175, 80, 1)',
+                        'rgba(33, 150, 243, 1)',
+                        'rgba(255, 152, 0, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const stockConfig = {
+                type: 'bar',
+                data: stockData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            const stockChart = new Chart(
+                document.getElementById('stockChart'),
+                stockConfig
+            );
+        });
+
+
+
+        const ctx = document.getElementById('reservationsPieChart');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Confirmées', 'Annulées', 'En attente'],
+                datasets: [{
+                    label: 'Nombre de réservations',
+                    data: [45, 8, 12],
+                    backgroundColor: [
+                        'rgba(40, 167, 69, 0.8)',
+                        'rgba(220, 53, 69, 0.8)',
+                        'rgba(255, 193, 7, 0.8)'
+                    ],
+                    borderColor: [
+                        '#fff',
+                        '#fff',
+                        '#fff'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' réservations';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+        
+        
+            
+                           
+    </div>
+    
+    <script src="{% static 'java/jquery.js' %}"></script>
+    <script src="{% static 'java/java_all.js' %}"></script>
+    <script src="{% static 'app_general/java/app_general.js' %}"></script>
+    <script>
+       
+        $(document).ready(function() 
+        {
+            
+            var dashbord = $('#icon-dashbord');
+             //.css('width','50px').css('height','50px');
+    
+            dashbord.attr('fill', '#f39c12');
+
+            var svg_profile =$('.svg_programme');
+
+        svg_profile.attr('fill','#f39c12')
+        svg_profile.css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+            
+        });
+        
+
+    </script>
+   
+</body>
+</html>

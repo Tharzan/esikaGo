@@ -1,0 +1,152 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/blog_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/presence.css' %}">
+    
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+    
+<div id="page_">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi.html' %}
+
+<div class="dashboard-container">
+    <div class="header">
+        <h1>Tableau de bord de présence</h1>
+        <div class="actions">
+            <button class="primary">Rapport journalier</button>
+        </div>
+    </div>
+
+    <div class="summary-cards">
+        <div class="card present">
+            <h3>Présents</h3>
+            <div class="value">45</div>
+        </div>
+        <div class="card absent">
+            <h3>Absents</h3>
+            <div class="value">5</div>
+        </div>
+        <div class="card late">
+            <h3>En retard</h3>
+            <div class="value">3</div>
+        </div>
+    </div>
+
+    <div class="table-section">
+        <h3>Rapport de présence du 12/09/2025</h3>
+        <div class="toolbar">
+            <input type="text" placeholder="Rechercher un employé..." />
+        </div>
+        <table class="employee-table">
+            <thead>
+                <tr>
+                    <th>Employé</th>
+                    <th>Statut</th>
+                    <th>Heure d'arrivée</th>
+                    <th>Départ prévu</th>
+                    <th>Observations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img class="avatar" src="https://via.placeholder.com/40" alt="Avatar"> Jean Dupont</td>
+                    <td><span class="status present">Présent</span></td>
+                    <td>08:00</td>
+                    <td>17:00</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><img class="avatar" src="https://via.placeholder.com/40" alt="Avatar"><span class="name">Marie Curie</span> </td>
+                    <td><span class="status present">Présent</span></td>
+                    <td>08:15</td>
+                    <td>17:00</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><img class="avatar" src="https://via.placeholder.com/40" alt="Avatar"> Paul Simon</td>
+                    <td><span class="status absent">Absent</span></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>Maladie</td>
+                </tr>
+                <tr>
+                    <td><img class="avatar" src="https://via.placeholder.com/40" alt="Avatar"> Sophie Martin</td>
+                    <td><span class="status late">En retard</span></td>
+                    <td>08:45</td>
+                    <td>17:00</td>
+                    <td>Problème de transport</td>
+                </tr>
+                <tr>
+                    <td><img class="avatar" src="https://via.placeholder.com/40" alt="Avatar"> David Guetta</td>
+                    <td><span class="status present">Présent</span></td>
+                    <td>08:05</td>
+                    <td>17:00</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+<hr>
+
+
+
+<div class="section-stat">
+    <div class="header">
+        <h1>Tableau de bord mensuel</h1>
+        <p>Statistiques de présence pour le mois de septembre 2025</p>
+    </div>
+
+    <div class="grid-container">
+        <div class="card presence">
+            <div class="card-header">
+                <h3>Taux de présence</h3>
+            </div>
+            <div class="statistic-value">95%</div>
+            <p>1140 jours de présence sur 1200 jours théoriques</p>
+        </div>
+        
+        <div class="card absence">
+            <div class="card-header">
+                <h3>Taux d'absence</h3>
+            </div>
+            <div class="statistic-value">5%</div>
+            <p>60 jours d'absence</p>
+        </div>
+        
+        <div class="card late">
+            <div class="card-header">
+                <h3>Retards</h3>
+            </div>
+            <div class="statistic-value">30</div>
+            <p>Nombre total de retards ce mois-ci</p>
+        </div>
+
+        
+            
+    </div>
+    
+   
+</div>
+</div>
+
+</div>
+</body>
+</html>

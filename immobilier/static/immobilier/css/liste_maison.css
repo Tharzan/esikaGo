@@ -1,0 +1,356 @@
+
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+   
+    
+}
+* {box-sizing: inherit;}
+.propriete{color: #f39c12; font-weight: bold;border-bottom: 2px solid #f39c12;}    
+
+
+#page_
+{
+    
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+#hide
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 120px;
+    margin-bottom: 0px;
+    background-color: white;
+}
+#contenu
+{
+    
+	vertical-align: top;
+	width: 600px;
+	text-align: center;
+
+	padding-left: 0px;
+    text-align: center;
+
+}
+
+
+
+#caracteristique{ font-size: 14px;color: #333; text-align: left; width: 100%;
+    
+    margin: auto;
+display: flex;align-items: center;justify-content: center;
+}
+.search-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 0px;
+    margin-bottom: 20px;margin-top: 15px;
+}
+
+.main-button {
+    background-color: rgb(0,0,125);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;left: -60px;top: -10px;
+}
+
+.main-button:hover {
+    background-color: #2a557d;
+}
+
+.main-button::after {
+    content: '▼';
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.search-form {
+    background-color: rgba(255, 255, 255, 0.80);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    max-width: 700px;
+    position: relative;
+    width: 550px;
+    z-index: 10;
+}
+.grid{display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;margin-bottom: 15px;}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.40);
+    font-size: 14px;border-right: 1px solid white;border-left: 1px solid white;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: rgb(0,0,125);
+}
+
+.search-button {
+    grid-column: 2;
+    background-color: #d1783b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 3px;
+    justify-self: end;
+    position: absolute;
+    top: -50px; /* Positionnement au-dessus du formulaire */
+    right: 0;
+}
+
+.search-button:hover {
+    background-color: #b7632e;
+}
+
+.form-label {
+    position: absolute;
+    top: -30px; /* Positionnement au-dessus du champ */
+    left: 20px;
+    color: #555;
+    font-size: 12px;
+    pointer-events: none; /* Empêche l'interférence avec les clics */
+}
+
+.full-width {
+    grid-column: 1 / 3;
+}
+
+/* Styles spécifiques pour le bouton bleu en bas */
+.more-options {
+    background-color: #e68a00;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;margin-top: 0px;
+}
+
+
+.commune_content{min-width: 100%;display: flex;gap: 15;height: 50px;align-items: center;}
+.item-commune_{width: 100px;font-size: 18px;}
+.btn-send{text-align: right;width: calc(50% - 100px);}
+
+.choix-comm{ display: flex;width: 50%;
+    min-width: 50%;height: 38px; background-color: white; }
+
+
+.commune span, .type-bien span{display: inline-block; margin-left: 15px; margin-top: 10px;}
+.maison{margin-top: 0px; padding-bottom: 0px; padding-top: 0px;position: relative;
+    border-radius: 0px; width:600px; height: auto; background-color: white;margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);margin-bottom: 5px;}
+.img-maison{margin-left: 10px; vertical-align: top; 
+    width: 300px; border-radius: 8px;height: auto;margin-top: 15px; max-height: 200px;display: inline-block;}
+.identiter{text-align: left;padding-left: 5px;}
+
+.send-form{text-align: right; padding-right: 25px;}
+.send-form label{margin: auto; text-decoration: none;border-radius: 8px; font-size: 18px;
+    padding: 8px 20px 10px 20px; background-color: rgb(0,0,125);color: white;font-family: 'Courier New';
+    font-weight: bold;font-style: oblique;position: relative;cursor: pointer;}
+.time_post{font-size: 13px;color: #888;position: absolute;left: 85px;font-weight: normal;top: 40px;}
+.time_post svg{position: relative;top: 3px;}.heure_{left: 40px;position: relative;}
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-left: 20px;
+        max-width: 400px;
+        padding-bottom: 15px;
+    }
+    .detail-item {
+        display: flex;
+        align-items: center;
+    }
+    .detail-item .icon {
+        background-color: #e0f0ff;
+        color: rgb(0,0,125);
+        padding: 10px;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+    .detail-item p {
+        margin: 0;
+        line-height: 1.2;
+    }
+    .detail-item .label {
+        font-size: 14px;
+        color: #888;
+    }
+    .detail-item .value {
+        font-weight: bold;
+        color: #333;
+    }
+
+
+.img-profil{margin-left: 10px;  width: 50px;height: 50px;border-radius: 100px;position: relative;margin-top: 10px;}
+.identiter .name{font-size: 16px;font-weight: bold; color: #333; position: relative; bottom: 25px;margin-left: 20px; margin-top: 10px;}
+.adresse{text-align: left;position: relative;margin-left: 20px; margin-right: 10px;margin-top: 0px;}
+
+.adresse span {font-size: 16px; position: relative;bottom: 7px;color: #555;line-height: 1.5}
+.description-maison{text-align: left; font-size: 16px;color: #555;line-height: 1.5;
+    width: 280px;vertical-align: top;height: 200px; padding-left: 20px;padding-right: 5px;display: inline-block;}
+.description-maison span{font-size: 18px;font-style: normal;font-weight: bold;display: block;margin-bottom: 4px;}
+.prix{text-align: center;padding-right: 0px; border-radius: 0px 0px 10px 10px;height: 40px;}
+.span-prix{border-radius: 0px; padding: 10px 20px 10px 20px;box-shadow: 4px 4px 2px grey;
+    font-size: 18px;
+    font-weight: bold;background-color: rgb(0,0,125);
+    color: white;
+   position: absolute; bottom: 2px;right: 0px;display: inline-block;}
+.prix .date{display: inline-block; position: relative;font-style: oblique; margin-left: 0px;font-size: 19px;font-weight: bold;}
+.prix .date svg{position: relative;top: 5px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    display: flex;
+}
+
+/* Bloc de gauche (défilement) */
+.left-panel {
+    flex-grow: 1; /* Prend l'espace restant */
+    padding: 40px;
+    box-sizing: border-box;
+    background-color: #fff;
+    min-height: 100vh; /* S'assure qu'il y a du contenu à faire défiler */
+    margin-right: 40%; /* Laisse de l'espace pour le panneau de droite */
+    background-color: #f0f2f5;
+    min-width: 500px;padding-top: 0px;
+}
+.about-form{padding: 10px;font-size: 25px;margin-bottom: 20px;}
+
+
+
+/* Bloc de droite fixe */
+.right-panel {
+    width: 40%; /* La largeur peut être ajustée */
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    overflow-y: auto; /* Permet le défilement du contenu de droite */
+    padding: 40px;
+    box-sizing: border-box;
+    background-color: #fff;
+    
+     
+}
+.right-panel .laptop-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 80px;
+}
+
+.right-panel p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.right-panel .form-container {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.right-panel .form-input {
+    flex-grow: 1;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.right-panel .form-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.right-panel .privacy-text {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.4;
+}
+
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+        position: static;
+        height: auto;
+        margin-right: 0;
+    }
+    .right-panel{
+        max-width: 600px;margin: auto;
+    }
+}
+
+
+
+
+@media (max-width: 650px) {
+    .hide-desktop{display: none;}
+    }
+

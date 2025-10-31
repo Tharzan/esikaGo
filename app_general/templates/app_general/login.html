@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'app_general/css/login.css' %}">
+    <link rel="stylesheet"   media="(max-width:899px)" href="{% static 'app_general/css/login_mobile.css' % %}">
+    <title>EsikaApp</title>
+<style>
+#blog-creation-compt
+{
+    background-image: url('{% static "img/connexion.png" %}');
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+</style>
+
+</head>
+<body>
+    <div id="page">
+    <div id="blog-creation-compte">
+
+        <div><img id="img-connexion" src="{% static 'img/connexion2.jpg' %}" alt=""></div>
+        <div class="compte-p  hide-mobile">Si vous  n'avez pas de compte crée un compte très simple <br>
+            <a href="{% url 'create_user' %}" class="lien-connexion">Crée Un Compte</a></div>
+    </div>
+
+    <div id="formulaire">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            
+            <div id="connect">
+                <h3>Restons connectés</h3>
+                
+                    <input type="text" name="numero_tel" placeholder="Votre email" class="footer-input" required>
+                    <input type="password" name="password" placeholder="Mot de passe" class="footer-input" required>
+                    <button type="submit" class="connect-btn">Connexion</button>
+                
+            </div>
+
+        
+        </form>
+
+    </div>
+
+    <div class="compte-p hide-desktop">Si vous  n'avez pas de compte crée un compte très simple 
+        <a href="{% url 'create_user' %}" class="lien-connexion">Crée Un Compte</a></div>
+    </div>
+   
+</body>
+</html>

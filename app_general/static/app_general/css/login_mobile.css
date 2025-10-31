@@ -1,0 +1,106 @@
+
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family:  'Open Sans',Helvetica, Arial, sans-serif;
+    
+    min-height: 100vh;
+    box-sizing: border-box;
+    * Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none; /* Cache la barre de défilement */
+  }
+  /* Pour Internet Explorer, Edge (Legacy) et Firefox */
+  -ms-overflow-style: none;  /* IE and Edge Legacy */
+  scrollbar-width: none; 
+    
+}
+* {box-sizing: inherit;}
+
+
+
+#page
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;align-items: center;
+    height: 100vh;flex-direction: column;
+
+}
+
+#connect h3 {
+    color: #f39c12; /* Couleur orange pour les titres */
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    text-transform: uppercase;margin-top: 0px;
+}
+#connect{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: auto;
+    /* Couleur de fond comme dans l'image */
+    color: #333; /* Couleur de texte principale */
+    font-family: Arial, sans-serif;
+    width: 250px;margin-top: 25px;
+    
+}
+
+.footer-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+    box-sizing: border-box; /* Pour inclure padding et border dans la largeur */
+}
+
+.connect-btn {
+    padding: 10px;
+    background-color: rgb(0,0,125);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.connect-btn:hover {
+    background-color: rgba(0, 0, 125, 0.85);
+}
+
+
+
+
+
+
+
+#blog-creation-compte{ width: 100%; text-align: center;
+    
+     align-items: center;justify-content: center;}
+#formulaire{width: 97%; max-width: 500px; margin-top: 20px;
+    margin: auto;display: flex;justify-content: center;align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);background-color: #ffffff;
+    border-radius: 5px;margin-bottom: 30px;margin-top: 30px;padding-bottom: 15px;
+}
+#img-connexion{width: 95%; max-width: 500px; height: auto;margin: auto; margin-top: 50px;}
+
+.line-2 label, .line-3 label{
+    width: 350px;height: 30px; display: block; text-align: center;font-size: 20px;margin: auto;}
+.line-2 input, .line-3 input{width: 250px;height: 30px; display: block; margin: auto;}
+
+.line-4{text-align: center;margin-top: 20px; height: 50px; position: relative;}
+
+.line-4 label{display: block; background-color: rgb(0,0,125); color: white;
+    font-weight:bold ;font-size: 20px;
+    border-radius: 8px; padding: 10px 60px 10px 60px;width: 200px;
+    display: inline-block;font-family: 'Courier New';font-style: oblique;margin-top: 20px;}
+.lien-connexion{color: rgb(0,0,125);font-family: 'Courier New';font-size: 20px;font-weight: bold;font-style: oblique;}
+
+.compte-p{font-size: 16px;color: #333;word-spacing: 0.5;padding-left: 10px;margin-bottom: 40px;}
+.hide-mobile{display: none;}

@@ -1,0 +1,178 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="(min-width:900px)" href="{% static 'immobilier/css/liste_maison.css' %}">
+    <link rel="stylesheet" media="(max-width:899px)" href="{% static 'immobilier/css/liste_maison_mobile.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+
+        <div id="aside" >
+            <div id="bolc-aside">
+                <h3>Acheter et Vendre avec Nous</h3>
+                
+                <div>
+                    <img class="img-poigner-main" src="{% static 'img/poignermain.jpg' %}" alt="">
+                    <p class="vendre-avec-nous">
+                        <span>Besoin de vendre ou louer votre maison, salle d'evenement</span> en toute sérénité ? Confiez-nous votre projet ! Nous mettons à votre disposition notre expertise pour une estimation précise et une commercialisation efficace de votre propriété.<br>
+                       <br> <span>Vous cherchez les biens à acheter ou à louer</span>
+                         Contactez-nous et on vous aide à trouver des biens avec garantie
+                         de documents authentique. <br>Vous pouvez aussi grace à nos modeles d'intelligence
+                         artificielle estimer le prix d'un bien selon les caractéristiques pour la vente, l'achat  ou location.
+<hr><br><span class="link_">Vous pouvez aussi tout faire vous meme sans notre aide crée juste <br>
+     <a href="{% url 'create_user' %}" class="link_click">un compte </a> 
+     et pour une entreprise immobilière    <a href="{% url 'create_blog' %}" class="link_click">Une page</a>
+     </span>
+                      
+                    </p>
+
+                    <p class="message-aide">
+                        
+                        
+                        <a href="" class="estimation"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="white"><path d="M7 24h-6v-6h6v6zm8-9h-6v9h6v-9zm8-4h-6v13h6v-13zm0-11l-6 1.221 1.716 1.708-6.85 6.733-3.001-3.002-7.841 7.797 1.41 1.418 6.427-6.39 2.991 2.993 8.28-8.137 1.667 1.66 1.201-6.001z"/></svg>
+                            <span>estimer</span></a>
+                        
+                        
+                        <a href="" class="message-lien">
+
+                                               
+                        <svg width="26px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="white">
+                            
+                            
+                            <desc>Created with Sketch Beta.</desc>
+                            <defs>
+                        
+                        </defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-207.000000, -257.000000)" fill="white">
+                                    <path d="M231,273 C229.896,273 229,272.104 229,271 C229,269.896 229.896,269 231,269 C232.104,269 233,269.896 233,271 C233,272.104 232.104,273 231,273 L231,273 Z M223,273 C221.896,273 221,272.104 221,271 C221,269.896 221.896,269 223,269 C224.104,269 225,269.896 225,271 C225,272.104 224.104,273 223,273 L223,273 Z M215,273 C213.896,273 213,272.104 213,271 C213,269.896 213.896,269 215,269 C216.104,269 217,269.896 217,271 C217,272.104 216.104,273 215,273 L215,273 Z M223,257 C214.164,257 207,263.269 207,271 C207,275.419 209.345,279.354 213,281.919 L213,289 L220.009,284.747 C220.979,284.907 221.977,285 223,285 C231.836,285 239,278.732 239,271 C239,263.269 231.836,257 223,257 L223,257 Z" id="comment-3" sketch:type="MSShapeGroup">
+                        
+                        </path>
+                                </g>
+                            </g>
+                        </svg>
+                                            <span>message</span>
+                                        </a></p>
+
+
+                </div>
+                
+                
+                
+            </div></div>
+
+
+        <div id="contenu">
+            <div id="caracteristique">
+                <h3 class="hide-mobile">Vos Préférences</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    <p class="pays">
+                        <select name="pays" id="">
+                            <option value="RDC">RDC</option>
+                            <option value="Congo-Brazaville"> Congo-Brazaville</option>
+                        </select>
+                    </p>
+                    <p class="ville">
+                        <select name="ville">
+                        <option value="kinshasa">Kinshasa</option>
+                        <option value="goma">Goma</option>
+                        <option value="kananga">Kananga</option>
+                        <option value="lubumbashi">Lubumbashi</option>
+                    </select>
+                    </p>
+                    <div class="type-bien"> 
+                        <fieldset>
+                            <legend>Type</legend>
+                        <span><input type="radio" name="type_bien">À louer</span>
+                        <span><input type="radio" name="type_bien">À  vendre</span>
+                        <span><input type="radio" name="type_bien">Salle</span>
+                        <span><input type="radio" name="type_bien">Tout</span>
+                        </fieldset>
+                    </div>
+                    <div class="commune">
+                        <fieldset>
+                            <legend>Commune</legend>
+                            <span><input type="checkbox">Barumbu</span>
+                            <span><input type="checkbox">limete</span>
+                            <span><input type="checkbox">kintambo</span>
+                            <span><input type="checkbox">kinshasa</span>
+                            <span><input type="checkbox">kinshasa</span>
+                            <span><input type="checkbox">kinshasa</span>
+                            <span><input type="checkbox">kinshasa</span>
+                        </fieldset>
+                            
+                    </div>
+
+                    <p class="send-form">
+                        
+                        
+                        <label for="send_prefference">
+                                 valider</label>
+                            <input type="submit" hidden id="send_prefference">
+                    </p>
+
+                </form>
+
+            </div>
+
+            
+            {% for list in liste %}
+
+            <div class="maison">
+                
+                <p class="identiter"><img class="img-profil" src="{% static 'img/images_profil/1.jpg' %}" alt="">
+                    <span><strong>Gerrard Muller</strong></span></p>
+                <img class="img-maison" src="{% static 'immobilier/img/1.jpg' %}" alt="">
+                <p class="description-maison hide-mobile">
+                    <span>Description</span>Une Maison toute sérénité ? Confiez-nous votre projet ! Nous mettons à votre disposition notre expertise
+                     pour une estimation précise et une commercialisation efficace de votre propriété.</p>
+                
+                
+                <p class="adresse"><svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="rgb(0,0,125)"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
+
+                    <span>kinshasa C/Barumbu</span></p>
+                    
+
+                    <p class="prix "><span class="date">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="rgb(0,0,125)"><path d="M480-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-440q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-800q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-440q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-80Zm0-360Zm112 168 56-56-128-128v-184h-80v216l152 152ZM224-866l56 56-170 170-56-56 170-170Zm512 0 170 170-56 56-170-170 56-56ZM480-160q117 0 198.5-81.5T760-440q0-117-81.5-198.5T480-720q-117 0-198.5 81.5T200-440q0 117 81.5 198.5T480-160Z"/></svg>
+
+                        Il y a 2ans</span><span class="span-prix">
+                        <img class="image-dollard hide-desktop" src="{% static 'img/dollard.png' %}" alt="">
+                            1500$/mois</span></p>
+                    
+                    
+
+               
+            </div>
+                
+            {% empty %}
+
+            <p>vide</p>
+
+            {% endfor %}
+
+        </div>
+
+       
+    </div>
+    
+</body>
+</html>

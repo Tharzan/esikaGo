@@ -1,0 +1,192 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+   
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'immobilier/css/post_maison.css' %}">
+    <link rel="stylesheet"   media="(max-width:899px)" href="{% static 'immobilier/css/post_maison_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+
+        <div id="contenu">
+
+            <div class="right-panel">
+
+
+                <img src="{% static 'img/post_maison.png' %}" alt="">
+                <p class="about-post">
+                    Postez votre bien immobilier en quelques clics ! 
+                    Partagez les détails de votre propriété 
+                    
+                    et atteignez des milliers d'acheteurs potentiels, facilement et rapidement
+                </p>
+            </div>
+            <div class="left-panel">
+            
+                <form action="{% url 'post_maison' %}" method="post" enctype="multipart/form-data">
+                <div class="formulaire">
+                    {% csrf_token %}
+                    
+                    <div class="line-1">
+                        <p class="label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="#e68a00"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 6.243 6.377 6.903 8 16.398 1.623-9.495 8-10.155 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.342-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
+              
+                               <span>adresse</span>
+                        </p>
+                        <div class="items-line-1">
+                            <p class="label-line-1">Pays:</p>
+                            <select name="pays" id="pays">
+                                <optgroup label="Choix pays">
+                                <option value="rdc" selected>Rdc</option>
+                                <option value="maroc">Maroc</option>
+                                <option value="rdbrazza">Congo-Brazaville</option>
+                                <option value="ghana">Ghana</option>
+                                <option value="nigeria">Nigeria</option>
+                                
+                                </optgroup>
+                            </select>
+
+                        </div>
+                        <div class="items-line-1">
+                            
+                            <p class="label-line-1">Ville:</p>
+                            
+                            <select name="ville" id="ville">
+                                <optgroup label="Choix ville">
+                                <option value="kinshasa">Kinshasa</option>
+                                <option value="lubumbashi">Lubumbashi</option>
+                                <option value="lgoma">Goma</option>
+                            </optgroup>
+                            </select>
+
+                        </div>
+
+                        <div class="items-line-1">
+                            <p class="label-line-1">Commune:</p>
+                            <p class="label-line-1">
+                                <input required class="commune" type="text" name="commune" ></p>
+        
+
+                        </div>
+                        
+                    </div>
+                    
+                        <div class="line-1">
+                            <p class="label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="#e68a00"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2.033 16.01c.564-1.789 1.632-3.932 1.821-4.474.273-.787-.211-1.136-1.74.209l-.34-.64c1.744-1.897 5.335-2.326 4.113.613-.763 1.835-1.309 3.074-1.621 4.03-.455 1.393.694.828 1.819-.211.153.25.203.331.356.619-2.498 2.378-5.271 2.588-4.408-.146zm4.742-8.169c-.532.453-1.32.443-1.761-.022-.441-.465-.367-1.208.164-1.661.532-.453 1.32-.442 1.761.022.439.466.367 1.209-.164 1.661z"/></svg>
+                                <span>détails</span></p> 
+                            <div class="items-line-1">
+                                <p class="label-line-1">Type De bien:</p>
+                                <select name="type_bien">
+                                    <optgroup label="A louer">
+                                        <option value="maison_l">Maison à louer</option>
+                                        <option value="apartement_l">Apartement à louer</option>
+                                        <option value="Villa_l">Villa à louer</option>
+                                        <option value="Studio">Studio</option>
+                                        <option value="Salle">Salle</option>
+                                    </optgroup>
+                                    <optgroup label="A Vendre">
+                                        <option value="parcelle">Parcelle</option>
+                                        <option value="apartement_v">Apartement à vendre</option>
+                                        <option value="terrain">Terrain</option>
+                                        <option value="Studio">Studio</option>
+                                    </optgroup>
+                                   
+                                    
+                                    
+                                </select>
+    
+                            </div>
+                            <div class="items-line-1">
+                                <p class="label-line-1">Nbr chambre:</p>
+                                <p class="label-line-1">
+                                    <input class="commune" type="number" name="nombre_chambre" ></p>
+            
+    
+                            </div>
+                            <div class="items-line-1">
+                                <p class="label-line-1">Salle de bain:</p>
+                                <p class="label-line-1">
+                                    <input  class="commune" type="number"  name="nombre_douche" ></p>
+            
+    
+                            </div>
+                            <div class="items-line-1">
+                                <p class="label-line-1">Le prix:</p>
+                                <p class="label-line-1">
+                                    <input required class="commune" type="number" name="price" placeholder="en $" ></p>
+            
+    
+                            </div>
+                            
+
+                            
+                            </div>
+                    <div class="line-1">
+                    <div class="line-3">
+                        <div class="description">
+                            <p class="detail">
+                            <svg  width="30px" height="30px" viewBox="0 0 512 512" id="_x30_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#e68a00">
+
+                                <g>
+                                
+                                <path d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M390.062,375.438   c0,20.193-16.37,36.562-36.562,36.562h-195c-20.193,0-36.562-16.37-36.562-36.562V136.562c0-20.193,16.37-36.562,36.562-36.562H256   c20.193,0,36.562,16.37,36.562,36.562v24.375c0,20.193,16.37,36.562,36.562,36.562H353.5c20.193,0,36.562,16.37,36.562,36.562   V375.438z"/>
+                                
+                                <path d="M323.031,253.562H188.969c-10.096,0-18.281,8.185-18.281,18.281s8.185,18.281,18.281,18.281h134.062   c10.096,0,18.281-8.185,18.281-18.281S333.128,253.562,323.031,253.562z"/>
+                                
+                                <path d="M323.031,326.688H188.969c-10.096,0-18.281,8.185-18.281,18.281s8.185,18.281,18.281,18.281h134.062   c10.096,0,18.281-8.185,18.281-18.281S333.128,326.688,323.031,326.688z"/>
+                                
+                                </g>
+                                
+                                </svg>
+                            <label for="description">Description:</label></p> 
+                            <textarea name="description" id="description"></textarea></div>
+                    
+                    </div>
+                    <div id="apercu-images">
+                        Aucune image selectionnée
+                    </div>
+                    
+                    <div class="line-4">
+                        <span class="envoi">
+                            <label for="images" id="btimg"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="white"><path d="M360-400h400L622-580l-92 120-62-80-108 140Zm-40 160q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+                                image</label>
+                                
+                            <input required type="file" accept="image/*" hidden id="images" name="images" multiple ></span>
+                        <span class="send">
+                            <button class="more-options" type="submit">Poster</button>
+                        </span>
+                    </div>
+                </div>
+                </div>        
+                        
+                </form>
+        </div>
+            
+            
+            
+        </div>
+        
+
+    </div>
+    <script src="{% static 'java/jquery.js' %}"></script>
+    <script src="{% static 'java/java_all.js' %}"></script>
+    <script src="{% static 'immobilier/java/immobilier.js' %}"></script>
+   
+</body>
+</html>

@@ -1,0 +1,23 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: gray;
+    font-family: 'myfamilly','Candara','Comic Sans MS';
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    
+}
+* {box-sizing: inherit;}
+
+
+#page
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid red;
+    background-color: blue;
+    display: none;
+
+}

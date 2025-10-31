@@ -1,0 +1,155 @@
+
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+}
+* {box-sizing: inherit;}
+
+#page_
+{
+     
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+#contenu{
+    
+    display: flex;justify-content: center;
+    vertical-align: top;
+	
+    width: 100%;
+    max-width: calc(100% - 55px);
+	text-align: center;
+	padding-left: 0px;
+    text-align: center;
+    box-sizing: border-box;
+    min-height: 100vh;padding: 10px;
+    margin-left: 55px;margin-top: 0px;
+    margin-top: 20px; background-color: #ffffff;border-radius: 10px 0px 0px 0px;
+}
+
+
+
+.left-panel {
+    flex-grow: 1; /* Prend l'espace restant */
+    padding: 40px;
+    box-sizing: border-box;
+    
+    /* S'assure qu'il y a du contenu à faire défiler */
+    margin-left: 400px; /* Laisse de l'espace pour le panneau de droite */
+    background-color: #ffffff;
+    min-width: 500px;
+}
+
+.label{color: #e68a00;font-size: 22px;display: flex;gap: 5px;padding-top: 5px;justify-content: center;
+    margin-top: 0px;text-align: center;margin-bottom: 5px;}  
+.label svg, .label span{display: block;} 
+
+
+
+/* Bloc de droite fixe */
+.right-panel {
+    width: 400px; /* La largeur peut être ajustée */
+    position: fixed;
+    top: 0px;
+    left: 60px;
+    height: calc(100% - 100px);
+    /* Permet le défilement du contenu de droite */
+    display: flex;justify-content: center;align-items: center;
+    box-sizing: border-box;
+    margin-top: 100px;flex-direction: column;
+
+    
+     
+}
+.about-post{margin-left: 20px;text-align: justify;width: 100%;}
+.right-panel img{
+    width: 350px; /* La largeur peut être ajustée */
+    
+    left: 60px;
+    height: auto;
+    
+     
+}
+
+
+.formulaire{ width: 100%; margin-top: 0px;}
+select{font-family: 'Courier New';font-size: 18px;font-weight: bold;font-style: oblique;font-size: 18px;}
+
+.line-1 {font-family: 'Courier New';font-size: 18px;font-weight: bold;font-style: oblique; border: 1px solid #333; border-radius: 10px;background-color: #ffffff;max-width: 500px;margin: auto; margin-bottom: 30px;}
+.items-line-1{display: flex;height: 50px;align-items: center;gap: 30px;}
+.label-line-1,.items-line-1 select{width: 40%;height: 30px;}
+.label-line-1{text-align: right; font-family: 'Courier New';font-size: 18px;font-weight: bold;font-style: oblique;color: #888;}
+#caract{margin: 10px;padding-top: 10px;border-radius: 10px;}
+.type-bien{display: inline-block;min-width: 100px;margin-right: 10px;font-style: oblique;}
+.nbr{display: inline-block;min-width: 100px;margin-right: 20px;margin-top: 20px;padding-left: 10px;
+    font-style: oblique;font-weight: bold;}
+.nbr input{width: 50px;font-size: 17px;height: 20px;}
+.prix {display: block;margin-top: 20px;padding-left: 10px; font-weight: bold;font-style: oblique;}
+.prix input{width: 80px;height: 20px;margin-left: 10px;font-size: 17px; font-style: oblique; margin-right: 10px;}
+
+
+.line-2 label, .line-3 label{margin-left: 10px;  width: 230px;height: 30px; display: inline-block; text-align: center;font-size: 18px;}
+.line-2 input, .line-3 input{width: 230px;height: 30px; display: inline-block; margin-left: 10px;}
+.line-4{text-align: center;margin-top: 20px; height: 50px; position: relative;}
+input{text-align: center; font-size: 17px;font-style: oblique;}
+
+.sexe{display: inline-block;width: 280px;text-align: left;padding-left: 10px;font-style: oblique;}
+.sexe span{margin-right: 30px;}
+label svg{position: absolute;top: 5px;left: 15px;}
+#btimg, #valider{font-size: 18px;font-style: oblique; font-family: 'Courier New'; width: 130px;position: relative;text-align: left;margin-left: 10px;height: 40px;margin-right: 40px;}
+#valider{width: 180px;}
+.more-options {
+    background-color: #e68a00;
+    color: white;
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;font-family: 'Courier New', Courier;font-weight: bold;font-style: oblique;
+    margin-top: 10px;position: absolute;right: 10px;
+    text-align: center;margin-top: 0px;
+}
+.line-4 label{display: block; background-color: rgb(0,0,125); display: inline-block;
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;font-family: 'Courier New', Courier;font-weight: bold;font-style: oblique;
+    margin-top: 10px;color: white;padding-left: 50px;
+    text-align: center;margin-top: 0px;
+}
+
+#apercu-images{display: flex; gap: 10px;overflow-x: auto;padding: 5px;text-align: center;color: #333;padding-left: 15px;}
+#apercu-images img{width: 100%;height: auto;min-height: 80px;}
+.apercu-image{ width: 80px;max-height: 80px;min-width: 80px;overflow-y: hidden;margin: 0px;border-radius: 5px;}
+#apercu-images::-webkit-scrollbar {
+    display: none; /* Masque la barre de défilement */
+}
+
+#apercu-images{
+    scrollbar-width: none; /* "none" pour la masquer */
+}
+#apercu-images{
+    -ms-overflow-style: none; /* Masque la barre de défilement */
+}
+.description{padding-left: 20px; display: flex;
+    font-size: 17px;font-weight: bold;font-style: oblique;justify-content: center;
+    align-items: center;gap: 5px;margin-top: 10px;}
+#description{width: 300px;height: 100px;font-size: 16px;padding: 10px;margin-right: 10px;
+    border-radius: 10px;text-align: left;font-style: oblique;display: block;}
+.detail label{display: block;max-width: 150px;color: #888;}
+.detail svg{display: block;}
+.detail{display: flex;max-width: 200px;}
+
+
+
+
+.hide-desktop{display: none;}

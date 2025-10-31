@@ -1,0 +1,733 @@
+html, body{
+    width: 100%;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+    
+
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        color: #333; 
+}
+* {box-sizing: inherit;}
+
+
+#contenu
+{
+    
+	padding: 0px;
+    width: 100%;
+    
+}
+
+
+
+
+#right-menu{display: none;}
+.main-container {
+    display: flex;gap: 10px;
+    width: 100%;
+    background-color: #fff;padding: 0px;padding-top: 0px;
+    
+}
+
+
+p {
+    line-height: 1.6;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #ffd044;  /* Couleur du bouton */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #ffc107; 
+}
+
+/* En-tête (Header) et section principale (Hero) */
+.hero-section {
+    height: 300px;
+    background-image: url('g.jpg'); /* Remplacez par votre image de fond */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Overlay sombre pour améliorer la lisibilité */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto 2em;
+}
+
+
+
+
+.content-section {
+    
+    padding: 0px;width: 100%;
+}
+
+
+/* --- Styles de la section principale --- */
+
+.welcome-section {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.welcome-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 35px;
+    font-weight: 400;
+    font-style: italic;
+     /* Couleur vert olive tirée de l'image */
+    margin-bottom: 20px;
+}
+
+.welcome-section .intro-text {
+    max-width: 95%;
+    margin: 0 auto 25px;
+    text-align: center;font-size: 16px; line-height: 1.2;
+}
+
+
+.info-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* J'ai augmenté la largeur pour l'espace */
+    padding: 0px;
+    margin: auto;margin-top: 0px;margin-bottom: 20px;
+    
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    padding: 10px;max-width: 30%;
+    position: relative;
+}
+
+.info-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -25px;
+    height: 80%;
+    width: 1px;
+    background-color: #ddd;
+}
+
+.info-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #ffc107; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.info-text h3 {
+    margin: 0;margin-top: 2px;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;margin-bottom: 0px;
+}
+.info-text  {
+    margin: 0;
+    
+}
+
+.info-text span {
+    font-size: 10px;
+color: #888;
+line-height: 1.4;padding: 0px;display: none;
+}
+
+
+.title-section {
+    max-height: 98%; margin: auto;padding: 10px;
+}
+
+.title-section h2 {
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    font-size: 35px;
+    font-weight: 400;
+    font-style: italic;
+     /* Couleur vert olive tirée de l'image */
+    margin-bottom: 20px;
+}
+
+.title-section p {
+    /* Utilisation de la police 'Dancing Script' pour un style manuscrit */
+    
+    font-size: 14px;line-height: 0;display: none;
+    color: #333;
+    line-height: 1.4;
+    margin: 0;color: red;
+}
+
+.section-catalogue {
+    max-width: 98%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+}
+
+/* Titre de la section */
+
+/* Boutons de catégories */
+.category-buttons {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    margin-bottom: 30px;max-width: 100%;overflow-x: auto;
+    &::-webkit-scrollbar {
+        display: none; /* Cache la barre de défilement */
+      }
+      /* Pour Internet Explorer, Edge (Legacy) et Firefox */
+      -ms-overflow-style: none;  /* IE and Edge Legacy */
+      scrollbar-width: none;  /* Firefox */
+}
+
+.category-button {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-button.active {
+    background-color: rgb(200,0,0);
+    color: #fff;
+    border-color: rgb(200,0,0);
+}
+
+/* Grille des plats */
+.dishes-grid {
+    display: block;
+    padding: 0px;
+}
+
+.dish-card {
+    background-color: #fff;
+    border-radius: 8px;display: inline-block;vertical-align: top;
+    padding: 10px;min-width: 150px;height: 200px;width: 150px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);margin-left: 0px;margin-right: 10px;
+    margin-bottom: 10px;overflow-y: hidden;
+}
+
+.dish-card img {
+    width: 100%;
+    height: 100px; /* Ajustez la hauteur si nécessaire */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.dish-card h3 {
+    font-size: 14px;
+    margin: 0;
+    color: #333;
+}
+
+.dish-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    font-weight: bold;
+    color: rgb(200,0,0)
+}
+
+.dish-price .rating {
+    font-size: 0.9em;
+    color: #666;
+    margin-left: 5px;
+}
+
+.dish-price .star {
+    color: gold;
+}
+
+/* Bouton "Add to cart" */
+.add-to-cart-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 1px solid #d25d50;
+    background-color: #d25d50;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;display: none;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #fff;
+    color: #d25d50;display: none;
+}
+
+/* Bouton "Explore More" */
+.explore-more-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 40px;
+    border-radius: 5px;
+    border: 1px solid #ffc107; 
+    background-color: #ffc107; 
+    color: #fff;
+    text-decoration: none;font-size: 1.1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.explore-more-btn:hover {
+    background-color: #fff;
+    color: #d25d50;
+}
+
+
+.services-section {
+    
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;margin-top: 0px;
+    
+    text-align: center;
+}
+.services-section h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 50px;
+    position: relative;
+    display: inline-block;
+}
+.services-section h2::after {
+    content: '';
+    width: 80px;
+    height: 4px;
+    background-color: rgb(0,0,125);
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.service-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 130px;
+    padding: 20px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fafafa;
+}
+
+.service-item svg {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 15px;
+    color: #ff6347; /* Couleur des icônes */
+}
+.service-item p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    
+    background-color: #fff;
+    padding: 20px;max-width: 450px;
+    margin: auto;
+    
+}
+
+/* Styles pour les deux blocs */
+.contact-info,
+.social-media {
+    width: 98%;/* Chaque bloc prend un espace égal */
+
+
+
+    background-color: #ffffff;margin-bottom: 40px;
+   
+
+}
+
+.contact-info h2,
+.social-media h2 {
+    font-size: 1.8em;
+    color: #333;font-family: Arial, Helvetica, sans-serif;
+    
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+}
+.social-media h2 {
+    font-size: 1.5em;
+    color: #ff6347; font-family: Arial, Helvetica, sans-serif;text-align: center;
+    
+    padding-bottom: 5px;
+    margin-bottom: 0px;margin-top: 0px;padding-top: 10px;
+}
+
+
+.social-media{
+    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;padding: 10px;border: 1px solid rgb(0,0,125);
+    
+}
+.share{
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    font-weight: 400;text-align: center;
+    font-style: italic;margin-top: 20px;
+}
+
+
+
+@media (max-width:900px) {
+    
+    #menu-aside{
+        display: none;
+        
+    }
+    
+    
+}
+
+/* Styles pour les informations de contact (téléphone, email, etc.) */
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;font-size: 12px;
+}
+
+.contact-info li {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.contact-info li svg {
+    margin-right: 15px;
+    width: 20px;
+    height: 20px;
+    color: black;
+}
+
+/* Styles pour les boutons des réseaux sociaux */
+.social-media-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;justify-content: center;
+}
+
+
+.social-button svg {
+    width: 35px;
+    height: 35px;
+    fill: #fff;
+}
+.line{display: block; width: 200px;
+    height: 3px;background-color: rgb(0,0,125);margin: auto;
+margin-bottom: 20px;}
+
+.booking-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0px;flex-direction: column;
+    max-width: 450px;margin: auto;
+}
+
+/* Conteneur du formulaire */
+.booking-form-wrapper {
+    border-radius: 8px;margin: 5px;margin-bottom: 20px;
+    padding: 20px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);border: 1px solid #999;
+}
+
+
+
+.booking-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1 1 calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    flex-basis: 100%;
+}
+
+label {
+    font-size: 0.9em;
+    color: #222;font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],input[type="time"],
+select,
+textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #555;
+    border-radius: 3px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;border-radius: 8px;
+}
+
+/* Bouton de soumission */
+.book-now-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 0px;
+    background-color: #ffc107;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.book-now-btn:hover {
+    background-color: #ffc107;
+}
+
+/* Conteneur de l'image/vidéo */
+.media-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;min-width: 300px;width: 300px;
+    position: relative;
+}
+
+.media-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+.play-button {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+}
+
+.play-button svg {
+    width: 30px;
+    height: 30px;
+    fill: #d25d50;
+    margin-left: 5px; /* Pour centrer le triangle */
+}
+
+
+.horaires-section {
+    
+    width: 96%;
+    
+    background-color: #ffffff;
+    padding: 0px;padding-top: 0px;
+    margin: auto;
+    border-radius: 10px;margin: auto;margin-bottom: 20px;margin-top: 20px;
+    
+    border: 1px solid #999;padding-bottom: 10px;max-width: 450px;
+}
+
+.horaires-section h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.horaires-section h2::after {
+    content: '';
+    width: 60px;
+    height: 3px;
+    background-color: rgb(0,0,125);
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.horaires-wrapper {
+    display: flex;
+    width: 100%;justify-content: center;flex-direction: column;
+    gap: 20px;padding: 20px;
+}
+@media (max-width:410px) {
+    .horaires-section {
+        border: none;
+    }
+    .horaires-wrapper {
+        padding: 0px;
+    }
+    
+}
+
+/* Styles pour les jours ouverts */
+.jours-ouverts,
+.jours-fermes {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;width: 100%;margin: auto;
+}
+
+.jours-ouverts h2,
+.jours-fermes h2 {
+    font-size: 1.5em;
+    color: #333;font-family: Arial, Helvetica, sans-serif;
+    
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.horaire-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+
+
+    
+}
+
+.horaire-item:last-child {
+    border-bottom: none;
+}
+
+.jour {
+    font-weight: bold;
+    color: #333;
+}
+
+.heures {
+    color: #555;
+}
+
+/* Styles pour les jours fermés */
+.jours-fermes h3 {
+    color: #888;
+}
+
+.jours-fermes .jour-ferme {
+    text-align: center;
+    font-size: 1.1em;
+    color: #888;
+    padding: 10px 0;
+}
+
+
+
+
+.hide-mobile{display: none;}
+
+
+

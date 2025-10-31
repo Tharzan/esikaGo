@@ -1,0 +1,120 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/revenus_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/revenus.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+        
+        <div id="contenu">
+            <div class="right-panel">
+                <p class="container-img">
+                    <img src="{% static 'img/revenu_user.png' %}" alt="Ordinateur portable" class="laptop-img">
+        
+                </p>
+                  <p class="about">
+                    <strong style="color:#000;">Gérez mieux vos revenus</strong>,
+Enregistrez tous vos revenus pour une bonne gestion financière.
+
+Pour faciliter votre analyse, utilisez des noms de revenus uniformes ex: Loyer,boutique. Cela vous permettra de mieux 
+comprendre la provenance de votre argent et d'analyser la rentabilité de chaque activité.
+                    
+                </p>
+                    
+                       
+            </div>
+            <div class="left-panel">
+                {% if formError %}
+                <div class="form-container">
+                    <div style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 15px; border-radius: 5px; font-family: sans-serif; display: flex; align-items: center;">
+                        <span style="font-size: 24px; margin-right: 10px;">&#9888;</span>
+                        <div>
+                          <h4 style="margin-top: 0; margin-bottom: 5px;">Erreur de saisie : informations requises</h4>
+                          <ul style="margin: 0; padding-left: 20px;">
+                            <li>Le <strong>Nom du produit ou service</strong> doit être une chaîne de caractères.</li>
+                            <li>Le <strong>Prix</strong> doit être un nombre.</li>
+                            <li>La <strong>Date</strong> doit être au format JJ/MM/AAAA (ex: 01/05/2010).</li>
+                          </ul>
+                        </div>
+                      </div>
+                </div>
+                {% endif %}
+                
+                <div class="form-container">
+                    <h3>Enregister les Revenus</h3>
+                    <form action="{% url 'revenus_user' %}" method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                           
+                            
+                            <input type="text" required id="product-name" name="name" placeholder="Provenance Ex: Loyer, ...">
+                        </div>
+        
+                        
+        
+                        <div class="form-group">
+                            
+                            <input type="number" required id="quantity-in-stock" step="0.01" name="montant" placeholder="montant  en $">
+                           
+                        </div>
+                        <div class="form-group">
+                            
+                            <input type="text" id="quantity-in-stock" name="description"  placeholder="description(optionnel)">
+                           
+                        </div>
+        
+                        
+                        <div class="form-group">
+                            <label for="category">Date de l'operarion</label>
+                            <input type="date" required id="quantity-in-stock" name="date_revenu">
+                        </div>
+                        
+        
+        
+                        
+                        
+                        <button type="submit" class="submit-button">Enregistrer le revenu</button>
+                    </form>
+                </div>
+            
+            </div>
+        
+        
+        </div>
+        
+            
+                           
+    </div>
+</div>
+    <script src="{% static 'java/jquery.js' %}"></script>
+    <script src="{% static 'java/java_all.js' %}"></script>
+    <script>
+        $(document).ready(function() 
+        {
+        var svg_profile =$('.svg_gestion');
+
+        svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+        
+        });
+    </script>
+    
+</body>
+</html>

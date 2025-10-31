@@ -1,0 +1,158 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="(min-width:650px)" href="{% static 'immobilier/css/liste_maison.css' %}">
+    <link rel="stylesheet" media="(max-width:650px)" href="{% static 'immobilier/css/liste_maison_mobile.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    <style>
+        #caracteristique{background-image: url("{% static 'img/page_.jpg' %}");
+    }
+    </style>
+</head>
+<body>
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="about-form">
+                Gagnez du temps : enregistrez vos préférences de recherche.   </div>
+            <div id="caracteristique">
+                <div class="search-section">
+                    
+                    <form class="search-form">
+                        
+                        <div class="grid">
+                        
+                            <select class="form-control">
+                                <optgroup label="Pays"></optgroup>
+                                <option>RDC</option>
+                            </select>
+            
+                        <select class="form-control">
+                            <OPtgroup  label="Ville"></OPtgroup>
+                            <option>kinshasa</option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="Type de biens" disabled>
+            
+                        <select class="form-control">
+                            <option>Pièce(s)</option>
+                        </select>
+                        <input type="number" class="form-control" placeholder="Prix max en $">
+                        <input type="number" class="form-control" placeholder="Prix min/$">
+                    </div>
+                        <div class="commune_content">
+                            <p class="item-commune_">Commune</p>
+                            <p class="choix-comm"></p>
+                            <p class="btn-send hide-mobile">
+                                <button class="more-options" type="submit">Rechercher</button>
+                            </p>
+                        </div>
+                        <p class="btn-send hide-desktop">
+                            <button class="more-options" type="submit">Rechercher</button>
+                        </p>
+                       
+                    </form>
+                </div>
+                
+
+            </div>
+
+            
+            {% for list in liste %}
+
+            <div class="maison">
+                
+                <p class="identiter"><img class="img-profil" src="{% static 'img/images_profil/1.jpg' %}" alt="">
+                    <span class="name"> Gerrard Muller</span><br>
+                <span class="time_post">
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffc107"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffc107"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"  height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffc107"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44zm.678 2.033v11.904l4.707 2.505-.951-5.236 3.851-3.662-5.314-.756z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="grey"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height="18px" width="18px" f viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="gray"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z" fill-rule="nonzero"/></svg>
+                   <span class="heure_">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#888"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-7-.5-14.5T799-507q-5 29-27 48t-52 19h-80q-33 0-56.5-23.5T560-520v-40H400v-80q0-33 23.5-56.5T480-720h40q0-23 12.5-40.5T563-789q-20-5-40.5-8t-42.5-3q-134 0-227 93t-93 227h200q66 0 113 47t47 113v40H400v110q20 5 39.5 7.5T480-160Z"/></svg>
+                2 jours </span>
+                </span>
+                </p>
+                <img class="img-maison" src="{% static 'immobilier/img/1.jpg' %}" alt="">
+                <p class="description-maison hide-mobile">
+                    <span>Description</span>Une Maison toute sérénité ? Confiez-nous votre projet ! Nous mettons à votre disposition notre expertise
+                     pour une estimation précise et une commercialisation efficace de votre propriété.</p>
+               
+                
+                <p class="adresse">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 6.243 6.377 6.903 8 16.398 1.623-9.495 8-10.155 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.342-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
+                    <span>kinshasa C/Barumbu</span></p>
+                    
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <div class="icon"><i class="fas fa-bed"></i></div>
+                            <div>
+                                <div class="label">Bedroom</div>
+                                <div class="value">5 Rooms</div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon"><i class="fas fa-bath"></i></div>
+                            <div>
+                                <div class="label">Bathroom</div>
+                                <div class="value">3 Rooms</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="span-prix">
+                            $1500<span style="font-size: 14px; font-weight: normal; color: #ffffff;">/Mois</span></span></p>
+                    
+                    
+                    
+
+               
+            </div>
+                
+            {% empty %}
+
+            <p>vide</p>
+
+            {% endfor %}
+        </div>
+
+        <div class="right-panel">
+            <img src="{% static 'img/presentation.jpg' %}" alt="Ordinateur portable" class="laptop-img">
+            <p>
+                Téléchargez un manuel gratuit, qui vous aidera à concevoir votre site en toute confiance.
+            </p>
+            <div class="form-container">
+                <input type="text" class="form-input" placeholder="Saisissez votre">
+                <button class="form-btn">→</button>
+            </div>
+            <p class="privacy-text">
+                En saisissant votre adresse e-mail, vous reconnaissez avoir lu et compris notre Politique de confidentialité.
+            </p>
+            
+        </div>
+    </div>
+</div>
+<script src="{% static 'java/jquery.js' %}"></script>
+    <script src="{% static 'java/java_all.js' %}"></script>
+   
+</body>
+</html>

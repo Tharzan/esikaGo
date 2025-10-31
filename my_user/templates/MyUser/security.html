@@ -1,0 +1,188 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/blog_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/security.css' %}">
+    
+    
+    <title>EsikaApp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+      
+</head>
+<body>
+
+    
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+<div class="main-content">
+
+
+
+    <div class="container">
+        <div class="block-1">
+        <h1 id="grand-title"> Sécurité et Création de Votre Clé Privée pour la Signature de Documents</h1>
+        <span class="line"></span>
+        <div class="about">
+
+            Ce processus configure votre Identité Numérique en liant votre 
+            clé privée unique et la reconnaissance faciale, vous créez une 
+            signature numérique incontestable pour vos documents. Ces documents signés 
+            sont ensuite ancrés sur le réseau Hedera (DLT), les rendant inviolables, 
+            horodatés et vérifiables par QR code,
+            vous offrant une preuve de document qui est votre seule et unique autorité.
+        </div>
+        <p class="document">
+                <img src="{% static 'img/document.jpeg' %}" alt="">
+        </p>
+        <section class="process-step">
+            
+                <li>
+                    Signature Numérique : Une fois vos informations vérifiées, 
+                    nous générerons une paire de clés cryptographiques 
+                    (publique/privée).
+                </li>
+                <li>
+                    Clé Privée (Secret) : Cette clé vous permettra de 
+                    signer numériquement les documents. 
+                    Elle est votre identifiant unique et ne doit jamais être 
+                    partagée. Vous serez invité(e) à la télécharger et à 
+                    la garder en sécurité.
+                </li>
+                <li>
+                    Clé Publique : Utilisée par le système pour vérifier
+                     que la signature provient bien de votre clé privée. 
+                     Elle est publique et n'a pas besoin d'être cachée.
+                </li>
+                <li>
+                    Ancrage Blockchain (Hedera) : La signature et la preuve de paiement seront ancrées 
+                    sur le réseau Hedera, garantissant que le document est immuable
+                     et peut être vérifié à tout moment.
+                </li>
+            </ul>
+        </section>
+
+       
+        <div class="security-note">
+            ⚠️ Note de Sécurité : Une fois la clé générée, vous serez invité(e) à la télécharger. 
+            Nous ne conservons pas votre clé privée ni mot de passe. 
+            En cas de perte, vous ne pourrez plus signer de documents sans crée une autre.
+        </div>
+        </div>
+        <div class="block-2">
+
+            <div class="container-form">
+        <h1>📸 Configuration de la Reconnaissance Faciale</h1>
+        
+        <form id="security-form" action="{% url 'security' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+            
+            <div class="form-group">
+                <label>Capture Faciale :    Appuyer sur  la zone</label>
+                <div id="video-container">
+                    <video id="camera-feed" autoplay playsinline>
+                
+                    </video>
+                </div>
+                <button type="button" id="capture-btn" class="btn-capture">Prendre la Photo</button>
+                <img id="captured-image-preview" alt="Aperçu de la photo capturée">
+                
+                <input type="hidden" name="verification_faciale" id="photo-faciale-base64">
+            </div>
+            
+            <hr>
+
+            <div class="form-group">
+                <label for="signature_photo">✍️ Photo de Votre Signature Manuscrite :</label>
+                <input type="file" id="signature_photo" name="signature" accept="image/*" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_hedera">🆔 ID de Compte Hedera :</label>
+                <input type="text" id="id_hedera" name="id_hedera" required>
+            </div>
+            <div class="form-group">
+                    <label for="numero_bancaire">💳 Numéro Bancaire (IBAN ou équivalent) :</label>
+                    <input type="text" id="numero_bancaire" name="numero_bancaire" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="numero_paiement_mobile">📱 Numéro Paiement Mobile (M-Pesa, Orange Money, etc.) :</label>
+                    <input type="text" id="numero_paiement_mobile" name="paiement_mobile" required>
+                </div>
+            
+            <div class="form-group">
+                <label for="mot_de_passe">🔑 Mot de Passe Maître :</label>
+                <input type="password" id="mot_de_passe" name="password" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Soumettre et Créer la Clé Privée</button>
+
+        </form>
+        
+        <canvas id="camera-canvas"></canvas>
+    </div>
+
+
+        </div>
+        
+    </div>
+    <hr>
+
+    <div class="manuscrite-signature">
+        <div class="about">
+
+            Ce processus configure votre Identité Numérique en liant votre 
+            clé privée unique et la reconnaissance faciale, vous créez une 
+            signature numérique incontestable pour vos documents. Ces documents signés 
+            sont ensuite ancrés sur le réseau Hedera (DLT), les rendant inviolables, 
+            horodatés et vérifiables par QR code,
+            vous offrant une preuve de document qui est votre seule et unique autorité.
+        </div>
+
+        <div class="image-signature">
+            <p class="contnt-signature"><img src="{% static 'img/signature1.jpg' %}" alt=""></p>
+            <p class="resultat"> résultat </p>
+            <p class="contnt-signature"><img src="{% static 'img/signature2.jpg' %}" alt=""></p>
+
+        </div>
+    </div>
+    
+</div>
+</div>
+
+<script src="{% static 'java/jquery.js' %}"></script>
+<script src="{% static 'java/java_all.js' %}"></script>
+<script src="{% static 'my_user/java/security.js' %}"></script>
+
+    <script>
+        $(document).ready(function() 
+        {
+        var svg_profile =$('.svg_security');
+
+        svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+        
+        });
+    </script>
+<script>
+    // Vérifie si cette page est chargée juste après un POST de sécurité
+    // Cela nécessite que la vue 'security' stocke un indicateur dans la session
+    // ou qu'elle ajoute un paramètre à l'URL de la redirection vers '/security/download/'
+
+    vers la maison du pere venez christ vous confie
+
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+* {box-sizing: inherit;}
+
+#page_
+{
+    
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+#cacher{height: 100px;display:hidden ;}
+/* Styles pour l'affichage à l'écran */
+body{ font-family: 'Georgia', serif; background-color: #f0f0f0; padding: 0px;margin: 0px;width: 100%;
+         min-height: 100vh; }
+        .document-container {
+            width: 794px; /* Correspond à la largeur d'une page A4 en pixels (72dpi) */
+            background-color: #fff;
+            padding: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+
+        /* Styles pour l'impression */
+        @media print {
+            body { background-color: #fff; }
+            .document-container { box-shadow: none; border: none; width: 100%; margin: 0; padding: 0; }
+        }
+
+        /* Styles internes du document */
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 2.5em; margin: 0; color: #333; }
+        .header p { font-size: 1.1em; color: #666; margin-top: 5px; }
+
+        .info-section { margin-bottom: 30px; line-height: 1.8; }
+        .info-section p { margin: 5px 0; font-size: 1.1em; }
+        .info-section strong { font-weight: bold; color: #000; }
+
+        .main-text { font-size: 1.2em; line-height: 1.8; text-align: justify; margin-bottom: 50px; }
+        .main-text .amount {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2a6a2a;
+            font-style: italic;
+        }
+
+        .signature-section { display: flex; justify-content: space-between; margin-top: 60px; }
+        .signature-block { width: 48%; text-align: center; }
+        .signature-line {
+            border-top: 1px solid #000;
+            padding-top: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 50px;
+        }

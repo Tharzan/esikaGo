@@ -1,0 +1,123 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    box-sizing: border-box;
+    
+    
+}
+* {box-sizing: inherit;}
+
+#hide
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 120px;
+    border: 1px solid black;
+    
+}
+#page_principale
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+
+}
+
+#aside
+{
+	
+	width: calc(100% - 720px);
+   background-color: white; 
+	height: 100%;padding-top: 0px;
+	font-size: 20px;
+float: left;
+    padding: 0px;
+    margin-right: 0px;
+    height: 0%;margin-top: 0px;max-width: 500px;margin-right: 0px;
+}
+#bolc-aside{text-align: center;font-size: 16px; padding: 8px;
+     width: calc(100% - 720px);box-shadow: 0px 0px 2px black; position: fixed;max-width: 500px;
+     margin-top: 0px;height: calc(100% - 120px); background-color: white; overflow: auto;}
+
+.statistique{text-align: left;}
+.img-poigner-main{border-radius: 8px; margin-top: 15px; width: 180px;height: auto; float: left; margin-right: 20px;margin-left: 30px;}
+.vendre-avec-nous{text-align: left;margin-right: 15px;font-size: 16px;}
+
+#contenu-page{
+    vertical-align: top;
+	width: 700px;
+	text-align: center;
+
+	padding-left: 0px;
+    text-align: center;
+    float: right;
+    margin: auto; margin-top: 0px;
+    margin-right: 10px;
+    
+    }
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-left: 20px;
+        max-width: 400px;
+        padding-bottom: 15px;
+    }
+    .detail-item {
+        display: flex;
+        align-items: center;
+    }
+    .detail-item .icon {
+        background-color: #e0f0ff;
+        color: rgb(0,0,125);
+        padding: 10px;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+    .detail-item p {
+        margin: 0;
+        line-height: 1.2;
+    }
+    .detail-item .label {
+        font-size: 14px;
+        color: #888;
+    }
+    .detail-item .value {
+        font-weight: bold;
+        color: #333;
+    }
+
+
+#image-principale img{width: 400px; border-radius: 15px;height: auto;max-width: 450px;max-height: 250px;display: block; margin: auto;}
+#image-principale{width: 400px;margin-bottom: 30px; margin-top: 20px; display: inline-block;margin-right: 20px;text-align: left;}
+
+#bloc-1{display: inline-block; width: 250px;} 
+.img-profil{margin-left: 10px;  width: 50px;height: 50px;border-radius: 100px;position: relative;}
+#div-identiter{margin-bottom: 0px; max-height: 55px;}
+.identiter{margin-bottom: 0px;}
+.identiter span{font-size: 16px;font-weight: bold; color: #333; position: relative; bottom: 25px;margin-left: 20px; margin-top: 10px;}
+
+
+.description{width: 100%;padding: 10px;text-align: left;padding-right: 5px;font-size: 16px;margin-top: 10px;}
+.description span, .images span{display: block;margin-bottom: 4px;font-weight: bold;font-size: 19px;}
+hr{margin: 10px;}
+.images{box-shadow: 0px 0px 2px black; display: flex; overflow-x: auto;width: 410px; text-align: left;padding-right: 5px;font-size: 18px;margin-top: 0px;
+    &::-webkit-scrollbar {display: none;}-ms-overflow-style: none; scrollbar-width: none; padding-bottom: 0px;
+ border: 6px solid white;padding-top: 2px;padding-bottom: 2px; margin-left: 10px; border-radius: 32px; justify-content: center;}
+.images img{width: 40px;height: 40px; min-width: 40px;min-height: 40px; border-radius: 5px; margin-right: 10px;box-shadow: 0px 0px 1px grey; }
+.title-galery{display: none;}
+.contact{ width: 100%;padding: 10px;text-align: left;padding-right: 5px;font-size: 16px;margin-top: 10px;padding-bottom: 10px;}
+.contact span{display: block;margin-bottom: 6px;font-weight: bold;font-size: 19px;}
+.lien-contact{margin-left: 10px; display: flex;position: relative;max-width: 500px; margin-bottom: 20px; text-align: left;}
+.lien-contact svg, .signaler svg{position: relative;top: 6px;}
+.lien-contact span{box-shadow: 0px 0px 2px grey; display: inline-block;width: 150px;color: white;background: rgb(0,0,125);border-radius: 5px; text-align: center; height: 40px;font-family: 'Courier New';font-size: 19px;font-weight: bold;font-style: oblique;margin-left: 0px;}
+.span-appel{margin-right: 25px;}
+.signaler{position: relative;padding-bottom: 100px; width: 100%; font-size: 16px;padding-left: 10px;margin-top: 15px; text-align:left;}
+.signaler span{margin: auto; box-shadow: 0px 0px 2px grey; height: 45px; display: block;width: 300px; background-color: red;color: white;font-family: 'Courier New'; margin-top: 25px;text-align: center;font-style: oblique;font-weight: bold; font-size: 19px; border-radius: 5px;}
+

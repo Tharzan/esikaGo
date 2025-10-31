@@ -1,0 +1,43 @@
+
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+}
+* {box-sizing: inherit;}
+
+#page
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 5px;
+
+}
+#blog-creation-compte{margin-top: 50px; width: 99%; text-align: left;  height: 200px; text-align: center;}
+#formulaire{margin: auto; width: 98%;height: 260px; background-color: white;padding-top:20px ;
+    border: 1px solid rgb(0,0,125);
+border-radius: 10px;box-shadow: 0px 0px 0px grey; max-width: 450px;margin-top: 0px;}
+
+.line-1 input{width: 150px;height: 30px; margin-left: 10px;}
+.line-1{margin: auto; width: 100%; }
+.line-2, .line-3, .line-1{width: 100%;margin: auto; margin-top: 10px; display: flex; justify-content: center;}
+.line-2 label, .line-3 label{ margin-left: 10px;  width: 150px;height: 30px; display: inline-block; text-align: center;
+    font-size: 16px;}
+.line-2 input, .line-3 input{width: 150px;height: 30px; display: inline-block; margin-left: 10px;}
+.line-4{text-align: center;margin-top: 20px; height: 50px; position: relative;text-align: right;padding-right: 20px;}
+input{text-align: center; font-size: 16px;}
+.line-4 label{background-color: rgb(0,0,125); color: white;font-weight:bold ;border-radius: 8px; 
+    padding: 10px 40px 10px 40px;  bottom: 5px;right: 37px;font-family: 'Courier New';font-style: oblique;}
+.lien-connexion{color: rgb(0,0,125);font-size: 20px; display: block;text-align: center; font-weight: bold; margin-top: 10px;}
+
+.sexe{display: block;text-align: center;padding-left: 10px;font-style: oblique;margin-bottom: 25px;}
+.sexe span{margin-right: 30px;font-family: 'Courier New';font-style: oblique;font-weight: bold;font-size: 20px;}

@@ -1,0 +1,98 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+    
+}
+* {box-sizing: inherit;}
+
+#page_
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+#contenu
+{
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;padding-top: 20px;
+    background-color: #ffffff;}
+
+#presence span{color: white;text-decoration: none;position: relative;bottom: 8px;padding-left: 10px;}
+a{text-decoration: none;}
+.nameuser{text-align: center;margin-bottom: 30px; font-family: 'Courier New';font-size: 20px;font-weight: bold;font-style: oblique;}
+#description, #video-present{width: 100%;margin: auto;max-width: 500px;
+    margin-top: 20px;text-align: center;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    
+}
+@media (max-width:500px) {
+    #description{text-align: left;
+        
+    }
+}
+#description h2, #video-present h2
+{
+    text-align: center;color: #e68a00;
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+    font-size: 30wpx;
+    font-weight: 400;
+    font-style: italic;
+     /* Couleur vert olive tirée de l'image */
+    margin-bottom: 20px;
+}
+.anonyme_user{width: 150px;height: auto;border-radius: 100%;border: 1px soli rgb(0,0,125);box-shadow: 0px 0px 2px gray;}
+
+.playvideo{border-radius: 10px;max-width: 400px;display: block;margin: auto;}
+#main{width: 100%; max-width: 600px;margin: auto;margin-top: 20px;padding: 10px;}
+
+.container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;justify-content: center;padding: 10px;
+}
+
+.profile-picture {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;box-shadow: 0px 0px 2px gray;
+}
+
+.profile-info h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #888;
+    font-family: 'Courier New';font-size: 20px;font-weight: bold;font-style: oblique;
+}
+#presence{font-style: oblique; border-radius: 5px; padding-top: 5px;
+     width: 200px;height: 35px; background-color: rgb(0,0,125);margin: auto;
+     font-family: 'Courier New';color: white;font-size:  18px;font-weight: bold;margin-top: 10px;
+     max-height: 100px;display: block;}
+
+
+.profile-info  {
+    display: flex;flex-direction: column;justify-content: center;
+}
+#right-menu{display: none;}
+.hide-mobile{display: none;}

@@ -1,0 +1,102 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'my_user/css/index_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/createBlog.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+
+        <div id="aside" >
+            <div id="bolc-aside">
+                <p> <h3>Géstion de restaurant, salon et Agence immobilière</h3>
+                Améliorer la géstion de votre entreprise grâce à un abonnement mensuel
+                pour plus d'information <br><a class="voir-plus" href="">Cliquez ici</a>
+
+                </p>
+                <hr>
+                
+                <div>
+                    <p class="vendre-avec-nous">
+                        <strong>Simple et facile</strong>
+                        Une fois votre blog ou page crée, pensez à completé le profile de votre page pour aidé les visiteurs et pontentiel
+                        clients à en savoir plus et en détail sur votre entreprise. 
+                        <br>
+                        <hr>
+                       <br> <strong>Vous êtes proffessionnel de coiffure et vous n'avez pas un salon </strong> ne vous inquièté pas crée un compte
+                        et specifié votre metier puis remplissez votre profil pour vous faire connître très rapidement
+                       et gratuitement
+                    <p class="message-aide">
+                        
+                        
+                        <a href="" class="estimation"> 
+                               <span>crée un compte</span></a>
+                        
+                        
+                        </p>
+
+
+                </div>
+                
+                
+                
+            </div></div>
+
+        <div id="contenu">
+
+       
+
+                <form action="{% url 'create_blog' %}" method="post" enctype="multipart/form-data">
+                <div class="formulaire">
+                    {% csrf_token %}
+                    
+                    <p class="commune-p"><label for="commune">Nom de Votre entité :</label>
+                        <input id="commune" type="text" name="name"></p>
+                    <p class="line-2">
+                        <fieldset id="caract">
+                            <legend>Type de la page</legend>
+                            <span class="type-bien"><input type="radio" name="type_page" value="immobiler">Agence immobilière</span>
+                            <span class="type-bien"><input type="radio" name="type_page" value="salon">Salon de coiffure</span>
+                            
+                            <span class="type-bien"><input type="radio" value="restaurant" name="type_page">Restaurant</span>
+                             </fieldset>
+                    </p>
+                    <div class="line-3">
+                        <p class="description"><label for="description">Description :</label> <textarea name="description" id="description"></textarea></p>
+                        
+                    </div>
+
+                    
+                    <div class="line-4">
+                        <p id="lancer">
+                            <label for="send" id="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M0 12l11 3.1 7-8.1-8.156 5.672-4.312-1.202 15.362-7.68-3.974 14.57-3.75-3.339-2.17 2.925v-.769l-2-.56v7.383l4.473-6.031 4.527 4.031 6-22z"/></svg>
+                                valider</label>
+                            <input type="submit" hidden id="send">
+                            </p>
+                    </div>
+                </div>        
+                        
+                </form>
+        
+            
+
+
+        </div>
+    </div>
+    
+</body>
+</html>

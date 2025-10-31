@@ -1,0 +1,41 @@
+# --------------------
+# 1. Environnement Virtuel
+# --------------------
+venv/
+.venv/
+env/
+/bin/
+/include/
+/lib/
+/lib64/
+
+# --------------------
+# 2. Fichiers Python temporaires et logs
+# --------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.log
+pip-log.txt
+pip-delete-this-file.txt
+
+
+# --------------------
+# 4. Fichiers d'Environnement et Secrets
+# --------------------
+.env
+.flaskenv
+*.bak
+*.swp
+local_settings.py
+secrets.json
+
+# --------------------
+# 5. Fichiers de Système d'exploitation et Éditeurs
+# --------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

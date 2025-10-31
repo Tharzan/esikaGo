@@ -1,0 +1,191 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/registermenu_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/registermenu.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi.html' %}
+        
+        <div id="contenu">
+            <div class="right-panel">
+                <div class="dish-card">
+                    
+                            <img src="{% static 'img/food3.jpg' %}" alt="Grilled Chicken Burger">
+                            <h3>Grilled Chicken Burger</h3>
+                            
+                            <p class="about">
+                                un joli plat qui vous attend aujorduit veneq decouvrir
+                            </p>
+                            
+                            <div class="dish-price">
+                               <span class="montant">$15.00 </span> 
+                               <span class="rating">
+                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 107.54"><title>trolley</title><path d="M3.93,7.86A3.93,3.93,0,0,1,3.93,0H14.15l.39,0A18.28,18.28,0,0,1,24.1,2.49a14.69,14.69,0,0,1,6.41,9.1c.32,1.41.66,2.82,1,4.23H119a3.92,3.92,0,0,1,3.93,3.92,4,4,0,0,1-.19,1.22L112.52,62.08a3.92,3.92,0,0,1-3.8,3H44.66c1.44,5.21,2.76,8,4.7,9.34,2.27,1.52,6.31,1.63,13,1.52h.07v0h45.17a3.93,3.93,0,1,1,0,7.86H62.46v0c-8.27.15-13.38-.09-17.46-2.84s-6.36-7.55-8.57-16.3l-13.51-51a7.19,7.19,0,0,0-3-4.49,10.8,10.8,0,0,0-5.51-1.3H3.93ZM96,88.34a9.6,9.6,0,1,1-9.6,9.6,9.6,9.6,0,0,1,9.6-9.6Zm-42.1,0a9.6,9.6,0,1,1-9.6,9.6,9.6,9.6,0,0,1,9.6-9.6ZM78,23.67V38h32.45l3.53-14.28Zm0,22.14V57.22h27.69l2.82-11.41ZM70.11,57.22V45.81H39.63q1.57,5.7,3,11.41Zm0-19.27V23.67H33.54c1.26,4.76,2.58,9.52,3.91,14.28Z"/></svg>
+                                ajouter</span>
+                            </div>
+                            
+                        </div>
+            </div>
+            <div class="left-panel">
+
+                <div class="section-catalogue">
+                    
+
+
+
+                    {% if formError %}
+                <div class="form-container">
+                    <div style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 15px; border-radius: 5px; font-family: sans-serif; display: flex; align-items: center;">
+                        <span style="font-size: 24px; margin-right: 10px;">&#9888;</span>
+                        <div>
+                          <h4 style="margin-top: 0; margin-bottom: 5px;">Erreur de saisie : informations requises</h4>
+                          <ul style="margin: 0; padding-left: 20px;">
+                            <li>Le <strong>Nom du produit ou service</strong> doit être une chaîne de caractères.</li>
+                            <li>Le <strong>Prix(montant)</strong> doit être un nombre et est obligatoire.</li>
+                            <li>L'<strong>image</strong> de representation est obligatoire</li>
+                          </ul>
+                        </div>
+                      </div>
+                </div>
+                {% endif %}
+                
+                <div class="form-container">
+                    {% if poster %}
+                    
+                    <h2>Vendre un Service ou Produit</h2>
+                    <form action="{% url 'revenus' %}" method='post' enctype="multipart/form-data" class="form-items">
+                    {% else %}
+                    <h2>Ajouter un Service ou Produit</h2>
+                    <form action="{% url 'createcatalogue' %}" method='post' enctype="multipart/form-data" class="form-items">
+                    {% endif %}
+                        {% csrf_token %}
+                        <div class="item-form">
+                            
+                        <div class="form-group">
+                           <label for="name_service">Nom de l'article</label>
+                            
+                            <input type="text" required id="product-name" name="name_service" placeholder="Produit ou service">
+                        </div>
+                         {% if page.type_page == 'restaurant' %}
+                        <div class="form-group">
+                           
+                            <label for="categorie">Categorie</label>
+                            <input type="text" required id="categorie" name="categorie" placeholder="Ex: Vin, dinner, dejener,etc...">
+                        </div>
+                         {% else %}
+                         <div class="form-group">
+                           
+                            <label for="categorie">Categorie</label>
+                            <input type="text" required id="categorie" name="categorie" placeholder="Ex: meshe,manucure,etc...">
+                        </div>
+                        {% endif %}
+        
+                        
+        
+                        <div class="form-group">
+                            
+                            <input required type="number" id="quantity-in-stock" step="0.01" name="price" placeholder="montant  en $">
+                           
+                        </div>
+                        <div class="form-group">
+                           <select name="devise" id="" required>
+                            <optgroup label="devise">
+
+                                <option value="$" selected>dollard($)</option>
+                                <option value="Fc">Franc(Fc)</option>
+                            </optgroup>
+                           </select>
+                            
+                        </div>
+                        
+                        
+        
+                        
+                        <div class=" full-width">
+                            <input type="text" name="description" id="description" placeholder="description">
+                        
+                        <label class="media-button" for="image">
+                            <input type="file" accept="immage/*" hidden id="image" name="image" required>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="8.5" cy="8.5" r="1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 15L16 10L5 21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Image
+                        </label>
+                </div>
+                        
+        
+        
+               {% if poster %}          
+              <p class="instruction">Aucune Image choisie, Veillez  choisir une image d'illustration pour 
+                presenté votre produit ou service aux clients
+                            </p>
+              {% else %}
+              <p class="instruction">Aucune Image choisie, Veillez  choisir une image d'illustration.
+                Ce post sera Ajouté à votre catalogue pour vos clients
+                            </p>
+               {% endif %}          
+                        
+            </div>
+                    <button type="submit" class="submit-button">Enregistrer</button>
+                    </form>
+                </div>
+            
+            
+        
+                
+                    
+            
+            </div>
+        
+        
+        </div>
+        
+            
+                           
+    </div>
+</div>
+    <script src="{% static 'java/jquery.js' %}"></script>
+    <script src="{% static 'java/java_all.js' %}"></script>
+
+    <script>
+
+$(document).ready(function() 
+    {
+        
+        svg_profile= $('.svg_menu_carte');
+         //.css('width','50px').css('height','50px');
+
+         var dashbord = $('#icon-dashbord');
+         //.css('width','50px').css('height','50px');
+
+        dashbord.attr('fill', '#f39c12');
+
+        svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+      
+        
+    });
+    
+    </script>
+    
+</body>
+</html>

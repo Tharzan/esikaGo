@@ -1,0 +1,162 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/blog_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/document.css' %}">
+    
+    
+    <title>EsikaApp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+      
+</head>
+<body>
+
+    
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+        
+
+
+    <div class="container">
+        <div class="header">
+            <h1>Bienvenue, {{ request.user.username }}</h1>
+            <p style="font-size: 1.3em; font-weight: 500;">
+                <span role="img" aria-label="shield">🛡️</span> 
+                Vous pouvez désormais **signer vos documents** et effectuer des **transactions sécurisées** grâce à votre identité numérique Esika.
+            </p>
+
+            <div class="btn-container">
+                <button class="btn btn-sign" data-action="sign">
+                    <span role="img" aria-label="pen">✍️</span> Signer Document
+                </button>
+                <button class="btn btn-verify" data-action="verify">
+                    <span role="img" aria-label="search">🔍</span> Vérifier Document
+                </button>
+                <button class="btn btn-pay" data-action="pay">
+                    <span role="img" aria-label="money">💰</span> Effectuer Paiement
+                </button>
+            </div>
+        </div>
+
+        <div class="action-block" id="block-sign">
+            <h2>✍️ Signature de Document</h2>
+            <form action="/api/sign" method="POST" enctype="multipart/form-data">
+                <p style="color: red; font-weight: bold;">
+                    ⚠️ La clé privée doit être déjà téléchargée sur cette machine.
+                </p>
+                <div class="form-group">
+                    <label for="sign-key-file">Clé Privée (.key) :</label>
+                    <input type="file" id="sign-key-file" name="private_key" accept=".key" required>
+                </div>
+                <div class="form-group">
+                    <label for="sign-document">Document à Signer (PDF, DOCX) :</label>
+                    <input type="file" id="sign-document" name="document" required>
+                </div>
+                 <div class="form-group">
+                    <label for="sign-facial-image">Photo Faciale pour Confirmation :</label>
+                    <input type="file" id="sign-facial-image" name="facial_image" accept="image/*" required>
+                </div>
+                <button type="submit" class="submit-btn btn-sign">Signer et Archiver</button>
+            </form>
+        </div>
+
+        <div class="action-block" id="block-verify">
+            <h2>🔍 Vérification de Document</h2>
+            <form action="/api/verify" method="POST" enctype="multipart/form-data">
+                <p>Téléchargez le document signé pour vérifier son intégrité et l'identité du signataire via le réseau Hedera.</p>
+                <div class="form-group">
+                    <label for="verify-document">Document à Vérifier :</label>
+                    <input type="file" id="verify-document" name="document_to_verify" required>
+                </div>
+                <button type="submit" class="submit-btn btn-verify">Vérifier Signature</button>
+            </form>
+        </div>
+
+        <div class="action-block" id="block-pay">
+            <h2>💰 Paiement Sécurisé</h2>
+            <form action="/api/payment" method="POST">
+                <p>Initiez un transfert d'argent sécurisé par votre identité numérique.</p>
+                <div class="form-group">
+                    <label for="pay-destinataire">ID/Nom du Destinataire :</label>
+                    <input type="text" id="pay-destinataire" name="destinataire" required>
+                </div>
+                <div class="form-group">
+                    <label for="pay-mobile">Numéro Mobile (Confirmation) :</label>
+                    <input type="text" id="pay-mobile" name="mobile_number">
+                </div>
+                <div class="form-group">
+                    <label for="pay-bank">Numéro Bancaire/Compte :</label>
+                    <input type="text" id="pay-bank" name="bank_account">
+                </div>
+                <div class="form-group">
+                    <label for="pay-amount">Montant :</label>
+                    <input type="number" id="pay-amount" name="amount" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="pay-currency">Devise :</label>
+                    <select id="pay-currency" name="currency" required>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="CDF">CDF</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pay-method">Méthode de Paiement :</label>
+                    <select id="pay-method" name="payment_method" required>
+                        <option value="MOBILE">Mobile Money</option>
+                        <option value="BANK">Virement Bancaire</option>
+                        <option value="CRYPTO">Crypto (HBAR)</option>
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label for="pay-facial-image">Photo Faciale pour Confirmation :</label>
+                    <input type="file" id="pay-facial-image" name="facial_image" accept="image/*" required>
+                </div>
+                <button type="submit" class="submit-btn btn-pay">Confirmer Paiement</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        /* --- Logique JavaScript --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.btn-container .btn');
+            const actionBlocks = document.querySelectorAll('.action-block');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const action = event.currentTarget.dataset.action;
+                    const targetBlockId = `block-${action}`;
+
+                    // 1. Cacher tous les blocs
+                    actionBlocks.forEach(block => {
+                        block.style.display = 'none';
+                    });
+
+                    // 2. Afficher le bloc ciblé
+                    const targetBlock = document.getElementById(targetBlockId);
+                    if (targetBlock) {
+                        targetBlock.style.display = 'block';
+                        targetBlock.scrollIntoView({ behavior: 'smooth' }); // Défiler vers le bloc
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

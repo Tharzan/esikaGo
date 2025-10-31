@@ -1,0 +1,17 @@
+<h2>✅ Opération Réussie !</h2>
+<p>Votre clé de signature numérique a été générée et enregistrée dans nos systèmes. Vous devez maintenant la télécharger.</p>
+
+{% if show_download_button %}
+    <div style="margin-top: 30px;">
+        <p style="color: red; font-weight: bold;">ATTENTION : Téléchargez votre clé immédiatement !</p>
+        
+        <a href="{% url 'download_security_files' %}" class="btn btn-primary" download>
+            Télécharger Ma Clé Privée (.key)
+        </a>
+        <p style="font-size: small; margin-top: 10px;">
+            **Cette clé sera automatiquement et définitivement supprimée du serveur après le téléchargement.**
+        </p>
+    </div>
+{% else %}
+    <p>La clé a déjà été téléchargée ou l'opération a été finalisée.</p>
+{% endif %}

@@ -1,0 +1,179 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'my_user/css/edite_profil_user_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/edite_profil_user.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+
+        {% include 'petit_menu_ordi_user.html' %}
+        
+        <div id="contenu">
+
+            <div class="right-panel">
+
+
+                <img src="{% static 'img/edit_profil.png' %}" alt="">
+                <p class="about-post">
+                    Votre profil est votre vitrine. Téléchargez une vidéo et rédigez une description détaillée de votre travail. Montrez ce que vous faites pour que les clients potentiels vous fassent confiance et vous contactent facilement. C'est le moment de briller !"
+                </p>
+            </div>
+            <div class="left-panel">
+                {% if formError is none %}
+                <div class="form-container">
+                 
+                    <div style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 15px; border-radius: 5px; font-family: sans-serif; display: flex; align-items: center;">
+                        <span style="font-size: 24px; margin-right: 10px;">&#9888;</span>
+                        <div>
+                          <h4 style="margin-top: 0; margin-bottom: 5px;">Erreur de saisie : informations requises</h4>
+                          <ul style="margin: 0; padding-left: 20px;">
+                            <li>Le <strong>Nom du produit ou service</strong> doit être une chaîne de caractères.</li>
+                            <li>Le <strong>Prix</strong> doit être un nombre.</li>
+                            <li>La <strong>Date</strong> doit être au format JJ/MM/AAAA (ex: 01/05/2010).</li>
+                          </ul>
+                        </div>
+                      </div>
+                </div>
+                {% endif %}
+            <form action="{% url 'edite_user' %}" method="post" enctype="multipart/form-data">
+        
+                        <div class="formulaire">
+                    {% csrf_token %}
+                 <div id="div1"> 
+                    
+                        <h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="#e68a00"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2.033 16.01c.564-1.789 1.632-3.932 1.821-4.474.273-.787-.211-1.136-1.74.209l-.34-.64c1.744-1.897 5.335-2.326 4.113.613-.763 1.835-1.309 3.074-1.621 4.03-.455 1.393.694.828 1.819-.211.153.25.203.331.356.619-2.498 2.378-5.271 2.588-4.408-.146zm4.742-8.169c-.532.453-1.32.443-1.761-.022-.441-.465-.367-1.208.164-1.661.532-.453 1.32-.442 1.761.022.439.466.367 1.209-.164 1.661z"/></svg>
+                            <span>identité infos</span></h3>  
+                    <p class="commune-p"><label for="commune">Télephone:</label>
+
+                   
+                        <input class="enter"  type="tel" name="contact_telephone" value="{{ profile.contact_telephone}}">
+                        
+                        
+                        <p class="commune-p"><label for="date"><span class="hide-mobile">Date de </span>naissance:</label>
+                  
+                            <input id="date" type="date" name="date_naissance" value="{{ profile.date_naissance}}">
+                             </p>
+                        
+                            <div class="commune-p"><label for="type_compte">
+                            Type Compte:</label>
+                                <select name="type_compte" id="type_compte">
+                                    {% if profile.type_compte == 'User' %}
+                                    <option value="User" selected>User</option>
+                                    <option value="Commissionnaire" >Commissionnaire</option>
+                                    <option value="coiffeur">Coiffeu(r)se</option>
+                                    {% elif type_compte == 'Commissionnaire' %}
+                                    <option value="User">User</option>
+                                    <option value="Commissionnaire" selected>Commissionnaire</option>
+                                    <option value="coiffeur">Coiffeu(r)se</option>
+                                    {% else %}
+                                    <option value="User">User</option>
+                                    <option value="Commissionnaire" s>Commissionnaire</option>
+                                    <option value="coiffeur" selected>Coiffeu(r)se</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+    
+                    
+                            
+                </div>
+                <div id="div2">
+
+                        <div class="line-2">
+                            
+                                <h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="#e68a00"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 6.243 6.377 6.903 8 16.398 1.623-9.495 8-10.155 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.342-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
+                  
+                                   <span>adresse</span></h3>
+    
+                                <p class="commune-p"><label for="Commune">Commune:</label> <input id="commune" type="text" placeholder="commune" name="commune" ></p>
+                                    <p class="commune-p"><label for="rue">Rue:</label> 
+                                     <input id="rue" type="text" name="rue" placeholder="rue" value="{{ profile.rue}}">
+                                    
+                                <p class="commune-p"><label for="num">Numéro:</label> 
+                                    <input id="num" type="text" name="numero_rue" value="{{ profile.numero_rue}}" placeholder="N°" id="numero_rue"></p>
+                                 </fieldset>
+                                </div>
+                </div><div id="div3">
+                        
+                        
+                    <div class="line-">
+                        <p class="description"><span for="description">
+                            <svg  width="25px" height="25px" viewBox="0 0 512 512" id="_x30_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#e68a00">
+
+                                <g>
+                                
+                                <path d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M390.062,375.438   c0,20.193-16.37,36.562-36.562,36.562h-195c-20.193,0-36.562-16.37-36.562-36.562V136.562c0-20.193,16.37-36.562,36.562-36.562H256   c20.193,0,36.562,16.37,36.562,36.562v24.375c0,20.193,16.37,36.562,36.562,36.562H353.5c20.193,0,36.562,16.37,36.562,36.562   V375.438z"/>
+                                
+                                <path d="M323.031,253.562H188.969c-10.096,0-18.281,8.185-18.281,18.281s8.185,18.281,18.281,18.281h134.062   c10.096,0,18.281-8.185,18.281-18.281S333.128,253.562,323.031,253.562z"/>
+                                
+                                <path d="M323.031,326.688H188.969c-10.096,0-18.281,8.185-18.281,18.281s8.185,18.281,18.281,18.281h134.062   c10.096,0,18.281-8.185,18.281-18.281S333.128,326.688,323.031,326.688z"/>
+                                
+                                </g>
+                                
+                                </svg>
+                            Description:</span>
+                             <textarea name="description" id="description" >{{ profile.description}}</textarea></p>
+                        
+                    </div>
+                    
+                    
+                    <div class="line-4">
+                        
+
+                        <label for="video" class="valider">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" viewBox="0 0 24 24" fill="white"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z"/></svg> video</label>
+
+                        <label for="image" class="valider">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="white"><path d="M360-400h400L622-580l-92 120-62-80-108 140Zm-40 160q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+                            image</label>
+
+                        <label for="send" id="valider">
+                              Enregistrer</label>
+
+                        <input type="submit" hidden id="send">
+                        <input type="file" accept="image/*" hidden name="image" id="image">
+                        <input type="file" accept="video/*" hidden name="video" id="video">
+                        
+                </div>
+                    
+                </div>
+                </div>        
+                        
+                </form>
+        
+            
+</div>
+
+        </div>
+    </div>^
+<script src="{% static 'java/jquery.js' %}"></script>
+<script src="{% static 'java/java_all.js' %}"></script>
+<script>
+$(document).ready(function() 
+{
+var svg_profile =$('.svg_profile');
+
+svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+            
+        
+});
+    </script>
+</body>
+</html>

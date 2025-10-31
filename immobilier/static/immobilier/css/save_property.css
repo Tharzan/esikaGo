@@ -1,0 +1,303 @@
+
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    
+}
+* {box-sizing: inherit;}
+
+#page_
+{
+     
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+#contenu{
+    
+    display: flex;justify-content: center;
+    vertical-align: top;
+	
+    width: 100%;
+    max-width: calc(100% - 55px);
+	text-align: center;
+	padding-left: 0px;
+    text-align: center;
+    box-sizing: border-box;
+    min-height: 100vh;padding: 10px;
+    margin-left: 55px;margin-top: 0px;
+    margin-top: 20px; background-color: #ffffff;border-radius: 10px 0px 0px 0px;
+}
+
+@keyframes slideInFromBottom {
+    from {
+        bottom: -80px; /* Commence 100px sous sa position normale */
+        opacity: 0;
+    }
+    to {
+        bottom: 0; /* Revient à sa position normale (par rapport à son conteneur relatif) */
+        opacity: 1;
+    }
+}
+
+.right-panel .form-input {
+    flex-grow: 1;
+    border: none;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;border: 1px solid #a333;
+}
+
+.right-panel .form-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.left-panel {
+
+    /* --- Animation CSS --- */
+position: relative; /* Permet d'utiliser 'bottom' pour positionner */
+bottom: -80px; /* Position de départ : 100px sous le bas de la vue */
+opacity: 0; /* Commence invisible */
+
+/* Définit la durée, la fonction de temporisation et le délai de l'animation */
+animation: slideInFromBottom 1s ease-out forwards;
+/* slideInFromBottom : nom de l'animation (définie ci-dessous)
+   1s : durée de l'animation
+   ease-out : la vitesse ralentit vers la fin
+   forwards : l'état final de l'animation est maintenu après sa fin
+*/
+
+animation-delay: 0.5s; /* Délai avant que l'animation ne commence (après le chargement de la page) */
+
+
+
+    flex-grow: 1; /* Prend l'espace restant */
+    padding: 40px;
+    box-sizing: border-box;
+    
+    /* S'assure qu'il y a du contenu à faire défiler */
+    margin-left: 400px; /* Laisse de l'espace pour le panneau de droite */
+    background-color: #ffffff;
+    min-width: 500px;padding-top: 0px;
+}
+
+.label{color: #e68a00;font-size: 22px;display: flex;gap: 5px;padding-top: 5px;justify-content: center;
+    margin-top: 0px;text-align: center;margin-bottom: 5px;}  
+.label svg, .label span{display: block;} 
+
+
+
+/* Bloc de droite fixe */
+.right-panel {
+    
+    width: 400px; /* La largeur peut être ajustée */
+    position: fixed;
+    top: 0px;
+    left: 60px;
+    height: calc(100% - 100px);
+    /* Permet le défilement du contenu de droite */
+    display: flex;justify-content: center;align-items: center;
+    box-sizing: border-box;
+    margin-top: 100px;flex-direction: column;
+
+    
+     
+}
+.about-post{margin-left: 20px;text-align: center;width: 100%;font-size: 16px;
+    font-weight: 400;
+    font-style: italic;}
+.right-panel img{
+    width: 350px; /* La largeur peut être ajustée */
+    
+    left: 60px;
+    height: auto;
+    
+     
+}
+
+
+.form-container {
+    background-color: #ffffff;
+    width: 100%;
+
+    max-width: 650px;margin: auto;margin-top: 0px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;padding-top: 0px;
+            box-sizing: border-box;margin-top: 10px;border: 1px solid #555;
+}
+
+.form-container h2 {
+    text-align: center;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+
+
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.form-container h3 {
+    font-size: 1.2em;
+    color: #555;
+    margin-top: 0;text-align: left;
+    padding-bottom: 5px;
+    display: inline-block;font-weight: 700;
+    font-style: italic;
+}
+.form-container fieldset {
+    background-color: #ffffff;
+    border-radius: 8px;
+    
+    padding: 40px;
+    width: 100%;padding-top: 20px;
+    position: relative;
+    margin-bottom: 20px;box-shadow: none;
+    box-sizing: border-box;
+}
+.form-container fieldset legend {font-weight: 600;
+padding: 8px 10px; text-align: center;font-size: 20px;}
+
+
+
+/* Séparation des sections */
+.section-separator {
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 30px 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 25px;justify-content: center;
+}
+
+.full-width {
+    grid-column: 1/ 3;
+}
+
+.form-group {
+    display: flex;max-width: 200px;
+    flex-direction: column;justify-content: center;
+}
+
+.form-group label, .full-width label {
+    margin-bottom: 3px;
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #555;
+    border-radius: 5px;max-width: 200px;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+.full-width input{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #555;
+    border-radius: 5px;min-width: 400px;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #333; /* Vert pour le focus */
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 35px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-cancel {
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+.btn-cancel:hover {
+    background-color: #d0d0d0;
+}
+
+.btn-submit {
+    background-color: #e68a00; /* Vert principal */
+    color: white;max-width: 200px;position: absolute;right: 10px;bottom: 0px;
+}
+
+.submit{margin-top: 20px;height: 50px; position: relative;min-width: 100%;padding-right: 10px;}
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .full-width {
+        grid-column: 1 / 2;
+    }
+    .buttons-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn {
+        width: 100%;
+    }
+}
+
+.hide-desktop{display: none;}

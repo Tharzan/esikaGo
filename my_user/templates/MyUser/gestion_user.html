@@ -1,0 +1,327 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/horaire_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/gestion_user.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    
+    
+</head>
+<body>
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+
+        {% include 'petit_menu_ordi_user.html' %}
+    
+
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Tableau de Bord</h2>
+
+                
+            </div>
+            
+            <div class="sidebar-nav">
+                
+                <ol>
+                    <li class="active" onclick="showTab('apercu')">
+                        <a href="#">Aperçu Général</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Revenus</a>
+                    </li>
+                    <li onclick="showTab('depenses')">
+                        <a href="#">Dépenses</a>
+                    </li>
+                    <li onclick="showTab('salaires')">
+                        <a href="#">Dettes</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="{% url 'bien_immobilier' %}">Biens et location</a>
+                    </li>
+                    
+                </ol>
+            </div>
+        </aside>
+
+        <main class="main-content_">
+            <div class="main-header">
+                <h1>Gestion </h1>
+                <div class="header-stats">
+                    <div class="stat-card">
+                        <p class="stat-label">Revenus du mois</p>
+                        <p class="stat-value revenu">55 000 €</p>
+                        <a href="{% url 'revenus_user' %}" class="add">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="lime"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+                        </a>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Dépenses du mois</p>
+                        <p class="stat-value depense">22 000 €</p>
+                        <a href="{% url 'depenses_user' %}" class="add">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="lime"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+                        </a>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Dettes </p>
+                        <p class="stat-value dette">33 000 $</p>
+                        <a href="" class="add">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="lime"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="apercu" class="tab-content active">
+                <div class="tab-header">
+                    <h2>Aperçu Général</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="apercuChart"></canvas>
+                </div>
+            </div>
+            
+            <div id="revenus" class="tab-content">
+                <div class="tab-header">
+                    <h2>Détail des Revenus</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="revenusChart"></canvas>
+                </div>
+                <div class="detail-table">
+                    <h3>Revenus par catégorie</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Catégorie</th>
+                                <th>Montant (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ventes de Plats</td>
+                                <td>40 000</td>
+                            </tr>
+                            <tr>
+                                <td>Boissons</td>
+                                <td>15 000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="depenses" class="tab-content">
+                <div class="tab-header">
+                    <h2>Détail des Dépenses</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="depensesChart"></canvas>
+                </div>
+                <div class="detail-table">
+                    <h3>Dépenses par catégorie</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Catégorie</th>
+                                <th>Montant (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Fournitures</td>
+                                <td>10 000</td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td>8 000</td>
+                            </tr>
+                            <tr>
+                                <td>Marketing</td>
+                                <td>4 000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="salaires" class="tab-content">
+                <div class="tab-header">
+                    <h2>Gestion des Salaires</h2>
+                </div>
+                <div class="detail-table">
+                    <h3>Salaires du personnel</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employé</th>
+                                <th>Poste</th>
+                                <th>Salaire (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alex Dupont</td>
+                                <td>Chef de Cuisine</td>
+                                <td>3 500</td>
+                            </tr>
+                            <tr>
+                                <td>Sophie Martin</td>
+                                <td>Serveuse</td>
+                                <td>2 200</td>
+                            </tr>
+                            <tr>
+                                <td>Marc Dubois</td>
+                                <td>Plongeur</td>
+                                <td>1 800</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+<script src="{% static 'java/jquery.js' %}"></script>
+<script src="{% static 'java/java_all.js' %}"></script>
+<script src="{% static 'app_general/java/app_general.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() 
+        {
+        var svg_profile =$('.svg_gestion');
+
+        svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+        
+        });
+                document.addEventListener('DOMContentLoaded', () => {
+        
+            // Fonction pour afficher le bon onglet
+            window.showTab = (tabId) => {
+                // Cacher tous les onglets
+                const tabs = document.querySelectorAll('.tab-content');
+                tabs.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                // Retirer la classe 'active' de tous les liens de navigation
+                const navLinks = document.querySelectorAll('.sidebar-nav li');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Afficher l'onglet sélectionné
+                document.getElementById(tabId).classList.add('active');
+
+                // Ajouter la classe 'active' au lien de navigation cliqué
+                const clickedLink = document.querySelector(`[onclick="showTab('${tabId}')"]`);
+                if (clickedLink) {
+                    clickedLink.classList.add('active');
+                }
+            };
+
+            // Création des graphiques avec Chart.js
+            const createChart = (ctx, type, labels, data, labelText, backgroundColor) => {
+                new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: labelText,
+                            data: data,
+                            backgroundColor: backgroundColor,
+                            borderColor: backgroundColor.map(color => color.replace('0.2)', '1)')), // Bords plus foncés
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            };
+
+            // Données fictives pour les graphiques
+            const apercuData = {
+                labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin','juil','Août'],
+                revenus: [45000, 48000, 52000, 55000, 53000, 58000,55000,40000],
+                depenses: [18000, 19000, 21000, 22000, 20000, 23000, 5000,200]
+            };
+            
+            // Graphique de l'aperçu (Revenus vs Dépenses)
+            new Chart(document.getElementById('apercuChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: apercuData.labels,
+                    datasets: [{
+                        label: 'Revenus',
+                        data: apercuData.revenus,
+                        borderColor: '#2ecc71',
+                        backgroundColor:  '#2ecc71',
+                        tension: 0.3
+                    }, {
+                        label: 'Dépenses',
+                        data: apercuData.depenses,
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'red',
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Graphique des revenus (par mois)
+            createChart(
+                document.getElementById('revenusChart').getContext('2d'),
+                'bar',
+                ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+                [45000, 48000, 52000, 55000, 53000, 58000],
+                'Revenus Mensuels (€)',
+                ['#2ecc71', '#2ecc71', '#2ecc71', '#2ecc71', '#2ecc71', '#2ecc71']
+            );
+
+            // Graphique des dépenses (par catégorie)
+            createChart(
+                document.getElementById('depensesChart').getContext('2d'),
+                'doughnut',
+                ['Fournitures', 'Location', 'Salaires', 'Marketing'],
+                [10000, 8000, 12000, 4000],
+                'Répartition des Dépenses',
+                ['#f39c12', '#e74c3c', '#3498db', '#9b59b6']
+            );
+        });
+    </script>
+
+    
+</body>
+</html>

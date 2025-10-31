@@ -1,0 +1,56 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/createUser.css' %}">
+    <link rel="stylesheet"   media="(max-width:899px)" href="{% static 'my_user/css/createUser_mobile.css' % %}">
+    <title>EsikaApp</title>
+</head>
+<body>
+    <div id="page">
+    <div id="blog-creation-compte">
+
+
+        <h1>Créer un compte</h1>
+        <p class="compte-p">Si vous avez déja un compte connectez-vous <br><a href="" class="lien-connexion">sur ce lien</a></p>
+    </div>
+
+    <div id="formulaire">
+        <form action="{% url 'create_user' %}" method="post">
+            {% csrf_token %}
+            
+            <p class="line-2">
+                <label for="password">Mot de pass:</label>
+                <input type="password" name="password">
+
+            </p>
+            <p class="line-3">
+                <label for="password">Télephone ou Email:</label>
+                <input type="text" name="numero_tel" placeholder="+243 995038360">
+            </p>
+            <p class="line-1">
+                <input type="text" name="last_name" placeholder="votre nom">
+                <input type="text" name="first_name" placeholder="votre prénom">
+            </p>
+            
+            <div class="line-4">
+                <p class="sexe">
+                    <span><input type="radio" name="sexe" value="homme">homme</span>
+                    <span><input type="radio" name="sexe" value="femme">femme</span>
+                </p>
+                
+                <label for="send">Creation</label>
+                <input type="submit" hidden id="send">
+            </div>
+
+        
+        </form>
+
+    </div>
+    </div>
+   
+</body>
+</html>

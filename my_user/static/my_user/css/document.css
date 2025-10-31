@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background-color: #f0f2f5;
+    color: #333;scrollbar-width: thin;
+}
+
+* {box-sizing: inherit;}
+#page_{padding: 0px;}
+
+/* Barre latérale (Sidebar) */
+
+
+
+
+
+
+ .container-form { max-width: 600px; margin: 40px auto; background-color: #fff; padding: 30px; border-radius: 12px; padding: 40px; }
+        h1 { 
+            
+            font-size: 1.3rem;
+    font-weight: 800;
+    color: #000;
+    line-height: 1.1;margin: auto;
+    margin-bottom: 5px;
+    display: block;
+    max-width: 900px;text-align: left;
+    font-family: 'Poppins', sans-serif;
+         }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; }
+        
+        /* Styles pour la vidéo et le canvas de capture */
+        #video-container { text-align: center; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; overflow: hidden; }
+        #camera-feed { width: 100%; max-height: 400px; background: #000; display: block; }
+        #camera-canvas { display: none; /* Le canvas est caché et sert uniquement à la capture */ }
+        #captured-image-preview { max-width: 100%; max-height: 200px; margin-top: 10px; border: 1px solid #ccc; display: none; }
+
+        .btn-capture, .btn-submit {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .btn-capture { background-color: #f39c12; color: white; margin-right: 10px; }
+        .btn-capture:hove { background-color: #1e7e34; }
+        .btn-submit { background-color: rgb(0,0,125); color: white; 
+            display: block; width: 300px; margin-top: 30px;display: block;
+        margin: auto; }
+        .btn-submit:hove { background-color: #0056b3; }
+
+
+
+        /* --- Styles CSS (Inclus dans le HTML pour la simplicité) --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            text-transform: uppercase;
+        }
+        .btn-sign {
+            background-color: #ff9900; /* Inspiré du bouton orange */
+            color: white;
+        }
+        .btn-verify {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-pay {
+            background-color: #27ae60;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .action-block {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none; /* Caché par défaut */
+        }
+        .action-block h2 {
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="file"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+             width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .submit-btn {
+            background-color: #ff9900;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    
+
+.hide-desktop{display: none;}

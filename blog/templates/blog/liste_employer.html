@@ -1,0 +1,154 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/blog_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/listeEmployer.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    
+        
+</head>
+<body>
+
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi.html' %}
+
+ 
+    
+    
+<div class="container">
+    <h1>Liste des employés</h1>
+    <div class="summary-cards">
+        <div class="card present">
+            <div class="title_pie">
+                <h3>Nombre Total</h3>
+                <p class="value">{{ total}}</p>
+                
+            </div>
+            <div class="chart-container pie-chart-container">
+                <canvas id="pieChart"></canvas>
+            </div>
+            
+        </div>
+        <div class="card absent">
+            <h3>Hommes</h3>
+            <div class="value">{{ nbr_homme }}</div>
+        </div>
+        <div class="card late">
+            <h3>Femmmes</h3>
+            <div class="value">{{ nbr_femme }}</div>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <input type="text" placeholder="Rechercher un employé..." />
+        <a href="{% url 'add_employer' %}"><button>Ajouter un employé</button></a>
+    </div>
+
+    <table class="employee-list">
+        <thead>
+            <tr>
+                <th>Nom et rôle</th>
+                <th>Contact</th>
+                <th>Adresse</th>
+                <th>Sexe</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employer in employers %}
+
+            <tr>
+                <td>
+                    <div class="employee-info">
+                                 <div class="employee-name-role">
+                                    <p><img class="avatar" src="{% static 'img/images_profil/annonyme_user_man.png' %}" alt="Avatar Guy Hawkins">
+                                    </p>
+                            <p class="name-group"><span class="employee-name">{{ employer.full_name}}</span>
+                            <span class="employee-role">{{ employer.fonction}}</span></p>
+                        </div>
+                    </div>
+                </td>
+                <td>{{ employer.mail}}<br>{{ employer.telephone}}</td>
+                <td>{{ employer.adresse}}</td>
+                <td>{{ employer.sexe}}</td>
+                <td class="action-buttons">
+                        
+                    <a href="" title="Voir">
+                        <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm.002 3c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5z" fill-rule="nonzero"/></svg>
+                    </a>
+                    <a href="" title="modifier">
+                        <svg fill="rgb(0,0,125)" height="24px" width="24px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 448.378 448.378" xml:space="preserve"><path d="M405.455,296.506c-1.744-3.137-5.702-4.268-8.84-2.524l-38.438,21.365c-8.765,4.87-18.122,8.63-27.813,11.174l-191.089,50.157c-3.872,1.013-7.794,1.056-11.654,0.128c-7.632-1.836-13.891-7.298-16.75-14.626c-0.503-1.28-1.622-7.117-1.622-8.656c0-8.616,4.649-16.598,12.13-20.83c0.726-0.411,90.066-40.158,90.066-40.158 c12.298-5.476,19.955-18.17,19.053-31.585c-1.017-15.233-12.637-27.481-27.324-29.695l39.038-84.778l143.516,57.411c0.792,0.316,1.608,0.467,2.412,0.467c2.579,0,5.021-1.546,6.037-4.088c1.333-3.333-0.288-7.116-3.621-8.449l-142.899-57.164L295.41,30.947c2.438-5.295,2.668-11.223,0.646-16.692c-2.021-5.468-6.051-9.822-11.347-12.258c-10.925-5.029-23.91-0.23-28.942,10.696l-54.169,117.64c-7.028,1.47-13.798,3.896-20.166,7.245l-80.642,42.387c-22.251,11.695-38.285,32.448-43.989,56.937l-14.193,60.907c-4.128,17.701,17.909,58.698,34.477,76.077c3.164,3.319,6.134,5.799,8.94,7.462l-10.201,22.152c-2.44,5.294-2.67,11.223-0.646,16.691c1.266,3.422,3.32,6.407,5.978,8.76l-4.414,10.385c-1.404,3.304,0.136,7.12,3.439,8.524c0.83,0.353,1.691,0.52,2.54,0.52c2.529,0,4.934-1.485,5.985-3.959l4.31-10.14c0.862,0.103,1.732,0.16,2.613,0.16c8.5,0,16.288-4.981,19.84-12.692l8.61-18.695c4.562,10.169,14.605,16.244,25.131,16.244 c3.664,0,7.387-0.735,10.955-2.29c7.703-3.362,13.089-9.857,15.33-17.345c0.689,0.338,1.392,0.656,2.114,0.94c3.257,1.278,6.657,1.916,10.053,1.916c3.735,0,7.466-0.771,10.992-2.311c6.732-2.938,11.918-8.323,14.602-15.161c0.285-0.727,0.532-1.462,0.753-2.202c3.766,1.852,7.933,2.858,12.184,2.858c3.666,0,7.393-0.738,10.963-2.296c9.506-4.154,15.701-13.253,16.406-23.285l80.102-21.025c10.742-2.82,21.113-6.987,30.828-12.385l38.439-21.366C406.069,303.601,407.199,299.644,405.455,296.506z M115.376,309.616c-1.654-7.582-0.419-15.461,3.479-22.188l15.58-26.906c2.92-5.044,7.288-8.955,12.43-11.319l-30.31,65.825L115.376,309.616z M237.056,84.412l15.792,7.885l-97.044,210.748l-24.416,10.849L237.056,84.412z M198.395,243.896c10.058,0,18.461,7.872,19.133,17.924c0.538,8.001-4.031,15.572-11.365,18.838l-32.357,14.377l23.522-51.083C197.864,243.92,198.262,243.899,198.395,243.896z M267.576,18.131c2.033-4.417,7.284-6.355,11.7-4.325c2.141,0.985,3.77,2.745,4.587,4.956c0.817,2.211,0.725,4.607-0.262,6.748l-25.314,54.973l-15.791-7.885L267.576,18.131zM76.859,352.8c-13.437-19.42-23.526-43.738-21.589-52.042l14.194-60.908c4.847-20.808,18.471-38.442,37.377-48.379l80.643-42.387c2.25-1.183,4.562-2.226,6.924-3.131l-40.511,87.98c-12.822,1.448-24.211,8.846-30.711,20.075l-15.579,26.904c-5.527,9.54-7.278,20.718-4.931,31.474l3.482,15.989c-6.259,6.74-9.907,15.692-9.907,25.15c0,1.639,0.118,3.278,0.334,4.897l-5.072,11.012C88.57,367.301,83.568,362.497,76.859,352.8z M103.661,416.308c-1.437,3.117-4.589,5.131-8.033,5.131c-1.281,0-2.513-0.269-3.666-0.801c-2.143-0.988-3.774-2.75-4.592-4.96c-0.817-2.208-0.725-4.602,0.261-6.741l15.588-33.849c3.542,4.916,8.246,8.89,13.693,11.57l0.197,0.451L103.661,416.308z M154.968,405.09c-7.334,3.194-15.9-0.167-19.098-7.491l-3.122-7.153c0.143,0.002,0.286,0.012,0.429,0.012c3.158,0,6.32-0.402,9.392-1.206l19.118-5.018l0.767,1.76 C165.649,393.328,162.288,401.895,154.968,405.09z M201.154,380.296c-1.416,3.606-4.15,6.446-7.701,7.996c-3.548,1.549-7.489,1.624-11.094,0.208c-3.573-1.403-6.386-4.102-7.942-7.606l27.671-7.263 C202.302,375.869,202,378.142,201.154,380.296z M231.953,371.492c-3.549,1.55-7.49,1.623-11.096,0.208c-1.313-0.515-2.52-1.209-3.604-2.049l22.255-5.842C238.1,367.159,235.454,369.962,231.953,371.492z"/></svg>
+                        
+                    </a>
+                    <a href="" title="supprimer">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                    </a>
+                    
+                </td>
+            </tr>
+            {% empty %}
+            <h1 style="color:red">Aucun employer Ajouter pour le moment</h1>
+            {% endfor %}
+            
+            
+            </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+<script>
+    // Enregistrer le plugin de datalabels si vous souhaitez des étiquettes sur le pie chart
+    Chart.register(ChartDataLabels);
+    var data = {{ data_statistique|safe }};
+    
+    // --- Configuration du Pie Chart ---
+    const pieData = {
+        labels: ['homme', 'femme'],
+        datasets: [{
+            data: data, // Valeurs arbitraires pour le pie chart
+            backgroundColor: ['#dc3545', '#ffc107', '#ffc107'],
+            borderWidth: 0
+        }]
+    };
+
+    const pieOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false }, // Masquer la légende pour l'instant
+            datalabels: { // Optionnel: pour afficher les % sur le pie chart si désiré
+                formatter: (value, context) => {
+                    const sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                    const percentage = (value / sum * 100).toFixed(0) + "%";
+                    return percentage;
+                },
+                color: '#fff',
+                font: { weight: 'bold', size: 14 }
+            }
+        }
+    };
+
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: pieData,
+        options: pieOptions
+    });
+</script>
+
+</body>
+</html>

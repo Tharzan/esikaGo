@@ -1,0 +1,796 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #fff;
+    
+    min-height: 100vh;
+    font-family: Helvetica,'Open Sans', Arial, sans-serif;
+    
+    
+}
+
+.accueil{color: #f39c12; font-weight: bold;border-bottom: 2px solid #f39c12;}    
+
+
+#menuBar{z-index: 10000; width: 30px;height: 100vh;background-color: red;position: absolute;left: 0px;top: 0px;}
+
+@keyframes slideInFromBottom {
+    from {
+        bottom: -80px; /* Commence 100px sous sa position normale */
+        opacity: 0;
+    }
+    to {
+        bottom: 0; /* Revient à sa position normale (par rapport à son conteneur relatif) */
+        opacity: 1;
+    }
+}
+
+
+
+.card {
+    display: flex;
+    background-color: #fff;
+    margin: auto;
+    max-width: 95%;
+    overflow: hidden;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+
+
+.card-image img {
+    width: 700px;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+}
+
+.card-content {
+
+/* --- Animation CSS --- */
+position: relative; /* Permet d'utiliser 'bottom' pour positionner */
+bottom: -80px; /* Position de départ : 100px sous le bas de la vue */
+opacity: 0; /* Commence invisible */
+
+/* Définit la durée, la fonction de temporisation et le délai de l'animation */
+animation: slideInFromBottom 1s ease-out forwards;
+/* slideInFromBottom : nom de l'animation (définie ci-dessous)
+   1s : durée de l'animation
+   ease-out : la vitesse ralentit vers la fin
+   forwards : l'état final de l'animation est maintenu après sa fin
+*/
+
+animation-delay: 0.5s; /* Délai avant que l'animation ne commence (après le chargement de la page) */
+
+
+
+
+
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;padding-top: 0px;
+}
+
+.card-content h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+}
+
+.card-content p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.card-content button, .cta-button button, .btn-dossiers button {
+    background-color: rgb(0,0,125);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header {
+    margin-bottom: 40px;
+    text-align: left;margin-left: 60px;
+}
+
+.section-header h2 {
+   
+    font-size: 2.5em;
+    color: rgb(0,0,125);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;font-family:  'Playfair Display', serif;
+
+
+
+
+     font-size: 2.5rem;
+    font-weight: 750;
+    
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-header h2::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 5px;
+    background-color: rgb(0,0,125);
+}
+
+.section-header h2::before {
+    left: -60px;
+}
+
+.section-header h2::after {
+    right: -60px;
+}
+
+.cards-grid {
+    
+    /* Propriété clé pour le défilement horizontal */
+    overflow-x: auto; 
+    /* Cache le défilement vertical pour un défilement uniquement horizontal */
+    overflow-y: hidden;
+    /* Empêche les cartes de passer à la ligne */
+    white-space: nowrap; 
+    gap: 20px;
+    padding: 10px;
+    margin-bottom: 40px;
+    background-color: #f0f2f5;
+    width: 100%;
+
+    &::-webkit-scrollbar {
+        display: none; /* Cache la barre de défilement */
+      }
+      /* Pour Internet Explorer, Edge (Legacy) et Firefox */
+      -ms-overflow-style: none;  /* IE and Edge Legacy */
+      scrollbar-width: none;  /* Firefox */
+    
+}
+
+.card__ {
+    width: 200px;
+    height: 200px;
+    
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 10px;display: inline-block;margin-right: 20px;
+}
+
+.image-container {
+    position: relative;
+    margin-bottom: 15px;
+    max-height: 110px;
+    overflow-y: hidden;
+
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    
+    display: block;
+    border-radius: 10px;
+}
+
+.tete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tete .title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.tete .rating {
+    font-size: 14px;
+    color: #555;
+}
+
+.tete .rating i {
+    color: #ffc107;
+    margin-right: 5px;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.details .location {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #888;
+}
+
+.details .location i {
+    margin-right: 5px;
+    color: #888;
+}
+
+.bookmark-icon {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.cta-butto{
+    background-color: #f7a01d;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.defile
+{
+    
+     /* Définit l'état initial: transparent et décalé vers le bas */
+     opacity: 0;
+     transform: translateY(100px);
+     
+     /* Transition pour l'effet d'animation */
+     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.dossiers-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+}
+
+
+
+/* Section Title Styling */
+.section-title {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    
+}
+
+.section-title h2 {
+    
+    font-size: 25px;
+    color: #ffa500;
+    letter-spacing: 1.2px;
+    margin: 0;
+    padding: 0 20px;
+    bottom: 20px;
+    position: relative;
+    margin: auto;
+    
+    font-weight: bold;
+    font-style: italic;
+     /* Couleur vert olive tirée de l'image */
+    font-size: 2.1em;
+    font-family:  'Playfair Display', serif;
+}
+
+.about {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;text-align: center;
+    
+    max-width: 950px; /* Limit paragraph width for better readability */
+    margin: auto;
+    margin-bottom: 50px;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.section-title hr {height: 1px;
+    width: 350px;display: none;}
+ 
+
+.section-title h2::before,
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    height: 3px;
+    background-color: #e68a00;border-radius: 2px;
+}
+
+.section-title h2::before {
+    left: -220px;
+}
+
+.section-title h2::after {
+    right: -220px;
+}
+
+
+/* "View More" Button */
+.btn-dossiers {
+    display: block;
+    margin: auto;
+    margin-bottom: 50px;
+    text-align: center; margin-right: 50px;margin-top: 60px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.community-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+}
+
+.community-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap; /* Allows columns to stack on mobile */
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Left Column (Text Content) */
+.text-content {
+    flex: 1; /* Allows this column to take up available space */
+    max-width: 500px;
+}
+
+.text-content h2 {
+    font-size: 35px;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    font-weight: bold;font-weight: bold;
+    font-style: italic;
+     /* Couleur vert olive tirée de l'image */
+    font-size: 2.1em;
+    font-family:  'Playfair Display', serif;
+}
+
+.text-content h2 .blue-text {
+    color: #003366;
+}
+
+.text-content h2 .orange-text {
+    color: #ff9900;
+    font-size: 25px;
+}
+
+.text-content p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Right Column (Image Grid) */
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.image-grid img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    border-radius: 0px; /* Slightly rounded corners */
+    object-fit: cover;
+    aspect-ratio: 1 / 1; /* Ensures images are square */
+}
+
+
+.footer {
+    background-color: #f2f2f2; /* Couleur de fond comme dans l'image */
+    color: #333; /* Couleur de texte principale */
+    font-family: Arial, sans-serif;
+    padding: 40px 0px 0px 0px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+    margin: 20px;
+}
+
+/* Headings */
+.footer-section h3 {
+    color: #f39c12; /* Couleur orange pour les titres */
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Links and Lists */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #f39c12;
+}
+
+/* App Download Section */
+.app-download p {
+    margin-top: 15px;
+    color: #555;
+}
+
+.app-links {
+    display: flex;
+    gap: 10px; /* Espace entre les logos */
+    margin-top: 10px;
+    flex-direction: row;
+}
+.app-links div{
+    display: block;text-align: left;max-width: 150px;max-height: 50px;position: relative;
+}
+.app-links div svg{position: relative;right: 80px;bottom: 50px;}
+
+.app-logo {
+    height: 40px; /* Hauteur ajustée pour les logos */
+    width: auto;
+}
+
+/* Connect Section */
+.connect form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Pour inclure padding et border dans la largeur */
+}
+
+.connect-btn {
+    padding: 10px;
+    background-color: rgb(0,0,125);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.connect-btn:hover {
+    background-color: #e68a00;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    background-color: #343a40; /* Couleur foncée pour le bas */
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+    font-size: 0.9em;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}
+
+.footer-bottom a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer-bottom a:hover {
+    text-decoration: none;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+
+
+.container_salon {
+    width: 90%;
+    
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.courses-grid_salon {
+    display: flex;
+      gap: 20px;
+      flex-wrap: wrap;justify-content: center;
+}
+
+.course-card_salon {
+    background-color: white;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px 0px 0px 0px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+          
+
+}
+.course-card_salon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+.save_favorite{position: absolute;right: 10px;}
+
+.course-card-image-salon {
+    width: 100%;
+
+    overflow: hidden;
+    height: 150px;
+    border-radius: 10px 0px 0px 0px;
+   
+    
+}
+.course-card-image-salon img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px 0px 0px 0px;
+    
+    
+}
+
+.course-tag {
+    background-color: #f1735a;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 0 0 5px 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-100%);
+    z-index: 10;
+}
+
+.card-content_salon {
+    padding: 20px;
+    display: block;
+    position: relative;
+   
+}
+
+.card-content_salon h3 {
+    margin: 0 0 0px;
+    color: #333;
+    position: relative;
+}
+
+.tag {
+     padding: 2px 5px 2px 5px;
+
+background-color: rgb(200,0,0);
+
+position: absolute; left:0px;top: 0px;
+border-radius: 7px 0px 7px 0px;
+    font-weight: 400;
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;color: white;
+}
+
+.card-content_salon p {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0 0 15px;
+    flex-grow: 1;
+}
+
+.read-more {
+    color: #f1735a;
+    text-decoration: none;
+    font-weight: bold;
+}
+.time_pos{position: relative;bottom: 13px;}
+
+
+
+
+
+
+#titre
+{
+    
+    text-align: center;
+    color: #000;
+    margin-top: 25px;
+    font-size: 15px;
+    font-weight: 500;
+margin-bottom: 0px;
+    
+    
+}
+#titre span
+{
+    font-size: 18px;
+    font-weight: normal;
+    font-style: oblique;
+    color: #333;
+    position: relative;
+    bottom: 40px;
+}
+#hide
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 120px;
+    border: 1px solid black;
+    
+    margin-bottom: 50px;
+}
+#contenu
+{
+    margin-top: 0px;
+    
+
+
+
+   
+}
+
+
+#maison-index{margin-bottom: 30px; display: flex;justify-content: left;overflow: auto;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none; /* Cache la barre de défilement */
+  }
+  /* Pour Internet Explorer, Edge (Legacy) et Firefox */
+  -ms-overflow-style: none;  /* IE and Edge Legacy */
+  scrollbar-width: none;  /* Firefox */
+    align-items: center;padding-top: 10px;}
+
+.hide-desktop{display: none;}
+.maison{ display: inline-block; background-color:white; width: 230px; height: 235px;box-shadow: 0px 0px 1px black; 
+  border-radius: 10px;  margin: 10px;border: 1px soid red;text-align: center;}
+.img-maison{width: 220px; margin-top: 5px; height:120px;border-radius: 10px;margin-left: 5px;margin-right: 5px;}
+
+.type{margin-bottom: 0px; padding-top: 5px;height: 25px;text-align: left; 
+     padding-left: 10px;font-size: 19px;font-weight: 550;font-style: oblique;margin-top: 0px;}
+.prix{padding-right: 35px;text-align: right;background-color: white; margin-top: 8px; 
+    font-weight: 600;font-size: 20px;font-style: oblique;color: rgb(0,0,125);margin-bottom: 0px; position:relative}
+.adresse{position: relative; font-weight: 500;font-style: oblique;font-size: 18px; margin-top: 8px;text-align: left;padding-left: 10px;}
+.adresse span{position:  relative;bottom: 5px;}
+
+.image-dollard{height: 25px; width:25px;margin-top: 0px; position: relative;top:7px}
+.voir-plus{height:50px; text-align: right;padding-right: 150px; margin-top: 0px;}
+.voir-plus span{border-radius: 8px; padding: 8px 30px 8px 30px; background-color: red;color: white;font-size: 18px; font-family: 'Courier New';font-weight: bold;font-style: oblique;}
+
+#bloc-salon-coiffure{text-align: center; margin-top: 50px;margin-left: 10px; margin-right: 10px;height: auto;padding-bottom: 300px;}
+
+#restaurant-index, #coiffure-index {margin-top: 20px;vertical-align: top; text-align: center; display: inline-block; width: 455px; height: 200px;}
+
+
+
+
+.hide-desktop{display: none;}

@@ -1,0 +1,150 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/horaire_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/horaire.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi.html' %}
+        
+        <div id="contenu">
+            <div class="right-panel">
+                <p class="container-img">
+                    <img src="{% static 'img/horaire.png' %}" alt="Ordinateur portable" class="laptop-img">
+        
+                </p>
+                  <p class="about">
+                    Pour optimiser votre visibilité et améliorer la gestion 
+                    des absences pour vos employer, nous vous invitons à ajouter 
+                    vos heures d'ouverture sur votre profil</p>
+                    <div class="form-code">
+                        <input type="text" class="form-input" placeholder="Plus important" readonly>
+                        <button class="form-btn">→</button>
+                    </div>
+                 <p class="about">
+                   Cela permettra à vos clients de mieux planifier
+                 leurs visites et vous aidera à gérer plus efficacement votre disponibilité.</p>
+                
+            </div>
+            <div class="left-panel">
+            
+            
+            
+            <div id="formulaire_reservation">
+                <form action="{% url 'horaire' page.id %}" method="post" enctype="multipart/form-data">
+                   
+                         <div id="form">
+                            {% csrf_token %}
+                            
+                                 <p class="line-2">
+                                <fieldset id="caracteristique" class="jour">
+                                    <img src="{% static 'img/calendar.png' %}" alt="" class="calendar">
+                                    <legend>Jours de travial</legend>
+                                    <div class="ouvert">
+        
+                                   <p class="line-jour">
+                                    <span><input type="radio" name="lundi"  value="on" id="" checked>lundi</span>  
+                                <span>&nbsp;<input type="time"name="lundi_debut" id="">&nbsp; 
+                                     à &nbsp;<input type="time" name="lundi_fin" id=""></span>
+                                </p>
+                                <p class="line-jour">
+                                    <span><input type="radio" name="mardi" value="on" id="" checked>Mardi</span>  
+                                <span>&nbsp;<input type="time"name="mardi_debut" id="">&nbsp; 
+                                     à&nbsp; <input type="time" name="mardi_fin" id=""></span>
+                                </p>
+                                <p class="line-jour">
+                                    <span><input type="radio" name="mercredi" id="" value="on" checked>Mercredi</span>  
+                                <span>&nbsp;<input type="time"name="mercredi_debut" id="">&nbsp; 
+                                     à &nbsp;<input type="time" name="mercredi_fin" id=""></span>
+                                </p>
+                                <p class="line-jour">
+                                    <span><input type="radio" name="jeudi" id="" value="on" checked>Jeudi</span>  
+                                <span>&nbsp;<input type="time"name="jeudi_debut" id="">&nbsp; 
+                                     à &nbsp;<input type="time" name="jeudi_fin" id=""></span>
+                                </p>
+                                <p class="line-jour">
+                                    <span><input type="radio" name="vendredi" id="" value="on" checked>Vendredi</span>  
+                                <span>&nbsp;<input type="time"name="vendredi_debut" id="">&nbsp; 
+                                     à&nbsp; <input type="time" name="vendredi_fin"></span>
+                                </p>
+                                <p class="line-jour">
+                                    <span><input type="radio" name="samedi" id="" value="on" checked>Samedi</span>  
+                                <span>&nbsp;<input type="time"name="samedi_debut" id="">&nbsp; 
+                                     à &nbsp;<input type="time" name="samedi_fin" id=""></span>
+                                </p>
+                                <p class="line-jour">
+                                    <span><input type="radio" name="dimanche" id="" value="on" checked>Dimanche</span>  
+                                <span>&nbsp;<input type="time"name="dimanche_debut" id="">&nbsp; 
+                                     à &nbsp;<input type="time" name="dimanche_fin" id=""></span>
+                                </p>
+                                   
+                                
+                                </div>  
+                                <div class="fermeture">
+                                    
+                                    <fieldset id="caract">
+                                        <legend>Jours fermées</legend>
+                                        <span><input type="radio" name="lundi" id="" value="off">Lundi</span>
+                                        <span><input type="radio" name="mardi" id="" value="off">Mardi</span>
+                                        <span><input type="radio" name="mercredi" id="" value="off">Mercredi</span>
+                                        <span><input type="radio" name="jeudi" id="" value="off">Jeudi</span>
+                                        <span><input type="radio" name="vendredi" id="" value="off">Vendredi</span>
+                                        <span><input type="radio" name="samedi" id="" value="off">Samedi</span>
+                                        <span><input type="radio" name="dimanche" id=""value="off">Dimanche</span>
+                                    </fieldset>
+                                </div>
+                                     <button class="button" for="send" type="submit">Enregistrer</button>  
+                                       <input type="submit" hidden id="sen">     
+                                    </fieldset>
+                            </p>
+                            
+                            
+                            
+                                
+                        </form>
+                
+                    
+        
+
+            </div>
+            </div>
+        
+        
+        </div>
+        
+            
+                           
+    </div>
+</div>
+    <script src="{% static 'java/jquery.js' %}"></script>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+    <script src="{% static 'blog/java/b.js' %}"></script>
+
+    <script src="{% static 'java/java_all.js' %}"></script>
+    
+</body>
+</html>

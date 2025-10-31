@@ -1,0 +1,111 @@
+
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            color: #333;
+}
+
+
+        .dashboard-container {
+            
+            min-height: 100vh;
+        }
+
+        
+        
+        .main-content_ {
+            
+            padding: 20px 0px;padding-top: 0px;
+            margin-left: 300px;margin-top: 0px;
+        }
+
+        .main-header {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+    
+
+        .header-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .stat-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            flex: 1;
+            margin: 0 10px;position: relative;
+        }
+        .stat-card .add{position: absolute;bottom: 10px;right: 10px;}
+        .stat-card .add svg{width: 28px;height: 28px;}
+
+        .stat-label {
+            margin: 0;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .stat-value {
+            margin: 5px 0 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-header {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            height: 400px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .detail-table {
+            margin-top: 30px;
+        }
+
+        .detail-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .detail-table th,
+        .detail-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .detail-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+.dette{color: rgb(255,0,0);}
+.depense{color: green}
+.revenu{color: #e68a00}
+.benefice{color:  rgb(0,0,200);}
+.hide-desktop{display: none;}

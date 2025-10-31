@@ -1,0 +1,99 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/create_blog_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/createBlog.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    <style>
+        #caracteristique{background-image: url("{% static 'img/page_.jpg' %}");
+    }
+    </style>
+</head>
+<body>
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+        <div id="contenu">
+    <div class="container">
+        <div class="right-panel">
+            <img src="{% static 'img/compte_blog.jpg' %}" alt="Ordinateur portable" class="laptop-img">
+            <p>
+                Profitez d'une gestion complète de votre restaurant et salon de beauté   </p>
+            <div class="form-container">
+                <input type="text" class="form-input" placeholder="En savoir plus" readonly>
+                <button class="form-btn">→</button>
+            </div>
+            <p class="privacy-text">
+                Incluant réservation en ligne, gestion du personnel et des stocks, et analyse de données, le tout accessible par abonnement mensuel dès le deuxième mois.
+                   </p>
+            
+        </div>
+        <div class="left-panel">
+            {% if formError %}
+                <div class="form-container">
+                    
+                    <div style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 15px; border-radius: 5px; font-family: sans-serif; display: flex; align-items: center;">
+                        <span style="font-size: 24px; margin-right: 10px;">&#9888;</span>
+                        <div>
+                          <h4 style="margin-top: 0; margin-bottom: 5px;">Erreur de saisie : informations requises</h4>
+                          <ul style="margin: 0; padding-left: 20px;">
+                            <li>Le <strong>Nom de la page</strong> doit être un nom valide(texte) et ne doit pas eter vide</li>
+                            <li>Le <strong>Type</strong> est obligatoire.</li>
+                                  </ul>
+                        </div>
+                      </div>
+                </div>
+                {% endif %}
+            
+            <form action="{% url 'create_blog' %}" method="post" enctype="multipart/form-data">
+                <div class="profile-form-container">
+                    <h2>Rendre Votre Blog disponible</h2>
+                
+                    {% csrf_token %}
+                   <div id="div1"> 
+                    <h3>Ajouter les informations</h3>
+                    <p class="commune-p"><label for="commune">Nom de la Page:</label>
+                        <input id="commune" required type="text" name="name"></p>
+                    <p class="line-2">
+                        <fieldset id="caract">
+                            <legend>Type de la page</legend>
+                            <span class="type-bien"><input type="radio" name="type_page" value="immobiler">Agence immobilière</span>
+                            <span class="type-bien"><input type="radio" name="type_page" value="salon">Salon de coiffure</span>
+                            
+                            <span class="type-bien"><input type="radio" value="restaurant" name="type_page">Restaurant</span>
+                             </fieldset>
+                    </p>
+                </div>
+                <div class="line-4">
+                    <button type="submit" class="submit-button"> Valider</button>
+                        
+                </div>
+                  
+                </div>        
+                </form>
+        
+            
+
+        </div>
+
+        
+    </div>
+</div>
+</div>
+<script src="{% static 'java/jquery.js' %}"></script>
+    <script src="{% static 'java/java_all.js' %}"></script>
+   
+</body>
+</html>

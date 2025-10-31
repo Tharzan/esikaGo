@@ -1,0 +1,124 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'my_user/css/edite_profil_blog_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/edite_profil_blog.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+
+    <div id="page_pricipale">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+
+        <div id="aside" >
+            <div id="bolc-aside">
+                
+                      
+
+                </div>
+         </div>       
+
+        <div id="contenu">
+            <form action="{% url 'edite_blog' page.id %}" method="post" enctype="multipart/form-data">
+               
+            <div id="form-1">
+
+
+            </div>
+
+       
+
+                 <div id="form-2">
+                    {% csrf_token %}
+                    
+                    <p class="commune-p"><label for="commune">Télephone : </label>
+                        <input id="commune" type="text" name="contact_telephone"></p>
+                   
+                    <p class="commune-p"><label for="commune">Email : </label>
+                        <input id="commune" type="text" name="contact_telephone"></p>
+                   
+                    <p class="commune-p"><label for="commune">Pays : </label>
+                        <input id="commune" type="text" name="contact_telephone"></p>
+                    <p class="commune-p"><label for="commune">Ville : </label>
+                        <input id="commune" type="text" name="contact_telephone"></p>
+                   
+                        <p class="line-2">
+                        <fieldset id="caract">
+                            <legend>services</legend>
+
+                            <span class="type-bien"><input type="checkbox" value="restaurant" name="wifi">Wifi</span>
+                            <span class="type-bien"><input type="checkbox" name="type_page" value="parking">parking </span>
+                            {% if page.type_page == 'restaurant' %}
+
+                            <span class="type-bien"><input type="checkbox" name="livraison" value="">livraison à domicile</span>
+                            <span class="type-bien"><input type="checkbox" name="evenement" value="immobiler">événement personnel</span>
+                            <span class="type-bien"><input type="checkbox" name="service_traiteur" value="immobiler">service traiteur</span>
+                            <span class="type-bien"><input type="checkbox" name="emporter" value="immobiler">nouriture à emporter</span>
+                           {% elif page.type_page == 'salon' %}
+                            <span class="type-bien"><input type="checkbox" name="service_domicile" value="immobiler">Service à domicile</span>
+                           
+                            <span class="type-bien"><input type="checkbox" name="manucure_pedicure" value="immobiler">manucure et pedicure</span>
+                           
+                            <span class="type-bien"><input type="checkbox" name="maquillage" value="immobiler">maquillqge</span>
+                           
+                            <span class="type-bien"><input type="checkbox" name="coifure_evenement" value="immobiler">coifure pour evenement</span>
+                          {% endif %}
+                        </fieldset>
+                    </p>
+                    <div class="line-3 hide-desktop">
+                        Pour une meilleure visibilité ajouter une image de votre entiter, une video de maximum 5 munites  pour la  presentation de vos services 
+                          et autorisé la prise de positions pour permettre pontentiel clients de vous trouver facilement  
+                    </div>
+                    
+
+                    
+                    <div class="line-4">
+                        
+
+                            <label for="video" class="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="white"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z"/></svg> video</label>
+
+                            <label for="image" class="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="45px" viewBox="0 -960 960 960" width="45px" fill="white"><path d="M360-400h400L622-580l-92 120-62-80-108 140Zm-40 160q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+                                image</label>
+
+                            <label for="image" class="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="white"><path d="M12 0c-3.148 0-6 2.553-6 5.702 0 4.682 4.783 5.177 6 12.298 1.217-7.121 6-7.616 6-12.298 0-3.149-2.851-5.702-6-5.702zm0 8c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm12 16l-6.707-2.427-5.293 2.427-5.581-2.427-6.419 2.427 4-9 3.96-1.584c.38.516.741 1.08 1.061 1.729l-3.523 1.41-1.725 3.88 2.672-1.01 1.506-2.687-.635 3.044 4.189 1.789.495-2.021.465 2.024 4.15-1.89-.618-3.033 1.572 2.896 2.732.989-1.739-3.978-3.581-1.415c.319-.65.681-1.215 1.062-1.731l4.021 1.588 3.936 9z"/></svg> carte</label>
+
+                            <input type="submit" hidden id="send">
+                            <input type="file" accept="image/*" hidden name="image" id="image">
+                            <input type="file" accept="video/*" hidden name="video" id="video">
+                            
+                    </div>
+                    <div class="line-5">
+                        <p id="lancer">
+
+                            <label for="send" id="valider">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M0 12l11 3.1 7-8.1-8.156 5.672-4.312-1.202 15.362-7.68-3.974 14.57-3.75-3.339-2.17 2.925v-.769l-2-.56v7.383l4.473-6.031 4.527 4.031 6-22z"/></svg>
+                                valider</label>
+                            <input type="submit" hidden id="send">
+                            <input type="file" accept="image/*" hidden name="image" id="image"></p>
+                    </div>
+
+                </div>        
+                        
+                </form>
+        
+            
+
+
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,127 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/reservation_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/reservation.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi.html' %}
+        
+        <div id="contenu">
+            <div class="right-panel">
+                <p class="container-img">
+                    <img src="{% static 'img/reservation.png' %}" alt="Ordinateur portable" class="laptop-img">
+        
+                </p>
+                  <p class="about">
+                    Créez une réservation et partagez 
+                    instantanément le lien de confirmation sur tous les réseaux pour vos clients.
+                    <div class="form-code">
+                        <input type="text" class="form-input" placeholder="Remarque"  readonly>
+                        <button class="form-btn">→</button>
+                    </div>
+                 <p class="about">
+                    Ajoutez une description privée pour votre référence. et un messge pour votre client 
+                    Si vous ne rédigez pas
+                     de message, une confirmation de réservation par défaut sera envoyée au client.</p>
+                
+            </div>
+            <div class="left-panel">
+                <form action="{% url 'reservation' %}" method="post">
+                 {% csrf_token %}
+                <div class="booking-form">
+                
+                
+                    <fieldset class="form-section">
+                        <legend><h3>Contact Details</h3></legend>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="first-name">Nom Complet</label>
+                                <input type="text" id="first-name" name="full_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">description</label>
+                                <input type="text" id="desciption" name="description" placeholder="ex. mariage">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Numero Tél.</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="mail">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-section">
+                        <legend><h3>Booking Details</h3></legend>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="check-out">date de resevation</label>
+                                <input type="datetime-local" id="check-out" name="date_reservation">
+                            </div>
+                            <div class="form-group">
+                                <select name="type_montant" id="select_verser">
+                                    <option value="verser">Montant verser</option>
+                                    <option value="requis">montant requis</option>
+                                </select>
+                                <input type="number" name="montant" id="check-in" placeholder="montant en $">
+                                
+                                
+                                   </div>
+                            
+                            <div class="form-group">
+                                <label for="guests">Nombre de personne</label>
+                                <input type="number" name="nbr_personne">
+                            </div>
+                            
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-section form-message">
+                        <legend><h3>Message personnalisé</h3></legend>
+                        <div class="about_reservation">Optimisez la gestion de vos rendez-vous et offrez une meilleure expérience client en
+                             personnalisant un message de confirmation. Sinon, un message par défaut sera utilisé.</div>
+                        <div class="text-content"><textarea name="message" id="msg"></textarea>
+                        <button class="btn-book" type="submit">Book Now</button> </div>
+                    </fieldset>
+                 
+                    
+                </div>
+                </form>
+            </div>
+        
+        
+        </div>
+        
+            
+                           
+    </div>
+</div>
+    <script src="{% static 'java/jquery.js' %}"></script>
+
+
+
+
+    
+    <script src="{% static 'blog/java/b.js' %}"></script>
+
+    <script src="{% static 'java/java_all.js' %}"></script>
+    
+</body>
+</html>

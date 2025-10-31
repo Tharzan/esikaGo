@@ -1,0 +1,257 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'my_user/css/edite_profil_user_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/edite_profil_user.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    <title>EsikaApp</title>
+</head>
+<body>
+
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+
+        {% include 'petit_menu_ordi_user.html' %}
+        
+        <div id="contenu">
+
+            <div class="right-panel">
+
+
+                <img src="{% static 'img/edit_profil.png' %}" alt="">
+                <p class="about-post">
+                    Votre profil est votre vitrine. Téléchargez une vidéo et rédigez une description détaillée de votre travail. Montrez ce que vous faites pour que les clients potentiels vous fassent confiance et vous contactent facilement. C'est le moment de briller !"
+                </p>
+            </div>
+            <div class="left-panel">
+                {% if formError %}
+                <div class="form-container">
+                 
+                    <div style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 15px; border-radius: 5px; font-family: sans-serif; display: flex; align-items: center;">
+                        <span style="font-size: 24px; margin-right: 10px;">&#9888;</span>
+                        <div>
+                          <h4 style="margin-top: 0; margin-bottom: 5px;">Erreur de saisie d'informations </h4>
+                          <ul style="margin: 0; padding-left: 20px;">
+                            <li>Le <strong>numero</strong> doit être aux format +243xxxxxxxxx </li>
+                            <li>L'<strong>email</strong> doit être  valide</li>
+                            <li>La <strong>Date</strong> doit être au format JJ/MM/AAAA (ex: 01/05/2010).</li>
+                            veillez bien renseignez vos informtions
+                          </ul>
+                        </div>
+                      </div>
+                </div>
+                {% endif %}
+
+                <div class="profile-form-container">
+                    <h2>Modifier votre Profil </h2>
+                
+                    <div class="form-section">
+                        <h3>Informations de contact</h3>
+                        <form class="form-group" action="{% url 'edite_user' %}" method="post" enctype="multipart/form-data">
+        
+                        {% csrf_token %}
+                            <div class="form-field">
+                                <label for="telephone">Téléphone</label>
+                                <input type="text" id="telephone" name="telephone" placeholder="+243 xxx xxx xxx" value="{{ profile.contact_telephone }}">
+                            </div>
+                            <div class="form-field">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Entrez l'adresse email" value="{{ profile.email}}">
+                            </div>
+                            <div class="form-field">
+                                <label for="date">Date de naissance:</label>
+                                <input type="date" id="date" name="pays" placeholder="Entrez le pays">
+                            </div>
+                            <div class="form-field">
+                                <label for="ville">Type Compte:</label>
+                                <select name="type_compte" id="type_compte">
+                                    {% if profile.type_compte == 'User' %}
+                                    <option value="User" selected>User</option>
+                                    <option value="Commissionnaire" >Commissionnaire</option>
+                                    <option value="coiffeur">Coiffeu(r)se</option>
+                                    {% elif type_compte == 'Commissionnaire' %}
+                                    <option value="User">User</option>
+                                    <option value="Commissionnaire" selected>Commissionnaire</option>
+                                    <option value="coiffeur">Coiffeu(r)se</option>
+                                    {% else %}
+                                    <option value="User">User</option>
+                                    <option value="Commissionnaire" s>Commissionnaire</option>
+                                    <option value="coiffeur" selected>Coiffeu(r)se</option>
+                                    {% endif %}
+                                </select>    
+                            </div>
+                            <div class="form-field full-width">
+                                <label for="description"> presentation</label>
+                                <textarea id="description" name="description" placeholder="faite connaître votre metier à partir d'un petit message de presentation...">{{ profile.description}}</textarea>
+                            </div>
+                        
+                    </div>
+                
+                    <div class="form-section">
+                        
+                        <h3>Adresse</h3>
+                        <div class="services-grid">
+
+
+                            <div class="form-field">
+                                <label for="date">Commune</label>
+                                <input id="commune" type="text" placeholder="votre commune" name="commune" value="{{ profile.commune}}" >
+                            </div>
+                            <div class="form-field">
+                                <label for="date">Rue:</label>
+                                <input id="rue" type="text" name="rue" placeholder="Quartier et Avenue" value="{{ profile.rue}}">
+                            </div>
+                            <div class="form-field">
+                                <label for="date">Numéro:</label>
+                                <input id="num" type="text" name="numero_rue" value="{{ profile.numero_rue}}" placeholder="N°" id="numero_rue"></p>
+                                
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                
+                    <div class="media-buttons">
+                        <label href="#" class="media-button"  for="video">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12L3 21V3L21 12Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Vidéo
+                        </label>
+                        <label class="media-button" for="image">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="8.5" cy="8.5" r="1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 15L16 10L5 21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Image
+                        </label>
+                        
+                    </div>
+
+                    <div id="Blog_media">
+                        <div id="apercu-images">
+                            {% if request.user.image.image %}
+                            <p style="width: 150px; height: 100px;overflow: hidden;"><img src="{{ request.user.image.image.url }}" alt=""></p>
+                            {% else %}
+                            Aucune image selectionnée
+                            {% endif %}
+                        </div>
+                        <div id="apercu-video">
+                            {% if request.user.image.video %}
+                            <p style="width: 150px;">
+                                <video src="{{ request.user.image.video.url }}" width="150px" height="100px" controls></video>
+                                </p>
+                            {% else %}
+                            Aucune video selectionnée
+                            {% endif %}
+                           
+                        </div>
+                        <input type="file" id="image" accept="image/*" name="image" hidden>
+                        <input type="file" accept="video/*" id="video" name="video" hidden>
+                    </div>
+                
+                
+                
+                
+                    <button type="submit" class="submit-button">Valider</button>
+                </div>
+            </form>
+            
+            
+</div>
+
+        </div>
+    </div>^
+<script src="{% static 'java/jquery.js' %}"></script>
+<script src="{% static 'java/java_all.js' %}"></script>
+<script>
+$(document).ready(function() 
+{
+var svg_profile =$('.svg_profile');
+
+svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+   
+
+
+// poste
+$('#image').on('change', function(e) {
+        // Vider le conteneur de prévisualisation avant d'ajouter de nouvelles images
+        $('#apercu-images').empty();
+    
+        // Récupérer la liste des fichiers sélectionnés
+        const files = e.target.files;
+
+        // Vérifier si des fichiers ont été sélectionnés
+        if (files) {
+            // Parcourir chaque fichier
+            $.each(files, function(index, file) {
+                // Créer un objet FileReader
+                const reader = new FileReader();
+
+                // Définir la fonction qui sera exécutée une fois la lecture terminée
+                reader.onload = function(e) {
+                    // Créer une balise <img> avec l'URL de données du fichier
+                    const image = $('<img>').attr('src', e.target.result)
+                    const parent = $('<p>').attr('class', 'apercu-image');
+                    parent.append(image);
+                    // Ajouter la balise <img> au conteneur de prévisualisation
+                    $('#apercu-images').append(parent);
+                };
+
+                // Lire le fichier en tant qu'URL de données
+                reader.readAsDataURL(file);
+            });
+        }
+    });
+
+
+
+$('#video').on('change', function(e) {
+        // Vider le conteneur de prévisualisation avant d'ajouter de nouvelles images
+        $('#apercu-video').empty();
+    
+        // Récupérer la liste des fichiers sélectionnés
+        const files = e.target.files;
+
+        // Vérifier si des fichiers ont été sélectionnés
+        if (files) {
+            // Parcourir chaque fichier
+            $.each(files, function(index, file) {
+                // Créer un objet FileReader
+                const reader = new FileReader();
+
+                // Définir la fonction qui sera exécutée une fois la lecture terminée
+                reader.onload = function(e) {
+                    // Créer une balise <img> avec l'URL de données du fichier
+                    const video = $('<video>').attr('controls', 'controls').attr('width','150px').attr('height','150px')
+                   source_video =  $('<source>').attr('src', e.target.result)
+                   video.append(source_video);
+                   
+                        const parent = $('<p>').attr('class', 'apercu-video');
+                    parent.append(video);
+                    // Ajouter la balise <img> au conteneur de prévisualisation
+                    $('#apercu-video').append(parent);
+                };
+
+                // Lire le fichier en tant qu'URL de données
+                reader.readAsDataURL(file);
+            });
+        }
+    });
+        
+});
+    </script>
+</body>
+</html>
