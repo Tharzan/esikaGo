@@ -4,10 +4,11 @@
 venv/
 .venv/
 env/
-/bin/
-/include/
-/lib/
-/lib64/
+# Remplacement des chemins absolus par des chemins spécifiques à l'environnement virtuel :
+venv/bin/
+venv/include/
+venv/lib/
+venv/lib64/
 
 # --------------------
 # 2. Fichiers Python temporaires et logs
