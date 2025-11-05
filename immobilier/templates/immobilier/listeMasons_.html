@@ -76,7 +76,7 @@
 
             
             {% for list in liste %}
-
+            <a href="{% url 'detail_maison' %}" style="text-decoration: none;">
             <div class="maison">
                 
                 <p class="identiter"><img class="img-profil" src="{% static 'img/images_profil/1.jpg' %}" alt="">
@@ -127,7 +127,7 @@
 
                
             </div>
-                
+             </a>   
             {% empty %}
 
             <p>vide</p>

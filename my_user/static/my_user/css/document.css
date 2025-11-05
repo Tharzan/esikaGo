@@ -16,7 +16,9 @@ body {
 
 
 
- .container-form { max-width: 600px; margin: 40px auto; background-color: #fff; padding: 30px; border-radius: 12px; padding: 40px; }
+ .container-form { max-width: 600px; margin: 40px auto;
+     background-color: #fff; padding: 30px; border-radius: 12px; 
+     padding: 40px; }
         h1 { 
             
             font-size: 1.3rem;
@@ -57,28 +59,24 @@ body {
 
 
         /* --- Styles CSS (Inclus dans le HTML pour la simplicité) --- */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f9;
-        }
+
         .container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin-left: 55px;
             padding: 20px;
+            min-height: 100vh;
+             background-color: #ffffff;
         }
         .header {
             background-color: #ffffff;
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            
             text-align: center;
             margin-bottom: 30px;
         }
         .header h1 {
             color: #2c3e50;
-            font-size: 2.5em;
+            font-size: 2.3em;
             margin-bottom: 10px;
         }
         .header p {
@@ -120,9 +118,12 @@ body {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            max-width: 700px;
+            border: 1px solid #ccc;
             margin-top: 20px;
             display: none; /* Caché par défaut */
+            margin-bottom: 100px;
         }
         .action-block h2 {
             border-bottom: 2px solid #ff9900;

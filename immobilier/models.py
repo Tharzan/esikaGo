@@ -2,8 +2,17 @@ from django.db import models
 from core.models import BaseImage
 from blog.models import Blog
 from my_user.models import MyUser
+from django.utils.translation import gettext_lazy as _
 
-
+from core.models import BaseImage
+import uuid
+import os
+from django.utils.text import slugify 
+import qrcode
+import io
+from django.core.files.base import ContentFile
+import json
+   
 class SaveProperty(models.Model):
     type_bien = models.CharField(max_length=25, null=True,blank=True)
     user = models.ForeignKey(MyUser, null=True,on_delete=models.CASCADE, related_name='property')
@@ -63,7 +72,7 @@ class Loyer(models.Model):
     montant = models.IntegerField()
     date_payement = models.DateField()
     mois = models.IntegerField(default=1)
-
+    signer = models.BooleanField(default=False)
 
     observation = models.CharField(
         max_length=50,blank=True, 
@@ -78,14 +87,109 @@ class Loyer(models.Model):
     annee = models.IntegerField(default=2025)
     tp_hedera = models.CharField(max_length=50,blank=True, default='')
     ancre_hedera = models.CharField(max_length=500,blank=True, default='')
-    hash_document = models.CharField(max_length=500,blank=True, default='')
-    lien_document = models.FileField(upload_to='immobilier/recus/',blank=True,null=True)
+    sequence_number_hedera = models.IntegerField(
+        blank=True, 
+        null=True) 
+    code = models.CharField(
+        max_length=255,
+        blank=True,
+         default='')
+
+    url_document = models.FileField(
+        verbose_name=_("Fichier Quittance PDF"),
+        upload_to='quittances/%Y/%m/',
+        help_text=_("Lien vers le fichier PDF généré de la quittance."),
+        null=True,
+        blank=True,
+    )
+    qr_document = models.ImageField(
+        upload_to=BaseImage.upload_to_unique_uuid, 
+        null=True, 
+        blank=True
+    )
+    
     def __str__(self):
         return f"Moid de {self.mois} id: {self.id} et adresse {self.property.adresse}"
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.url = 'document_qr/'
 
+    def image_qr(self,data):
+        
+        qr = qrcode.QRCode(
+        version=2,  
+        error_correction=qrcode.constants.ERROR_CORRECT_L,  
+        box_size=20,  
+        border=4,)
+
+        qr.add_data(data)
+        qr.make(fit=True)
+
+        img = qr.make_image(fill_color="rgb(0,0,125)", back_color="white")
+        
+        img_io = io.BytesIO()
+        img.save(img_io,format='PNG')
+        img_file = ContentFile(img_io.getvalue(), name='qr_code.png')
+
+        self.qr_document.save('qr_code.png', img_file,save=False)
+
+    
 
     class Meta:
         # L'ordre de tri par défaut (Default ordering)
         # 1. '-annee' : Trie par année décroissante (du plus grand, ex: 2025, au plus petit, ex: 2024)
         # 2. 'mois' : Trie par mois croissant (du plus petit, ex: 1, au plus grand, ex: 12)
         ordering = ['-annee', 'mois']
+
+
+
+
+
+
+class Document(models.Model):
+    
+    # 1. Champ pour le fichier PDF
+    # Le fichier sera stocké dans un sous-dossier MEDIA_ROOT/quittances/AAAA/MM/
+    # Ex: media/quittances/2025/11/Quittance_Jean_K_20251101_113000.pdf
+    url_document = models.FileField(
+        verbose_name=_("Fichier Quittance PDF"),
+        upload_to='quittances/%Y/%m/',
+        help_text=_("Lien vers le fichier PDF généré de la quittance.")
+    )
+
+    # 2. Champs de traçabilité (Qui a généré le document ?)
+    bailleur = models.ForeignKey(
+        MyUser,
+        on_delete=models.CASCADE,
+        related_name='quittances_emises',
+        verbose_name=_("Bailleur / Émetteur")
+    )
+    
+    # Vous pouvez ajouter un champ pour la personne qui reçoit le document si nécessaire
+    # locataire = models.CharField(max_length=255, verbose_name=_("Nom du Locataire"))
+
+    # 3. Champs d'information et de date
+    montant_paye = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        verbose_name=_("Montant Payé")
+    )
+    
+    mois_concerne = models.CharField(
+        max_length=50,
+        verbose_name=_("Mois et Année Concernés")
+    )
+
+    cree_le = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("Date de Création")
+    )
+
+    def __str__(self):
+        return f"Quittance - {self.mois_concerne} - {self.bailleur.username}"
+
+    class Meta:
+        verbose_name = _("Document (Quittance)")
+        verbose_name_plural = _("Documents (Quittances)")
+        ordering = ['-cree_le']

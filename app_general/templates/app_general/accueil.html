@@ -4,6 +4,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/accueil_mobile.css' %}">
     <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'app_general/css/accueil.css' %}">
@@ -11,6 +14,8 @@
     <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
     
     <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    
     
     <title>EsikaApp</title>
     
@@ -59,6 +64,11 @@
         <h1>Programme de la Journée</h1> 
 
         <div class="intro-message">
+            <div class="event-date">
+                
+                        <span>25</span>
+                        <p>OCT</p>
+                    </div>
             <p>Bonjour ! Voici un aperçu des activités et des indicateurs clés pour la journée du <span id="current-date"></span>.</p>
         </div>
 
@@ -108,30 +118,6 @@
                 <h3>Alertes et Notifications</h3>
             </div>
 
-
-            <div class="stock-alert">
-            
-Gérez vos biens et location en toute simplicité. Cette section vous informe en temps réel des 
-paiements de loyers, ainsi que des alertes et du programme des travaux prévus.
-                
-                <ul>
-                    <li>
-                        <span class="product-name">Orange</span>
-                        <span class="stock-qty">5 pièces</span>
-                    </li>
-                    <li>
-                        <span class="product-name">Banane</span>
-                        <span class="stock-qty">20 pièces</span>
-                    </li>
-                    <li>
-                        <span class="product-name">Poulet</span>
-                        <span class="stock-qty">10 kg</span>
-                    </li>
-                </ul>
-            </div>
-           
-            
-        </div>
 
         <div class="container_2 sroll-section">
             <section class="blog-section">
@@ -185,11 +171,11 @@ paiements de loyers, ainsi que des alertes et du programme des travaux prévus.
             <div class="section-header">
                 <h3>Actions Rapides</h3>
             </div>
-            <div class="action-buttons">
-                <a href="{% url 'revenus' %}" class="btn btn-revenu">Ajouter Revenu</a>
-                <a href="{% url 'depenses' %}" class="btn btn-depense">Ajouter Dépense</a>
-                <a href="#" class="btn btn-dette">Ajouter Dette</a>
-                <a href="#" class="btn btn-autre">Autres Actions</a>
+               <div class="action-buttons">
+                <a href="{% url 'revenus_user' %}" class="btn btn-revenu">Ajouter Revenu</a>
+                <a href="{% url 'depenses_user' %}" class="btn btn-depense">Ajouter Dépense</a>
+                <a href="{% url 'dettes' %}" class="btn btn-dette">Ajouter Dette</a>
+                <a href="{% url 'document' %}" class="btn btn-autre">Documents</a>
             </div>
         </div>
 

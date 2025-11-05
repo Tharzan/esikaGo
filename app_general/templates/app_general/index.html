@@ -112,8 +112,8 @@
                 <div class="card-image">
                     <div class="overlay"></div>
                     <div class="article-content">
-                        <span class="category">Simple et rapide</span>
-                        <h2>Vos resrvations et gestion immobilière en un clic directement depuis chez vous </h2>  </div>
+                        <span class="category">Sécurité et gestion</span>
+                        <h2>la sécurité et  numérique au service de la croissance africaine</h2>  </div>
                 </div>
                 <div class="card-content">
                     <p>
@@ -129,7 +129,7 @@ des commandes pour optimiser vos revenus et faire grandir votre établissement.
                     <p>  
                        Commissaires bailleur gagnez en efficacité et en rentabilité. Gérez vos biens et vos locataires en toute simplicité
                          sur une seule plateforme, et optimisez vos revenus en un rien de temps
-                    </p>  <button>En savoir plus</button>
+                    </p> <a href="{% url 'about' %}"><button>En savoir plus</button></a> 
                 </div>
             </div>
 
@@ -246,7 +246,7 @@ des commandes pour optimiser vos revenus et faire grandir votre établissement.
                     </div>
                     {% endfor %}
                 </div>
-                <a href="#" class="cta-button"><button>Voir les biens disponible</button></a>
+                <a href="{% url 'liste_maison' %}" class="cta-button"><button>Voir les biens disponible</button></a>
     <br><br>        </div>
 
 
@@ -366,7 +366,7 @@ des commandes pour optimiser vos revenus et faire grandir votre établissement.
 
 
 
-        <a href="#" class="btn-dossiers"><button>Pour decouvrir plus</button> </a>
+        <a href="{% url 'liste_salon' %}" class="btn-dossiers"><button>Pour decouvrir plus</button> </a>
         <hr>
     </section>
 
@@ -390,7 +390,7 @@ des commandes pour optimiser vos revenus et faire grandir votre établissement.
                 <p>
                     Nous recherchons des membres impliqués, motivés par l'innovation et prêts à contribuer à la construction de l'immobilier de demain en partageant leurs connaissances et en collaborant avec d'autres leaders du secteur.
                 </p>
-                <a href="#" class="btn-dossiers"><button>Pour decouvrir plus</button> </a>
+                <a href="{% url 'liste_restaurant' %}" class="btn-dossiers"><button>Pour decouvrir plus</button> </a>
             </div>
 
             <div class="image-grid hide-mobile">
@@ -571,10 +571,8 @@ des commandes pour optimiser vos revenus et faire grandir votre établissement.
             <div class="footer-section about">
                 <h3>À PROPOS</h3>
                 <ul>
-                    <li><a href="#">Qui sommes-nous ?</a></li>
-                    <li><a href="#">Nos formateurs</a></li>
-                    <li><a href="#">Nos programmes de formation</a></li>
-                    <li><a href="#">Informations handicap</a></li>
+                    <li><a href="{% url 'about' %}">Qui sommes-nous ?</a></li>
+                   
                 </ul>
             </div>
 

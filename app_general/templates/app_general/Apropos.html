@@ -517,8 +517,7 @@ animation-delay: 0.5s; /* Délai avant que l'animation ne commence (après le ch
                 <div class="read-also-content">
                     <p class="read-also-title">**Lire aussi :**</p>
                     <p class="read-also-link">
-                        La chaîne de restaurants Bouillon Batignolles s'installe à **Luxembourg**
-                    </p>
+                          </p>
                 </div>
                 <div class="read-also-image">
                     [Image d'un chef ou d'un restaurateur]
@@ -540,21 +539,26 @@ animation-delay: 0.5s; /* Délai avant que l'animation ne commence (après le ch
 
 
             <div class="edition-box">
-                <h3 class="edition-title">Édition du soir</h3>
+                <h3 class="edition-title">Commencez maintenant</h3>
                 <p class="edition-text">
-                    L'actualité de la journée au Luxembourg et en Grande Région
+                    
                 </p>
+               <a href="{% url 'create_blog' %}">
+
                 <button class="subscribe-button">
                     S'inscrire >
                 </button>
+               </a> 
             </div>
 
             <div class="ad-disclaimer">
-                <p>Pas d'inquiétude ! Vous pouvez toujours vous désinscrire lorsque vous le souhaitez. Pour en savoir plus, consultez notre **politique de confidentialité**.</p>
+                <!--p>Pas d'inquiétude ! Vous pouvez toujours vous désinscrire
+                    
+                    lorsque vous le souhaitez. Pour en savoir plus, consultez notre
+                     **politique de confidentialité**.</p-->
             </div>
             
-            <p class="ad-label">Publicité</p>
-
+            
         </aside>
 
     </div>
@@ -563,37 +567,6 @@ animation-delay: 0.5s; /* Délai avant que l'animation ne commence (après le ch
 
                 
 
-            <div>
-                
-                    
-                    
-
-                        Notre plateforme fournit aux restaurants et salons un système de gestion complet et intégré : 
-nous optimisons les opérations internes via la numérisation (présence RFID, stocks, revenus) 
-et l'analyse par Data Science pour des ajustements de personnel intelligents. Simultanément, 
-nous augmentons leur visibilité en ligne pour capter la clientèle. Le problème critique du 
-"No-Show" est résolu en utilisant le service d'Escrow d'Hedera pour sécuriser un 
-prépaiement partiel, garantissant ainsi le revenu de l'établissement et obligeant les clients à 
-respecter leurs engagements ou à adhérer à une politique d'annulation transparente. 
-                    
-                <div class="card-img">
-                    <div class="content-img">
-                        <img src="{% static 'img/gerer.jpg' %}" alt="">
-                    </div>
-                    
-                        <div class="content-img">
-                        <img src="{% static 'img/gestiongraphique.jpg' %}" alt="">
-                    </div>
-                    
-                        <div class="content-img">
-                        <img src="{% static 'img/menu_en_ligne.jpg' %}" alt="">
-                    </div>
-                    
-                        <div class="content-img">
-                        <img src="{% static 'img/commande.jpg' %}" alt="">
-                    </div>
-                        
-                </div>
             </div>
             </div>
         </div>
@@ -602,94 +575,7 @@ respecter leurs engagements ou à adhérer à une politique d'annulation transpa
 
         </section>
 
-        <h2>🚀 Résumé Exécutif</h2>
-        <p>
-            Plateforme numérique conçue pour catalyser la Croissance Africaine
-             en résolvant le déficit critique de confiance et d'efficacité 
-             dans la gestion des services et 
-             des transactions essentielles. 
-             Nous assurons la sécurité, l’authenticité et la gestion complète
-              de l'immobilier, de la location, ainsi que des salons et restaurants,
-               en intégrant le pouvoir de la Data Science et la confiance inviolable
-                de la technologie Hedera Hashgraph (DLT).
-        </p>
-
-        <hr>
-
-        <h2>🌍 Notre Mission et Vision</h2>
-        
-        <h3>Notre Mission</h3>
-        <p>Notre objectif est de digitaliser et de sécuriser la gestion des services et des transactions essentielles en Afrique en fournissant une plateforme unifiée qui :</p>
-        <ul>
-            <li>Optimise les opérations et gère le risque de "No-Show" pour les restaurants et salons.</li>
-            <li>Facilite la visibilité en ligne et les réservations 24/7.</li>
-            <li>Apporte **transparence** et organisation aux professionnels de l'immobilier.</li>
-            <li>Garantit l'**authenticité de chaque document** (quittances, contrats) grâce à la DLT pour éliminer la fraude.</li>
-        </ul>
-
-        <h3>Notre Vision</h3>
-        <p>
-            Devenir la **plateforme d'autorité numérique de référence en Afrique**, où chaque titre de créance, contrat de travail ou preuve de paiement est instantanément authentifié et sécurisé par la technologie DLT, créant une **confiance numérique inviolable** qui libère le potentiel économique du continent.
-        </p>
-
-        <hr>
-
-        <h2>🧩 Problématiques Ciblées</h2>
-
-        <div class="problem-area">
-            <h4>L'Instabilité de la Gestion Locative Africaine et l'Authenticité des Documents</h4>
-            <p>Le marché immobilier est freiné par une gestion locative **archaïque** et **instable** (cahier de loyer, reçus manuscrits). L'absence de numérisation génère la **méfiance** et des risques financiers, notamment pour les investisseurs de la diaspora. L'Afrique manque cruellement d'une plateforme numérique standardisée pour l'**authentification formelle des titres de créance** (dettes, contrats), forçant le recours coûteux au papier et aux tiers témoins.</p>
-        </div>
-
-        <div class="problem-area">
-            <h4>Manque d'Outils de Gestion, Visibilité et le Fléau du "No-Show"</h4>
-            <p>Les salons et restaurants utilisent des systèmes basiques (papier/Excel), entraînant une **visibilité financière quasi nulle**. Le **"No-Show"** (client non-présent sans annulation) est une perte sèche de revenu. La faible présence en ligne limite l'acquisition de nouveaux clients et complique les réservations de dernière minute.</p>
-        </div>
-        
-        <hr>
-
-        <h2>✅ Nos Solutions et Services Détaillés</h2>
-
-        <div class="service-card">
-            <h4>Solution 1 : Gestion Locative Sécurisée et Quittances Incontestables</h4>
-            <p><strong>But :</strong> Offrir sécurité et confiance aux propriétaires, locataires et agents immobiliers, éliminant la dépendance à la présence physique ou aux intermédiaires non fiables.</p>
-            <ul>
-                <li>
-                    **Sécurité Multi-Facteurs :** Création de deux certificats de sécurité (clé publique/privée) + image pour la reconnaissance faciale.
-                </li>
-                <li>
-                    **Signature Numérique Authentifiée :** Un propriétaire signe numériquement un reçu après vérification (clé privée, mot de passe, reconnaissance faciale).
-                </li>
-                <li>
-                    **Ancrage Immuable (Hedera HCS) :** La preuve de signature est immédiatement ancrée sur le **Hedera Consensus Service (HCS)**.
-                </li>
-                <li>
-                    **Double Vérification :** Le reçu généré intègre un **QR Code** qui permet une vérification de l'authenticité à la fois sur notre plateforme et via le service tiers Hedera.
-                </li>
-                <li>
-                    **Paiements Locataires :** Nous sécurisons la preuve de paiement des locataires (même si le bailleur n'est pas inscrit) en ancrant les ID de transaction des agrégateurs de paiement sur Hedera HCS.
-                </li>
-            </ul>
-        </div>
-
-        <div class="service-card">
-            <h4>Solution 2 : Gestion Intégrée pour Salons et Restaurants & Fin du "No-Show"</h4>
-            <p><strong>But :</strong> Optimiser les opérations internes et garantir le revenu des établissements de services.</p>
-            <ul>
-                <li>
-                    **Système de Gestion Complet :** Numérisation des opérations internes (présence RFID, stocks, revenus).
-                </li>
-                <li>
-                    **Analyse Data Science :** Optimisation des ajustements de personnel et visibilité financière totale.
-                </li>
-                <li>
-                    **Éradication du "No-Show" :** Utilisation du **Smart Contract d'Escrow d'Hedera** pour sécuriser un prépaiement partiel. Cela garantit le revenu de l'établissement et oblige les clients à l'engagement.
-                </li>
-                <li>
-                    **Visibilité en Ligne :** Réservation 24/7, accès facile aux menus et tarifs, y compris pour les coiffeurs indépendants qui peuvent publier leurs travaux et vendre des produits.
-                </li>
-            </ul>
-        </div>
+   
 
         <div class="service-card">
             <h4>Solution 3 : Titres de Créance et Contrats Numériques Inviolables</h4>
@@ -717,15 +603,12 @@ respecter leurs engagements ou à adhérer à une politique d'annulation transpa
             <li>**Hedera Consensus Service (HCS) :** Enregistrement des preuves de paiement et des signatures pour l'immuabilité.</li>
             <li>**Smart Contracts Hedera :** Système d'Escrow (séquestre) pour la validation des prestations et la gestion du "No-Show".</li>
             <li>**Hedera Token Service (HTS) :** Gestion potentielle des paiements et commissions en jetons.</li>
-            <li>**Hedera File Service (HFS) :** Stockage des reçus et contrats sécurisés.</li>
+            
         </ul>
 
-        <div class="project-info">
-            <h3>EsikaGO | Hackathon Hedera 2025</h3>
-            <p><strong>Porteur de Projet :</strong> Tharcisse Nkongolo</p>
-            <p><strong>Ville/Pays :</strong> Kinshasa, RD Congo</p>
-            <p><strong>Contact :</strong> tharcissenkongolo02@gmail.com</p>
-        </div>
+        
+<h4 class="titre-salon" style="color:red; text-align: center;">Note: cette page est en cours d'edition et sera ameliorée</h4>
+
 
     </div>
         

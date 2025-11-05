@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quittance de Loyer</title>
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background-color: #f0f2f5;
+    color: #333;scrollbar-width: thin;
+}
+
+        * {box-sizing: inherit;}
+#page_{padding: 0px;}
+
+/* Barre latérale (Sidebar) */
+
+/* Section principale (Main Content) */
+.main-content {
+    flex-grow: 1;
+    padding: 0px;
+    margin-left: 55px;margin-top: 0px;
+    min-height: 100vh;
+    background-color: #f4f7f9;
+}
+
+
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+            margin-left: 220px;max-width: calc(100% - 220px);margin-right: 10px;
+background-color: #ffffff;padding: 20px; padding-top: 40px;padding-bottom: 40px;
+margin-bottom: 20px;
+        }
+        h1 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            font-family: 'Poppins', serif;
+            
+        }
+        .pdf-viewer {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            height: 600px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #ff9900;
+            color: white;
+            padding: 10px 25px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #e68a00;
+        }
+        .hedera-proof {
+            text-align: left;
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #e7f4ff;
+            font-family: 'Poppins', serif;
+        }
+        .hedera-proof p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        .hedera-proof strong {
+            color: rgb(0,0,255);
+        }
+        .hedera-proof a {
+            color: rgb(0,0,255);
+            font-weight: bold;
+            text-decoration: underline;
+            font-family: 'Poppins', serif;
+        }
+        .hedera-proof a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+        
+<div class="main-content">
+     <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Tableau de Bord</h2>
+
+                
+            </div>
+            
+            <div class="sidebar-nav">
+                
+                <ol>
+                    <li onclick="showTab('apercu')">
+                        <a href="{% url 'gestion_user' %}">Gestion Général</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Revenus</a>
+                    </li>
+                    <li onclick="showTab('depenses')">
+                        <a href="#">Dépenses</a>
+                    </li>
+                    <li onclick="showTab('salaires')">
+                        <a href="#">Dettes</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="{% url 'bien_immobilier' %}">Biens et location</a>
+                    </li>
+                    
+                </ol>
+            </div>
+        </aside>
+
+
+<div class="container">
+
+    {% if loyer.url_document %}
+        <h1>✅ Quittance de Loyer Enregistrée, Signée et Ancrée</h1>
+        <p>Le document PDF a été généré, signé numériquement et ancré sur le réseau <strong>Hedera Hashgraph</strong> pour garantir son authenticité.</p>
+
+        <!-- Bouton de téléchargement -->
+        <a href="{{ loyer.url_document.url }}" class="download-btn" download>
+            📄 Télécharger la Quittance PDF
+        </a>
+
+        
+
+        <!-- Section de preuve Hedera -->
+        <div class="hedera-proof">
+            <h3>🔐 Preuve d'Authenticité - Hedera Hashgraph</h3>
+
+            <p><strong>Empreinte (Hash du Document) :</strong><br>
+                {% if loyer.ancre_hedera %}
+                    {{ loyer.ancre_hedera }}
+                {% else %}
+                    <em>En attente d'information (hash non disponible)</em>
+                {% endif %}
+            </p>
+
+            <p><strong>Horodatage (Consensus Timestamp) :</strong><br>
+                {% if loyer.tp_hedera %}
+                    {{ loyer.tp_hedera }}
+                {% else %}
+                    <em>En attente de confirmation du consensus...</em>
+                {% endif %}
+            </p>
+
+            <p><strong>Numéro de Séquence HCS :</strong><br>
+                {% if loyer.sequence_number_hedera %}
+                    {{ loyer.sequence_number_hedera }}
+                {% else %}
+                    <em>Non encore confirmé</em>
+                {% endif %}
+            </p>
+
+            <!-- 🔗 Lien cliquable HashScan -->
+            {% if loyer.tp_hedera %}
+                <p>
+                    🔎 <a href="https://hashscan.io/testnet/transaction/{{ loyer.tp_hedera }}/message"
+                          target="_blank">
+                        Vérifier cette transaction sur Hedera HashScan
+                    </a>
+                </p>
+            {% else %}
+                <p>🔄 Le lien HashScan sera disponible une fois la transaction confirmée (quelques secondes).</p>
+            {% endif %}
+
+            <p>🧾 Ce document est <strong>infalsifiable</strong> et sa date de création est <strong>prouvée par le réseau Hedera.</strong></p>
+        </div>
+
+    {% else %}
+        <h1>⚠️ Erreur : Quittance introuvable</h1>
+        <p>Le chemin du fichier PDF n’a pas été trouvé. Veuillez contacter le support technique.</p>
+    {% endif %}
+
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -5,12 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/blog_mobile.css' %}">
-    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/blog.css' %}">
-    
     <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
     <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'blog/css/blog_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'blog/css/blog.css' %}">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <title>EsikaApp</title>
 
 </head>
@@ -22,11 +25,47 @@
 
         <div id="cacher"></div>
         {% include 'petit_menu_ordi.html' %}
-        {% include 'dashboard_blog.html' %}
+        
+
+        <aside class="sidebar">
+    <div class="sidebar-header">
+        <h2>Tableau de Bord</h2>
+
+        
+    </div>
+    
+    <div class="sidebar-nav">
+        
+        <ol>
+            <li class="active" onclick="showTab('apercu')">
+                <a href="#">Gestion Général</a>
+            </li>
+            <li onclick="">
+                <a href="#">Rerservations</a>
+            </li>
+            
+            <li onclick="showTab('salaires')">
+                <a href="#">Gestion Salaires</a>
+            </li>
+            <li onclick="showTab('revenus')">
+                <a href="{% url 'liste_employer' %}">Employés</a>
+            </li>
+            <li onclick="showTab('revenus')">
+                <a href="#">Presences Employer</a>
+            </li>
+        </ol>
+    </div>
+</aside>
+
     <div class="container">
         <h1>Programme de la Journée</h1> 
 
         <div class="intro-message">
+            <div class="event-date">
+                
+                        <span>25</span>
+                        <p>OCT</p>
+                    </div>
             <p>Bonjour ! Voici un aperçu des activités et des indicateurs clés pour la journée du <span id="current-date"></span>.</p>
         </div>
 

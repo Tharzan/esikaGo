@@ -199,11 +199,11 @@
                         {% csrf_token %}
                         <input type="number" name="annee" hidden value="{{ payements.0.annee }}">
                         <div class="form-field">
-                            <label for="telephone">Montan</label>
+                            <label for="telephone">Montant</label>
                             <input required type="number" id="telephone" name="montant" placeholder="Montant en $">
                         </div>
                         <div class="form-field">
-                            <label for="email">Le Mois du loyer</label>
+                            <label for="email">Mois conserner</label>
                             <select name="mois" id="" required>
                                 <option value="1">Janvier</option>
                                 <option value="2">Février</option>

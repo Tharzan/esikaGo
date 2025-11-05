@@ -1,8 +1,37 @@
 from pathlib import Path
+from hedera import (
+    Client, PrivateKey, AccountId, TopicId,
+    TopicMessageSubmitTransaction, Status,
+    # 🚨 Ajout de TransactionRecord pour obtenir l'horodatage
+    TransactionRecord 
+)
+import os
+import hashlib
+from dotenv import load_dotenv
+import time 
 
+load_dotenv() 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# CONVERSION IMMÉDIATE : Stocke la chaîne "0.0.7132193"
+
+HCS_TOPIC_ID_STRING = os.environ.get("HEDERA_TOPIC_ID")
+
+try:
+    if HCS_TOPIC_ID_STRING:
+        HCS_TOPIC_ID = TopicId.fromString(HCS_TOPIC_ID_STRING)
+    else:
+        # Gérer le cas où la variable est manquante (important pour les tests)
+        HCS_TOPIC_ID = None
+except Exception as e:
+    # Optionnel: lever une erreur claire si le format est incorrect
+    raise ValueError(f"HEDERA_TOPIC_ID est mal formaté : {e}")
+
+# 1. Configuration du Client (inchangée)
+OPERATOR_ID = AccountId.fromString(os.environ["MY_ACCOUNT_ID"])
+OPERATOR_KEY = PrivateKey.fromString(os.environ["MY_PRIVATE_KEY"])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/

@@ -1,3 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quittance de Loyer</title>
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background-color: #f0f2f5;
+    color: #333;scrollbar-width: thin;
+}
+
+        * {box-sizing: inherit;}
+#page_{padding: 0px;}
+
+/* Barre latérale (Sidebar) */
+
+/* Section principale (Main Content) */
+.main-content {
+    flex-grow: 1;
+    padding: 0px;
+    margin-left: 55px;margin-top: 0px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    text-align: center;
+      font-family: 'Poppins', serif;
+      padding-top: 40px;
+            
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+
+        <div id="cacher"></div>
+        
+        {% include 'petit_menu_ordi_user.html' %}
+        
+<div class="main-content">
 <h2>✅ Opération Réussie !</h2>
 <p>Votre clé de signature numérique a été générée et enregistrée dans nos systèmes. Vous devez maintenant la télécharger.</p>
 
@@ -15,3 +68,25 @@
 {% else %}
     <p>La clé a déjà été téléchargée ou l'opération a été finalisée.</p>
 {% endif %}
+
+
+
+</div>
+</div>
+
+
+<script src="{% static 'java/jquery.js' %}"></script>
+<script src="{% static 'java/java_all.js' %}"></script>
+<script src="{% static 'my_user/java/security.js' %}"></script>
+
+    <script>
+        $(document).ready(function() 
+        {
+        var svg_profile =$('.svg_security');
+
+        svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+        
+        });
+    </script>
+</body>
+</html>
