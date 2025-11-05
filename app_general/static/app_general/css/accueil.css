@@ -27,16 +27,7 @@ body {
     color: #333;
 }
 #page_{padding: 0px;}
-.sidebar {
-    min-width: 220px;
-    background-color: #ffffff;
-    color: #111;
-    
-    padding: 20px;padding-top: 0px;
-    
-    position: fixed;min-height: 100vh;overflow-y: auto;left: 50px;
-    
-}
+
 .defile
 {
     
@@ -56,34 +47,6 @@ body {
         bottom: 0; /* Revient à sa position normale (par rapport à son conteneur relatif) */
         opacity: 1;
     }
-}
-.sidebar-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.sidebar-nav ol {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar-nav li {
-    margin-bottom: 5px;
-    cursor: pointer;
-}
-
-.sidebar-nav a {
-    color: #111;
-    text-decoration: none;
-    display: block;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s;font-weight: 500;
-}
-
-.sidebar-nav a:hover,
-.sidebar-nav li.active a {
-    color: #f39c12;font-weight: 800;
 }
 
 .container {
@@ -214,12 +177,12 @@ margin-top: 40px;
     margin-top: 5px;
 }
 .action-buttons {
-    display: flex;
-    justify-content: space-around;
-    gap: 15px;
+    
+    
     margin-top: 20px;
 }
 .btn {
+    margin-top: 20px;
     display: inline-block;
     padding: 15px 25px;
     text-decoration: none;
@@ -228,8 +191,19 @@ margin-top: 40px;
     font-weight: bold;
     text-align: center;
     transition: background-color 0.3s ease;
+    min-width: 200px;
+
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-start;
 }
 .btn-revenu { background-color: #2ecc71; }
+.btn-revenu2 { background-color: #004080; }
 .btn-depense { background-color: #e74c3c; }
 .btn-dette { background-color: #f39c12; }
 .btn-autre { background-color: #95a5a6; }
@@ -250,6 +224,7 @@ margin-top: 40px;
     margin-bottom: 10px;
     border-radius: 6px;
 }
+.active{color:white}
 .alert-item.critical {
     background-color: #fce4e4;
     border-left: 4px solid #f44336;

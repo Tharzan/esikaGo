@@ -9,9 +9,15 @@ from django.views.generic import UpdateView
 from core.models import generer_cles_et_certificat,process_and_save_signature
 from django.conf import settings
 
-
+from django.contrib import messages
 from pathlib import Path
 from django.core.files import File
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+
+from django.http import StreamingHttpResponse , HttpResponseNotFound
+import os
+import time 
 
 from django.core.files.base import ContentFile
 
@@ -53,22 +59,26 @@ def security(request):
         base64_image_data = request.POST.get('verification_faciale')
         verification_faciale_file = None 
         
-        # Gestion du cas 'profil_existe_deja' (CORRIGÉ: utilise 'security' comme related_name)
-        if hasattr(request.user, 'security'): 
-            return HttpResponse('existe') 
+        
 
         
         if form.is_valid():
-            
+            # Gestion du cas 'profil_existe_deja' (CORRIGÉ: utilise 'security' comme related_name)
+            if hasattr(request.user, 'security'):
+                security = request.security
+                # En production on va le supprimer mais on met dans l'historique avant
+                security.delete() 
+                
+                
             # --- VÉRIFICATIONS MANUELLES et PRÉ-TRAITEMENTS ---
             
             if not signature_file_object:
-                form.add_error('signature', "La photo de votre signature est manquante.")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
+                messages.error(request,'signature', "La photo de votre signature est manquante.")
+                return render(request, 'MyUser/security.html', {'liste_blog': liste_blog})
             
             if not base64_image_data:
-                form.add_error('verification_faciale', "La photo de vérification faciale est manquante.")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
+                messages.error(request,'verification_faciale', "La photo de vérification faciale est manquante.")
+                return render(request, 'MyUser/security.html', {'liste_blog': liste_blog})
             
             # Décodage Base64
             try:
@@ -82,8 +92,8 @@ def security(request):
                 verification_faciale_file = ContentFile(base64.b64decode(imgstr), name=file_name)
                 
             except Exception as e:
-                form.add_error('verification_faciale', f"Erreur lors du décodage de l'image faciale: {e}")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
+                messages.error(request,'verification_faciale', f"Erreur lors du décodage de l'image faciale: {e}")
+                return render(request, 'MyUser/security.html', { 'liste_blog': liste_blog})
             
             
             # --- 1. TRAITEMENT DE LA SIGNATURE (OpenCV) ---
@@ -104,8 +114,8 @@ def security(request):
                 final_signature_abs_path = process_and_save_signature(temp_path)
                 
             except Exception as e:
-                form.add_error('signature', f"Erreur lors du traitement de la signature : {e}")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
+                messages.error(request,'signature', f"Erreur lors du traitement de la signature : {e}")
+                return render(request, 'MyUser/security.html', { 'liste_blog': liste_blog})
             
             finally:
                 if temp_path and os.path.exists(temp_path):
@@ -120,10 +130,10 @@ def security(request):
                     password
                 )
             except Exception as e:
-                form.add_error(None, f"Erreur de génération de clés : {e}")
+                messages.error(request, f"Erreur de génération de clés : {e}")
                 if final_signature_abs_path and os.path.exists(final_signature_abs_path):
                     os.remove(final_signature_abs_path)
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
+                return render(request, 'MyUser/security.html', {'liste_blog': liste_blog})
             
             
             # --- 3. PRÉPARATION ET SAUVEGARDE FINALE DANS LA DB ---
@@ -168,7 +178,7 @@ def security(request):
                 request.session['certificat_a_supprimer'] = certificat_cle_publique # Sera supprimé par la vue suivante
                 
                 return redirect('succes_security_rl')
-                return HttpResponse('ivi') 
+                
                 
             except Exception as e:
                 return HttpResponse('ivGGi')
@@ -199,6 +209,10 @@ def security(request):
 def document_view(request):
     user = request.user
     liste_blog = []
+    if hasattr(request.user, 'security'): 
+            has_security = True
+    else:
+            has_security = False
     
     # 1. Récupération des blogs (logique initiale)
     try:
@@ -206,27 +220,22 @@ def document_view(request):
         for objet in administre:
             liste_blog.append(objet.blog)
     except Exception as e:
-        print(f"Erreur lors de la récupération des blogs: {e}") 
+        
         pass 
-    return render(request, 'MyUser/document.html', {'liste_blog': liste_blog,})
+    return render(request, 'MyUser/document.html', {'liste_blog': liste_blog,'has_security': has_security  })
 
 
 @login_required(login_url='login')
 def succes_security_view(request):
-    # La vue vérifie si des chemins de clés sont présents pour afficher le bouton
+
     show_download_button = 'cle_privee_a_telecharger' in request.session
     
     context = {
         'show_download_button': show_download_button,
     }
+    
     return render(request, 'MyUser/succes_security.html', context)
-# Fichier: views.py
-from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
-# Importez StreamingHttpResponse (et non FileResponse)
-from django.http import StreamingHttpResponse , HttpResponseNotFound
-import os
-import time # Ajout de l'import time pour le délai (Windows)
+
 
 @login_required(login_url='login')
 def download_security_files(request):
@@ -295,387 +304,6 @@ def download_security_files(request):
         
         # Retourner à la page de succès pour informer l'utilisateur de l'échec
         return redirect('succes_security_url')
-
-@login_required(login_url='login')
-def download_security_filesg(request):
-    
-    cle_privee_path = request.session.get('cle_privee_a_telecharger')
-    certificat_path = request.session.get('certificat_a_supprimer')
-    
-    # 1. Nettoyage immédiat de la session pour empêcher le re-téléchargement
-    if 'cle_privee_a_telecharger' in request.session:
-        del request.session['cle_privee_a_telecharger']
-    if 'certificat_a_supprimer' in request.session:
-        del request.session['certificat_a_supprimer']
-    
-    # 2. Vérification d'existence du fichier
-    if not cle_privee_path or not os.path.exists(cle_privee_path):
-        # Si la clé est introuvable (déjà téléchargée ou erreur), on nettoie juste le certificat si besoin
-        if certificat_path and os.path.exists(certificat_path):
-             os.remove(certificat_path)
-        return redirect('succes_security_url') 
-
-    # 3. Création de la réponse de téléchargement
-    try:
-        file_handle = open(cle_privee_path, 'rb')
-        response = FileResponse(file_handle, content_type='application/octet-stream')
-        response['Content-Disposition'] = f'attachment; filename="{os.path.basename(cle_privee_path)}"'
-        
-        # 4. Fonctions de rappel pour le nettoyage sécurisé après l'envoi de la réponse
-
-        def delete_file_callback(path):
-            #Supprime le fichier du disque.
-            try:
-                if os.path.exists(path):
-                    os.remove(path)
-            except Exception as e:
-                # IMPORTANT: Logguer les erreurs de suppression
-                print(f"Erreur de suppression du fichier de clé: {e} - Chemin: {path}")
-
-        # Suppression de la CLÉ PRIVÉE après que la réponse a été rendue (le fichier envoyé)
-        response.add_post_render_callback(lambda r: delete_file_callback(cle_privee_path))
-        
-        # Suppression du CERTIFICAT PUBLIC immédiatement (il est déjà dans la DB)
-        if certificat_path and os.path.exists(certificat_path):
-            delete_file_callback(certificat_path)
-        
-
-        
-        success_url = request.build_absolute_uri(reverse('succes_security_url'))
-        response['Refresh'] = f'1; url={success_url}'
-        return response
-    
-    except Exception as e:
-        # Gérer l'échec de lecture/téléchargement et tenter le nettoyage immédiat.
-        if os.path.exists(cle_privee_path):
-            os.remove(cle_privee_path)
-        if certificat_path and os.path.exists(certificat_path):
-            os.remove(certificat_path)
-            
-        return redirect('succes_security_url')
-
-
-@login_required(login_url='login')
-def security2(request):
-    
-    user = request.user
-    liste_blog = []
-    
-    # 1. Récupération des blogs (logique initiale)
-    try:
-        
-        administre = BlogAdministrateur.objects.filter(user=user)
-        for objet in administre:
-            liste_blog.append(objet.blog)
-    except Exception as e:
-        
-        print(f"Erreur lors de la récupération des blogs: {e}") 
-        pass 
-
-    # --- Traitement POST ---
-    if request.method == 'POST':
-        form = FormSecurity(request.POST, request.FILES) 
-        password = request.POST.get('password')
-        
-        signature_file_object = request.FILES.get('signature') 
-        base64_image_data = request.POST.get('verification_faciale')
-        verification_faciale_file = None 
-        
-        # Gestion du cas 'profil_existe_deja' (CORRIGÉ le nom du related_name dans la vérification)
-        if hasattr(request.user, 'security'): 
-            return HttpResponse('existe') 
-
-        
-        if form.is_valid():
-            
-            # --- VÉRIFICATIONS MANUELLES et PRÉ-TRAITEMENTS ---
-            # ... (Logique pour la signature_file_object et base64_image_data, décodage Base64)
-            if not signature_file_object:
-                form.add_error('signature', "La photo de votre signature est manquante.")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            if not base64_image_data:
-                form.add_error('verification_faciale', "La photo de vérification faciale est manquante.")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            try:
-                # Décoder la chaîne Base64 en ContentFile
-                if 'base64,' in base64_image_data:
-                    format, imgstr = base64_image_data.split(';base64,') 
-                    ext = format.split('/')[-1]
-                else:
-                    raise ValueError("Format Base64 invalide pour l'image faciale.")
-                
-                file_name = f'{user.username}_face_{uuid.uuid4()}.{ext}'
-                verification_faciale_file = ContentFile(base64.b64decode(imgstr), name=file_name)
-                
-            except Exception as e:
-                form.add_error('verification_faciale', f"Erreur lors du décodage de l'image faciale: {e}")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            # --- 1. TRAITEMENT DE LA SIGNATURE (OpenCV) ---
-            temp_path = None
-            final_signature_abs_path = None
-            
-            try:
-                # ... (Création, écriture et appel de process_and_save_signature)
-                temp_dir = os.path.join(settings.MEDIA_ROOT, 'temp_uploads')
-                os.makedirs(temp_dir, exist_ok=True)
-                temp_filename = f"temp_{uuid.uuid4()}_{signature_file_object.name}"
-                temp_path = os.path.join(temp_dir, temp_filename)
-                
-                with open(temp_path, 'wb+') as destination:
-                    for chunk in signature_file_object.chunks():
-                        destination.write(chunk)
-                
-                final_signature_abs_path = process_and_save_signature(temp_path)
-                
-            except Exception as e:
-                form.add_error('signature', f"Erreur lors du traitement de la signature : {e}")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            finally:
-                if temp_path and os.path.exists(temp_path):
-                    os.remove(temp_path)
-
-            
-            # --- 2. GÉNÉRATION DE CLÉS ---
-            try:
-                # cle_privee_chemin est le chemin ABSOLU du fichier .key
-                # certificat_cle_publique est le chemin ABSOLU du fichier .pem
-                cle_privee_chemin, certificat_cle_publique = generer_cles_et_certificat(
-                    request.user.username, 
-                    password
-                )
-            except Exception as e:
-                form.add_error(None, f"Erreur de génération de clés : {e}")
-                if final_signature_abs_path and os.path.exists(final_signature_abs_path):
-                    os.remove(final_signature_abs_path)
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            
-            # --- 3. PRÉPARATION ET SAUVEGARDE FINALE ---
-            
-            security_instance = form.save(commit=False)
-            security_instance.user = request.user
-            
-            # --- 3.1 Sauvegarde des fichiers ---
-            
-            # 1. Sauvegarde de la VÉRIFICATION FACIALE (ContentFile)
-            security_instance.verification_faciale.save(
-                verification_faciale_file.name, 
-                verification_faciale_file, 
-                save=False
-            )
-            
-            # 2. Sauvegarde de la SIGNATURE (depuis le chemin absolu du fichier traité)
-            # ... (Logique inchangée pour la signature)
-            try:
-                media_root_path = Path(settings.MEDIA_ROOT)
-                final_path = Path(final_signature_abs_path) 
-                signature_relative_path = final_path.relative_to(media_root_path).as_posix()
-                
-                with open(final_signature_abs_path, 'rb') as f:
-                    file_object = File(f)
-                    security_instance.signature.save(signature_relative_path, file_object, save=False)
-                
-                # NOUVEAU: 3. Sauvegarde de la CLÉ PUBLIQUE (Certificat PEM - FileField)
-                certificat_path_obj = Path(certificat_cle_publique)
-                certificat_relative_path = certificat_path_obj.relative_to(media_root_path).as_posix()
-                
-                with open(certificat_cle_publique, 'rb') as f_cert:
-                    cert_file_object = File(f_cert)
-                    # Utiliser le chemin relatif calculé comme nom
-                    security_instance.cle_publique.save(certificat_relative_path, cert_file_object, save=False)
-
-                # 4. Sauvegarde finale de l'instance complète
-                security_instance.save() 
-                
-                # Nettoyage des fichiers traités/générés après la sauvegarde finale
-                if os.path.exists(final_signature_abs_path):
-                    os.remove(final_signature_abs_path) 
-                # !!! IMPORTANT: Nettoyer le fichier PEM généré aussi
-                if os.path.exists(certificat_cle_publique):
-                    os.remove(certificat_cle_publique)
-                # !!! IMPORTANT: Nettoyer la clé privée, car elle n'est pas stockée dans le modèle
-                if os.path.exists(cle_privee_chemin):
-                    os.remove(cle_privee_chemin)
-
-                return redirect('succes_security_url') 
-                
-            except Exception as e:
-                form.add_error(None, f"Erreur critique de sauvegarde finale: {e}")
-                # Nettoyage d'urgence en cas d'échec
-                if final_signature_abs_path and os.path.exists(final_signature_abs_path):
-                    os.remove(final_signature_abs_path)
-                if certificat_cle_publique and os.path.exists(certificat_cle_publique):
-                    os.remove(certificat_cle_publique)
-                if cle_privee_chemin and os.path.exists(cle_privee_chemin):
-                    os.remove(cle_privee_chemin)
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-        else:
-            return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-
-    # --- Traitement GET ---
-    # ... (Logique inchangée pour le GET)
-    else:
-        form = FormSecurity()
-        return render(request, 'MyUser/security.html', {
-            'form': form, 
-            'liste_blog': liste_blog,
-            'revenu_user': True 
-        })
-
-    
-    # --- Traitement POST ---
-"""if request.method == 'POST':
-        form = FormSecurity(request.POST, request.FILES) 
-        password = request.POST.get('password')
-        
-        # Le fichier de signature (UploadedFile dans request.FILES)
-        signature_file_object = request.FILES.get('signature') 
-        
-        # Le contenu de la vérification faciale (chaîne Base64 dans request.POST)
-        base64_image_data = request.POST.get('verification_faciale')
-        verification_faciale_file = None # Initialiser le futur objet ContentFile
-        
-        # Gestion du cas 'profil_existe_deja'
-        
-        if hasattr(request.user, 'security'): 
-            return HttpResponse('existe') 
-
-        
-        if form.is_valid():
-            
-            # --- VÉRIFICATIONS MANUELLES et PRÉ-TRAITEMENTS ---
-            
-           
-            if not signature_file_object:
-                form.add_error('signature', "La photo de votre signature est manquante.")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            # B. Vérification et Traitement du Base64 (Vérification faciale)
-            if not base64_image_data:
-                form.add_error('verification_faciale', "La photo de vérification faciale est manquante.")
-                # Retourne un rendu (pas un HttpResponse('erreur')) pour afficher l'erreur
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            try:
-                # Décoder la chaîne Base64 en objet ContentFile
-                # Le format attendu est "data:image/jpeg;base64,..."
-                if 'base64,' in base64_image_data:
-                    format, imgstr = base64_image_data.split(';base64,') 
-                    ext = format.split('/')[-1]
-                else:
-                    # Gérer le cas où le préfixe est manquant
-                    raise ValueError("Format Base64 invalide pour l'image faciale.")
-                
-                # Créer un ContentFile
-                file_name = f'{user.username}_face_{uuid.uuid4()}.{ext}'
-                verification_faciale_file = ContentFile(base64.b64decode(imgstr), name=file_name)
-                
-            except Exception as e:
-                form.add_error('verification_faciale', f"Erreur lors du décodage de l'image faciale: {e}")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-                
-            
-            # --- 1. TRAITEMENT DE LA SIGNATURE (OpenCV) ---
-            temp_path = None
-            final_signature_abs_path = None
-            
-            try:
-                # Création et écriture du fichier temporaire
-                temp_dir = os.path.join(settings.MEDIA_ROOT, 'temp_uploads')
-                os.makedirs(temp_dir, exist_ok=True)
-                temp_filename = f"temp_{uuid.uuid4()}_{signature_file_object.name}"
-                temp_path = os.path.join(temp_dir, temp_filename)
-                
-                with open(temp_path, 'wb+') as destination:
-                    for chunk in signature_file_object.chunks():
-                        destination.write(chunk)
-                
-                # Appel de la fonction de traitement d'image (doit retourner le chemin ABSOLU)
-                final_signature_abs_path = process_and_save_signature(temp_path)
-                
-            except Exception as e:
-                form.add_error('signature', f"Erreur lors du traitement de la signature : {e}")
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            finally:
-                # Nettoyage du fichier TEMPORAIRE
-                if temp_path and os.path.exists(temp_path):
-                    os.remove(temp_path)
-
-            
-            # --- 2. GÉNÉRATION DE CLÉS ---
-            try:
-                cle_privee_chemin, certificat_cle_publique = generer_cles_et_certificat(
-                    request.user.username, 
-                    password
-                )
-            except Exception as e:
-                form.add_error(None, f"Erreur de génération de clés : {e}")
-                # Nettoyage de la signature traitée en cas d'échec de la clé
-                if final_signature_abs_path and os.path.exists(final_signature_abs_path):
-                    os.remove(final_signature_abs_path)
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-            
-            # --- 3. PRÉPARATION ET SAUVEGARDE FINALE ---
-            
-            security_instance = form.save(commit=False)
-            security_instance.cle_publique = certificat_cle_publique
-            security_instance.user = request.user
-            
-            # --- 3.1 Sauvegarde des fichiers ---
-            
-            # 1. Sauvegarde de la VÉRIFICATION FACIALE (ContentFile)
-            security_instance.verification_faciale.save(
-                verification_faciale_file.name, 
-                verification_faciale_file, 
-                save=False # Ne pas sauvegarder l'instance ici
-            )
-            
-            # 2. Sauvegarde de la SIGNATURE (depuis le chemin absolu du fichier traité)
-            try:
-                media_root_path = Path(settings.MEDIA_ROOT)
-                final_path = Path(final_signature_abs_path) 
-                signature_relative_path = final_path.relative_to(media_root_path).as_posix()
-                
-                with open(final_signature_abs_path, 'rb') as f:
-                    file_object = File(f)
-                    security_instance.signature.save(signature_relative_path, file_object, save=False)
-
-                # 3. Sauvegarde finale de l'instance complète (champs texte + les deux fichiers)
-                security_instance.save() 
-                
-                # Nettoyage du fichier traité après la sauvegarde finale
-                if os.path.exists(final_signature_abs_path):
-                    os.remove(final_signature_abs_path) 
-
-                return redirect('succes_security_url') 
-                
-            except Exception as e:
-                # Gérer les erreurs de chemin/sauvegarde de la signature ou autre
-                form.add_error(None, f"Erreur critique de sauvegarde finale: {e}")
-                if final_signature_abs_path and os.path.exists(final_signature_abs_path):
-                    os.remove(final_signature_abs_path)
-                return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-            
-        else:
-            # Le formulaire n'est pas valide (erreurs de champs texte)
-            return render(request, 'MyUser/security.html', {'form': form, 'liste_blog': liste_blog})
-
-    # --- Traitement GET ---
-    else:
-        form = FormSecurity()
-        return render(request, 'MyUser/security.html', {
-            'form': form, 
-            'liste_blog': liste_blog,
-            'revenu_user': True 
-        })"""
-
 
 
 def createUser(request):

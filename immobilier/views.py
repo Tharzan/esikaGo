@@ -406,10 +406,9 @@ def ancre_hedera(request, loyer):
         
         payload = {
             "hash": document_hash,
-            # CORRECTION : Utiliser loyer.property pour les données
             "Locataire": loyer.property.nom_complet_occupant, 
             "description": 'Paiement du loyer ' + mois_annee_str,
-            # CORRECTION : Utiliser loyer.property.user pour obtenir le nom de l'utilisateur/bailleur
+         
             "bailleur": loyer.property.user.username 
         }
 
@@ -491,7 +490,17 @@ def update_consensus_timestmp(loyer_id, tx_timestamp_for_link):
 def view_quittance(request,id):
     
         quittance = Loyer.objects.get(id=int(id))
+        if quittance.signer:
+            quittance_signer = True
+        else:
+            quittance_signer = False
+
         property = quittance.property
+        if hasattr(request.user, 'security'): 
+            has_security = True
+        else:
+            has_security = False
+
         services_map = {
             'montant': 'montant',
             'date_payement': 'date_payement',
@@ -533,7 +542,8 @@ def view_quittance(request,id):
             montant_text = convertir_nombre_en_texte_francais(montant)
             recus['montant_text'] = montant_text
 
-        return render(request,'immobilier/apercu_quittance.html', {'recus': recus})   
+        return render(request,'immobilier/apercu_quittance.html', {'recus': recus,
+     'has_security': has_security,'quittance_signer': quittance_signer})   
 
    
 

@@ -32,11 +32,24 @@
 
     <div class="container">
         <div class="header">
-            <h1>Bienvenue, {{ request.user.username }}</h1>
-            <p style="font-size: 1.3em; font-weight: 500;">
+            <h1 >La Page pour tout vos documents</h1>
+
+            {% if has_security %}
+            <div class="Configuration">
+                <h2>Vous voulez mettre à jous vos informations de securité?
+                    </h2>
+                
+                <a href="{% url 'security' %}" class="security">mettre à jour </a>
+                    
+            </div>
+            <p class="about">
                 <span role="img" aria-label="shield">🛡️</span> 
-                Vous pouvez désormais **signer vos documents** et effectuer des **transactions sécurisées** grâce à votre identité numérique Esika.
+                Vous pouvez désormais signer vos documents et effectuer 
+                des transactions sécurisées grâce à votre identité numérique Esika.
             </p>
+            <br><br>
+<hr>
+<br><br>
 
             <div class="btn-container">
                 <button class="btn btn-sign" data-action="sign">
@@ -55,22 +68,36 @@
             <h2>✍️ Signature de Document</h2>
             <form action="/api/sign" method="POST" enctype="multipart/form-data">
                 <p style="color: red; font-weight: bold;">
-                    ⚠️ La clé privée doit être déjà téléchargée sur cette machine.
+                   
                 </p>
                 <div class="form-group">
                     <label for="sign-key-file">Clé Privée (.key) :</label>
                     <input type="file" id="sign-key-file" name="private_key" accept=".key" required>
                 </div>
                 <div class="form-group">
-                    <label for="sign-document">Document à Signer (PDF, DOCX) :</label>
+                    <label for="sign-document">Mot de pass de la clé:</label>
+                    <input type="password" id="sign-document" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="sign-document">Document à Signer (PDF) :</label>
                     <input type="file" id="sign-document" name="document" required>
                 </div>
-                 <div class="form-group">
-                    <label for="sign-facial-image">Photo Faciale pour Confirmation :</label>
-                    <input type="file" id="sign-facial-image" name="facial_image" accept="image/*" required>
+                 
+            <div class="form-group">
+                <label>Capture Faciale :    Appuyer sur  la zone</label>
+                <div id="video-container">
+                    <video id="camera-feed" autoplay playsinline>
+                
+                    </video>
                 </div>
+                <button type="button" id="capture-btn" class="btn-capture">Prendre la Photo</button>
+                <img id="captured-image-preview" alt="Aperçu de la photo capturée">
+                
+                <input type="hidden" name="verification_faciale" id="photo-faciale-base64">
+            </div>
                 <button type="submit" class="submit-btn btn-sign">Signer et Archiver</button>
             </form>
+            <canvas id="camera-canvas"></canvas>
         </div>
 
         <div class="action-block" id="block-verify">
@@ -121,14 +148,25 @@
                         <option value="CRYPTO">Crypto (HBAR)</option>
                     </select>
                 </div>
-                 <div class="form-group">
-                    <label for="pay-facial-image">Photo Faciale pour Confirmation :</label>
-                    <input type="file" id="pay-facial-image" name="facial_image" accept="image/*" required>
-                </div>
+               
                 <button type="submit" class="submit-btn btn-pay">Confirmer Paiement</button>
             </form>
         </div>
 
+          
+            {% else %}
+            <div class="Configuration">
+    <h2>🔑 Configuration de Sécurité Requise </h2>
+    <p> Pour des raisons de sécurité, vous devez configurer votre clé privée et la reconnaissance faciale.
+
+Cette configuration est essentielle pour vous permettre de **signer numériquement** tous vos documents de manière sécurisée (quittances, contrats, etc.). Une fois signés, vous pourrez les partager avec toute personne ou entité tierce pour une vérification immédiate.
+</p> <p> Veuillez procéder à cette configuration pour déverrouiller l'accès aux fonctionnalités de signature et d'ancrage Hedera. </p>
+    <a href="{% url 'security' %}" class="security">Configurer votre clé</a>
+        
+</div>
+
+            {% endif %}
+            
     </div>
 <script src="{% static 'java/jquery.js' %}"></script>
 <script src="{% static 'java/java_all.js' %}"></script>

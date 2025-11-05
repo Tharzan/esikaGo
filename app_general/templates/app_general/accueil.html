@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/accueil_mobile.css' %}">
-    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'app_general/css/accueil.css' %}">
-    
-    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+     <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
     
     <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
     
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/accueil_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'app_general/css/accueil.css' %}">
+    
+   
     
     
     <title>EsikaApp</title>
@@ -176,6 +177,7 @@
                 <a href="{% url 'depenses_user' %}" class="btn btn-depense">Ajouter Dépense</a>
                 <a href="{% url 'dettes' %}" class="btn btn-dette">Ajouter Dette</a>
                 <a href="{% url 'document' %}" class="btn btn-autre">Documents</a>
+                 <a href="{% url 'post_maison' %}" class="btn btn-revenu2">Poster la maison</a>
             </div>
         </div>
 
