@@ -30,13 +30,6 @@ L'Afrique fait face à plusieurs défis majeurs dans la gestion immobilière et 
 | **Gestion Optimisée** | Simplification de la gestion des propriétés, des paiements, et des réservations pour les propriétaires, restaurants et salons. | Base de données Django & Python |
 | **Lutte contre le No-Show** | Mise en place de mécanismes basés sur la traçabilité pour réduire l'absentéisme dans les services. | HCS et Logique Métier Sécurisée |
 
----
-
-
-
-C'est une excellente idée de bien détailler la section de configuration de votre `README`. Une documentation claire est essentielle pour que les utilisateurs puissent démarrer rapidement votre projet EsikaGo \!
-
-Voici la version structurée et détaillée de votre section d'installation, avec un formatage Markdown amélioré.
 
 -----
 
@@ -121,6 +114,7 @@ Pour tester rapidement les fonctionnalités Hedera et la signature numérique, v
 >
 >   * Un **nouveau mot de passe** sera demandé pour chiffrer la clé privée.
 >   * Une **image de référence** sera requise pour la reconnaissance faciale (utilisée pour l'authentification lors de la signature).
+## la premiere fois le processus sera long en fonction de votre conneion car dois telecharger un fichjier de plus de 500M pour la verification faciale
 
 ### Navigation Additionnelle
 
