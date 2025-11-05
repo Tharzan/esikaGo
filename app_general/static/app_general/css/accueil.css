@@ -27,7 +27,16 @@ body {
     color: #333;
 }
 #page_{padding: 0px;}
-
+.sidebar {
+    min-width: 220px;
+    background-color: #ffffff;
+    color: #111;
+    
+    padding: 20px;padding-top: 0px;
+    
+    position: fixed;min-height: 100vh;overflow-y: auto;left: 50px;
+    
+}
 .defile
 {
     
