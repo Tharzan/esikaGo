@@ -65,7 +65,7 @@ def security(request):
         if form.is_valid():
             # Gestion du cas 'profil_existe_deja' (CORRIGÉ: utilise 'security' comme related_name)
             if hasattr(request.user, 'security'):
-                security = request.security
+                security = request.user.security
                 # En production on va le supprimer mais on met dans l'historique avant
                 security.delete() 
                 

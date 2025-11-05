@@ -114,7 +114,7 @@ Pour tester rapidement les fonctionnalités Hedera et la signature numérique, v
 >
 >   * Un **nouveau mot de passe** sera demandé pour chiffrer la clé privée.
 >   * Une **image de référence** sera requise pour la reconnaissance faciale (utilisée pour l'authentification lors de la signature).
-## la premiere fois le processus sera long en fonction de votre conneion car dois telecharger un fichjier de plus de 500M pour la verification faciale
+## la premiere fois le processus sera long en fonction de votre connexion car le model  va telecharger un fichier de plus de 500M pour la verification faciale donc patientez et verifier l'avancement dans la fenetre du lancement de server
 
 ### Navigation Additionnelle
 
@@ -148,7 +148,9 @@ Extrait de code
 # Identifiants de votre compte Opérateur Hedera
 HEDERA_ACCOUNT_ID=0.0.xxxx
 HEDERA_PRIVATE_KEY="302e020100300706052b8104000a04220420..." 
-HCS_TOPIC_ID_STRING = "0.0.xxxxxxx" remplacer 
+HCS_TOPIC_ID_STRING = "0.0.xxxxxxx" remplacer
+
+## pour avoir un nouveau topic faite python create_topic.py ca va lancer le script python qui est à la racine du projet  et copier le HCS_TOPIC qui sera crée
 # Réseau utilisé : 'testnet' ou 'mainnet'
 HEDERA_NETWORK=testnet
 
