@@ -930,7 +930,7 @@ def succes_enregistrement_quittance(request, id):
     context = {
         'loyer': loyer, 
         'filename': filename,
-        'HCS_TOPIC_ID': settings.HCS_TOPIC_ID_STRING, 
+        'HCS_TOPIC_ID': settings.HCS_TOPIC_ID, 
     }#
     
     
