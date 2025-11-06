@@ -134,7 +134,7 @@ L’application sera accessible sur : 👉 http://127.0.0.1:8000/
 Le projet nécessite vos identifiants Hedera (pour l'ancrage des reçus) et d'autres paramètres sensibles. Ces informations doivent être stockées dans un fichier de variables d'environnement (.env) qui ne sera pas partagé publiquement.
 
 Étapes de Configuration
-Renommer le fichier d'exemple : Un fichier d'exemple nommé .env.example est fourni à la racine du projet. Renommez-le en .env :
+Renommer le fichier d'exemple : Un fichier d'exemple nommé .env.example est fourni à dans le sous dossier esika. Renommez-le en .env :
 
 Bash
 
@@ -150,7 +150,7 @@ HEDERA_ACCOUNT_ID=0.0.xxxx
 HEDERA_PRIVATE_KEY="302e020100300706052b8104000a04220420..." 
 HCS_TOPIC_ID_STRING = "0.0.xxxxxxx" remplacer
 
-## pour avoir un nouveau topic faite python create_topic.py ca va lancer le script python qui est à la racine du projet  et copier le HCS_TOPIC qui sera crée
+## pour avoir un nouveau topic faite python esika/create_topic.py ca va lancer le script python qui est à la racine du projet  et copier le HCS_TOPIC qui sera crée
 # Réseau utilisé : 'testnet' ou 'mainnet'
 HEDERA_NETWORK=testnet
 
