@@ -89,12 +89,11 @@ class Dettes(models.Model):
         return self.name +' '+ self.user.username
     
 class Secutity(models.Model):
-    #cle_publique = models.CharField(max_length=2000, blank=True,null=True)
     cle_publique = models.FileField(upload_to='certificats_publiques/', blank=True, null=True)
     signature = models.ImageField(upload_to='signature/')
     verification_faciale = models.ImageField(upload_to='image_faciale/',null=True,blank=True)
 
-    # Informatio de paiement
+    # Information de paiement
     id_hedera = models.CharField(max_length=255,blank=True,null=True)
     numero_bancaire = models.CharField(max_length=255,blank=True,null=True)
     paiement_mobile = models.CharField(max_length=255,blank=True,null=True)
@@ -115,23 +114,23 @@ class DocumentSigne(models.Model):
     Modèle pour stocker les documents PDF signés numériquement et ancrés sur Hedera.
     """
     
-    # --- Informations du Document Signé ---
-    
-    # Le fichier PDF signé, stocké sur le serveur
     document_signe = models.FileField(
         upload_to='documents_signes/',
         verbose_name="Document PDF Signé"
     )
-    
-    # Description ou type du document (ex: 'Quittance de Loyer', 'Contrat de Travail')
-    type_document = models.CharField(
+    code = models.CharField(
         max_length=100,
+        verbose_name="code",null=True,
+        default=''
+    )
+    
+    type_document = models.CharField(
+        max_length=255,
         verbose_name="Type de Document"
     )
     
-    # Hash du document (preuve que le contenu n'a pas changé)
     document_hash_sha256 = models.CharField(
-        max_length=64, # SHA-256 produit 64 caractères hexadécimaux
+        max_length=64, 
         verbose_name="Hash SHA-256 (Ancrage)"
     )
     
@@ -140,7 +139,7 @@ class DocumentSigne(models.Model):
     # Le Consensus Time d'Hedera (preuve temporelle)
     hedera_timestamp = models.CharField(
         max_length=255, 
-        unique=True, # Le timestamp doit être unique pour la preuve
+        
         verbose_name="Horodatage Hedera (Consensus Time)"
     )
     
@@ -160,15 +159,13 @@ class DocumentSigne(models.Model):
     
     # --- Liens avec l'Utilisateur ---
     
-    # Lien vers l'utilisateur qui a signé le document (pour savoir QUI a signé)
     signataire = models.ForeignKey(
-        MyUser, # Utiliser le modèle utilisateur par défaut ou MyUser
+        MyUser, 
         related_name='documents_signes',
         on_delete=models.CASCADE,
         verbose_name="Signataire"
     )
     
-    # Champ pour gérer le statut (Optionnel mais utile)
     statut = models.CharField(
         max_length=50,
         default='SIGNÉ & ANCRÉ',

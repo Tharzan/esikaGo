@@ -1,0 +1,466 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/accueil_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'app_general/css/accueil.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    
+    
+    <title>EsikaApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS INCLUS */
+        :root {
+            --color-sidebar-bg: #f0f2f5;
+            --color-sidebar-icons: #667781;
+            --color-list-bg: white;
+            --color-list-border: #e9edef;
+            --color-active-link: #d4e7f3; /* Couleur de la discussion sélectionnée */
+            --color-text-main: #111b21;
+            --color-text-secondary: #667781;
+            --color-green-indicator: #00a884;
+            --color-search-bg: #f0f2f5;
+            --color-panel-bg: white;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            background-color: #f4f4f4;
+            overflow: hidden;
+            color: var(--color-text-main);
+        }
+
+        /* --- CONTENEUR PRINCIPAL --- */
+        .app-container {
+            display: grid;
+            grid-template-columns: 55px 350px 1fr; /* Barre latérale | Liste des discussions | Panneau de contenu */
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            
+            margin: 0px;border-radius: 10px;
+        }
+
+        /* --- 1. BARRE LATÉRALE DE NAVIGATION (70px) --- */
+        .sidebar_ {
+            background-color: var(--color-sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            border-right: 1px solid var(--color-list-border);
+        }
+
+        .sidebar-icon {
+            color: var(--color-sidebar-icons);
+            font-size: 24px;
+            padding: 15px 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .sidebar-icon:hover {
+            color: var(--color-text-main);
+        }
+
+        .sidebar-icon.active {
+            color: var(--color-green-indicator);
+            border-right: 3px solid var(--color-green-indicator);
+        }
+
+        .icon-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--color-green-indicator);
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .user-profile {
+            margin-top: auto; /* Pousse l'élément en bas */
+            padding-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        /* --- 2. LISTE DES DISCUSSIONS (350px) --- */
+        .discussion-list-panel {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--color-list-border);
+            
+            border-radius: 12px 0px 0px 0px;
+            
+        }
+        
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--color-list-border);
+        }
+
+        .list-header h2 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .header-icons span {
+            color: var(--color-sidebar-icons);
+            font-size: 20px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--color-list-border);
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--color-search-bg);
+            color: var(--color-text-secondary);
+            font-size: 15px;
+        }
+
+        /* --- ÉLÉMENT DE DISCUSSION --- */
+        .discussion-item {
+            display: flex;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--color-list-border);
+        }
+        
+        .discussion-item.active {
+            background-color: var(--color-active-link);
+        }
+
+        .discussion-item:hover:not(.active) {
+            background-color: var(--color-list-border);
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .item-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-header strong {
+            font-weight: 500;
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-header small {
+            color: var(--color-text-secondary);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        
+        .item-preview {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2px;
+        }
+
+        .item-preview p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .unread-badge {
+            background-color: var(--color-green-indicator);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            line-height: 1;
+        }
+
+        /* Badge spécial pour 999+ */
+        .badge-999 {
+             background-color: #ff9800; /* Couleur orange/ambre */
+             width: auto;
+             padding: 2px 5px;
+             border-radius: 10px;
+        }
+
+        /* --- 3. PANNEAU DE CONTENU (GRANDE ZONE) --- */
+        .content-panel {
+            background-color: var(--color-panel-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            
+        }
+        
+        .content-panel .logo-wa {
+            width: 180px; /* Taille approximative du logo WA */
+            opacity: 0.1;
+            margin-bottom: 20px;
+        }
+
+        .content-panel h3 {
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--color-text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .content-panel p {
+            color: var(--color-text-secondary);
+            font-size: 15px;
+            max-width: 400px;
+            line-height: 1.4;
+        }
+
+        .content-panel small {
+            color: var(--color-text-secondary);
+            font-size: 13px;
+            margin-top: 50px;
+        }
+        
+        .content-panel .end-to-end {
+            display: flex;
+            align-items: center;
+            margin-top: 50px;
+        }
+        
+        .content-panel .end-to-end span {
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        
+        /* Utilitaires (Icônes) */
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+
+        /* Les profils doivent être remplacés par des images réelles */
+        .profile-placeholder-red { background-color: #e57373; }
+        .profile-placeholder-green { background-color: #81c784; }
+        .profile-placeholder-blue { background-color: #64b5f6; }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+     <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+    <div class="app-container">
+        <div class="sidebar_">
+            
+        </div>
+
+        <div class="discussion-list-panel">
+            <div class="list-header">
+                <h2>Discussions</h2>
+                <div class="header-icons">
+                    <span class="material-symbols-outlined">edit</span>
+                    <span class="material-symbols-outlined">more_vert</span>
+                </div>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Rechercher ou démarrer une discussion">
+            </div>
+            
+            <div class="discussion-items-container">
+                <div class="discussion-item">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjRkegAAAABJRU5ErkJggg==" class="profile-pic profile-placeholder-red" alt="Photo de profil">
+                    <div class="item-content">
+                        <div class="item-header">
+                            <strong>Jeunesse Kin-Ouest</strong>
+                            <small>18:07</small>
+                        </div>
+                        <div class="item-preview">
+                            <p>-La Prière Agit. Eeeh Oooh...🙏🥳</p>
+                            <span class="unread-badge badge-999">999+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-item active">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjRkegAAAABJRU5ErkJggg==" class="profile-pic profile-placeholder-green" alt="Photo de profil">
+                    <div class="item-content">
+                        <div class="item-header">
+                            <strong>DISTRIC/KASAI KO</strong>
+                            <small>17:52</small>
+                        </div>
+                        <div class="item-preview">
+                            <p>Pr Elvis: Mes condoléances les plus é...</p>
+                            <span class="unread-badge">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-item">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjRkegAAAABJRU5ERkJggg==" class="profile-pic" alt="Photo de profil">
+                    <div class="item-content">
+                        <div class="item-header">
+                            <strong>Maman</strong>
+                            <small>17:35</small>
+                        </div>
+                        <div class="item-preview">
+                            <p><span class="material-symbols-outlined" style="font-size: 16px; margin-right: 5px; color: red;">call_missed</span>Appel vocal-Accepté sur un autre ap...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-item">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjRkegAAAABJRU5ERkJggg==" class="profile-pic" alt="Photo de profil">
+                    <div class="item-content">
+                        <div class="item-header">
+                            <strong>Viacare</strong>
+                            <small>17:29</small>
+                        </div>
+                        <div class="item-preview">
+                            <p>Rodrigue: 🖼️ Image</p>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="discussion-item">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjRkegAAAABJRU5ERkJggg==" class="profile-pic" alt="Photo de profil">
+                    <div class="item-content">
+                        <div class="item-header">
+                            <strong>Vanessa</strong>
+                            <small>15:57</small>
+                        </div>
+                        <div class="item-preview">
+                            <p>Merci beaucoup 🙏</p>
+                            <span class="unread-badge">2</span>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="discussion-item">
+                    <img src="data:image/png;base64,iVBORw0BAQEBAAEAAgAAAAAgAAAAAQAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/AABEIAAQABAgACEQEDEQABAQAAAAAAAAAAAABfAECBAwAAgAAAAQAAAABAAAAAQAAAAAAAABfAAAAAAAAAAAAAAAAAAAAAP/aAAgBAwAAAAD8E//aAAgBAgAAAAD8E//aAAgBAQAAAAD8Bf/9k=" class="profile-pic profile-placeholder-blue" alt="Photo de profil">
+                    <div class="item-content">
+                        <div class="item-header">
+                            <strong>Ya Dady</strong>
+                            <small>14:53</small>
+                        </div>
+                        <div class="item-preview">
+                            <p>D'accord</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="discussion-item">
+                    <img src="data:image/png;base64,iVBORw0BAQEBAAEAAgAAAAAgAAAAAQAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/AABEIAAQABAgACEQEDEQABAQAAAAAAAAAAAABfAECBAwAAgAAAAQAAAABAAAAAQAAAAAAAABfAAAAAAAAAAAAAAAAAAAAAP/aAAgBAwAAAAD8E//aAAgBAgAAAAD8E//aAAgBAQAAAAD8Bf/9k=" class="profile-pic" alt="Photo de profil">
+                    <div class="item-content">
+                        <div class="item-header">
+                            <strong>Keren Furah ODC</strong>
+                            <small>14:52</small>
+                        </div>
+                        <div class="item-preview">
+                            <p>Je ne comprends pas bien quel lien?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-panel">
+            
+            
+            <p>
+                Envoyez et recevez des messages .
+            
+            </p>
+            
+            
+        </div>
+    </div>
+    </div>
+
+<script src="{% static 'java/jquery.js' %}"></script>
+<script src="{% static 'java/java_all.js' %}"></script>
+<script src="{% static 'app_general/java/app_general.js' %}"></script>
+
+    <script>
+        $(document).ready(function() 
+        {
+        var svg_profile =$('.svg_message');
+
+        svg_profile.attr('fill','#f39c12').css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+        
+        });
+</script>
+</body>
+</html>

@@ -117,15 +117,26 @@
      
     {% if quittance_signer %}
      <div class="security-note">
-            ⚠️ Ce document est déjà signer partage ou télecharger
+            ⚠️ Ce document est déjà signer partage le  ou télecharger
 
         </div>
+
+         <div class="download">
+            
+
+             <a href="{{ download }}" class="download-btn" download>
+            📄 Télécharger la Quittance PDF
+        </a>
+        
+
+         </div>
 
     {% else %}
      <div class="security-note">
             ⚠️ Ce document n'st pas encore signer pour le partager ou telecharger vous devez d'abord le signer
 
         </div>
+       
 
     {% endif %}
    

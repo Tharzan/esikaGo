@@ -49,7 +49,7 @@ background-color: #ffffff;padding: 20px; padding-top: 40px;padding-bottom: 40px;
 margin-bottom: 20px;
         }
         h1 {
-            color: #27ae60;
+            color: rgb(0,0,125);
             margin-bottom: 10px;
             font-family: 'Poppins', serif;
             
@@ -80,11 +80,15 @@ margin-bottom: 20px;
         .download-btn:hover {
             background-color: #e68a00;
         }
+        .download{
+            display: flex;
+            justify-content: right;
+        }
         .hedera-proof {
             text-align: left;
             margin-top: 30px;
             padding: 15px;
-            border: 1px solid #007bff;
+            border: 1px solid rgb(0,0,125);
             border-radius: 5px;
             background-color: #e7f4ff;
             font-family: 'Poppins', serif;
@@ -94,10 +98,10 @@ margin-bottom: 20px;
             font-size: 0.9em;
         }
         .hedera-proof strong {
-            color: rgb(0,0,255);
+            color: rgb(0,0,125);
         }
         .hedera-proof a {
-            color: rgb(0,0,255);
+            color: rgb(0,0,125);
             font-weight: bold;
             text-decoration: underline;
             font-family: 'Poppins', serif;
@@ -154,10 +158,14 @@ margin-bottom: 20px;
         <p>Le document PDF a été généré, signé numériquement et ancré sur le réseau <strong>Hedera Hashgraph</strong> pour garantir son authenticité.</p>
 
         <!-- Bouton de téléchargement -->
-        <a href="{{ loyer.url_document.url }}" class="download-btn" download>
+         <div class="download">
+
+             <a href="{{ loyer.url_document.url }}" class="download-btn" download>
             📄 Télécharger la Quittance PDF
         </a>
 
+         </div>
+       
         
 
         <!-- Section de preuve Hedera -->
@@ -165,24 +173,24 @@ margin-bottom: 20px;
             <h3>🔐 Preuve d'Authenticité - Hedera Hashgraph</h3>
 
             <p><strong>Empreinte (Hash du Document) :</strong><br>
-                {% if loyer.ancre_hedera %}
-                    {{ loyer.ancre_hedera }}
+                {% if loyer.document_hash_sha256 %}
+                    {{ loyer.document_hash_sha256 }}
                 {% else %}
                     <em>En attente d'information (hash non disponible)</em>
                 {% endif %}
             </p>
 
             <p><strong>Horodatage (Consensus Timestamp) :</strong><br>
-                {% if loyer.tp_hedera %}
-                    {{ loyer.tp_hedera }}
+                {% if loyer.hedera_timestamp %}
+                    {{ loyer.hedera_timestamp }}
                 {% else %}
                     <em>En attente de confirmation du consensus...</em>
                 {% endif %}
             </p>
 
             <p><strong>Numéro de Séquence HCS :</strong><br>
-                {% if loyer.sequence_number_hedera %}
-                    {{ loyer.sequence_number_hedera }}
+                {% if loyer.hedera_transaction_id  %}
+                    {{ loyer.hedera_transaction_id  }}
                 {% else %}
                     <em>Non encore confirmé</em>
                 {% endif %}
@@ -191,7 +199,7 @@ margin-bottom: 20px;
             <!-- 🔗 Lien cliquable HashScan -->
             {% if loyer.tp_hedera %}
                 <p>
-                    🔎 <a href="https://hashscan.io/testnet/transaction/{{ loyer.tp_hedera }}/message"
+                    🔎 <a href="{{ loyer.lien_verification_hedera }}"
                           target="_blank">
                         Vérifier cette transaction sur Hedera HashScan
                     </a>

@@ -232,7 +232,7 @@ def generer_cles_et_certificat2(nom_signataire, mot_de_passe):
 
 def upload_to_unique_uuid(instance, filename):
         ext = filename.split('.')[-1]
-        filename_unique = f"{uuid.uuid4().hex[:8]}.{ext}"
+        filename_unique = f"{uuid.uuid4().hex}.{ext}"
         return os.path.join('video_presentation', filename_unique)
     
 

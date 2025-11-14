@@ -18,4 +18,15 @@ urlpatterns = [
 
     re_path('security/download/', views.download_security_files, name='download_security_files'),
     # Le chemin de succès après téléchargement (succes_security_url) doit aussi exister
+
+    # 1. URL pour afficher le formulaire d'upload et traiter la signature/ancrage
+    # Nommé 'sign_and_anchor_document' comme utilisé dans le template HTML
+    path('signDocument/', views.sign_and_anchor_document, name='sign_and_anchor_document'),
+    
+    # 2. URL pour la vérification du document via le QR code
+    # <str:code> permet de capturer l'UUID généré dans l'URL (ex: /authentify/a1b2c3d4...)
+    path('authentify/<str:code>/', views.authentify_document, name='authentify_document'),
+    
+    # URL pour afficher les détails du document signé après l'enregistrement
+    path('document/<int:pk>/', views.document_detail, name='document_detail'),
 ]

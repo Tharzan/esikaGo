@@ -1,5 +1,4 @@
 from django.shortcuts import render,HttpResponse, redirect
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from immobilier.models import ImageMaisons
@@ -7,51 +6,37 @@ from immobilier.forms import *
 from django.contrib import messages
 from blog.models import BlogAdministrateur
 import datetime
-
 from immobilier.models import *
+from my_user.models import DocumentSigne
 
-import os
-import hashlib
-from dotenv import load_dotenv
-import time 
 from django.shortcuts import render, get_object_or_404
-import os.path
 from num2words import num2words
-import threading 
-from django.conf import settings
 from .models import Loyer
-from hedera import Client, Status, TransactionId, TransactionRecord 
+from hedera import Client, Status
 
-
-import tempfile
 from pyhanko.pdf_utils.incremental_writer import IncrementalPdfFileWriter
 from pyhanko.sign import signers, PdfSignatureMetadata
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import pkcs12
 from cryptography import x509
 
-from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 import os 
-from reportlab.lib.pagesizes import landscape
 
+
+import hashlib
+from django.http import HttpResponse
+from pyhanko.pdf_utils.reader import PdfFileReader
+from my_user.models import Secutity  
+from immobilier.models import Loyer    
 
 import base64
 import tempfile
 from cryptography.hazmat.backends import default_backend
-
-
 import io 
-import os 
-import time
+
 from django.shortcuts import redirect, render
-from django.http import StreamingHttpResponse, HttpResponseNotFound
-from django.contrib.auth.decorators import login_required
+
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from django.conf import settings # 🚨 NOUVEL IMPORT POUR ACCÉDER AUX PARAMÈTRES DJANGO
@@ -315,6 +300,7 @@ def historique_maison(request,id):
                 data = 'http://172.20.10.3:8000/verify/' + name
                 nouveau_loyer.image_qr(data)
                 nouveau_loyer.code = name
+                nouveau_loyer.signataire = request.user
                 nouveau_loyer.save()
                 
                 
@@ -343,29 +329,6 @@ def convertir_nombre_en_texte_francais(nombre):
     
 
 
-def update_consensus_timestamp(loyer_id, tx_id_str):
-    """Exécute l'appel bloquant getRecord dans un thread séparé."""
-    try:
-        loyer = Loyer.objects.get(id=loyer_id)
-        client = Client.forTestnet()
-        
-        # 1. Reconstruire l'ID de Transaction à partir de la chaîne stockée
-        tx_id = TransactionId.fromString(tx_id_str)
-        
-        # 2. Exécuter l'opération LENTE (getRecord)
-        # Ceci attend la confirmation finale, mais ne bloque pas le serveur web.
-        record = TransactionRecord.newQuery().setTransactionId(tx_id).execute(client)
-        
-        # 3. Sauvegarder l'Horodatage si la transaction est un succès
-        if record and record.receipt.status == Status.SUCCESS:
-            # Le consensusTimestamp est un objet qu'il faut convertir en string
-            loyer.tp_hedera = record.consensusTimestamp.toString() 
-            loyer.save()
-            print(f"✅ Horodatage mis à jour pour Loyer ID {loyer_id}: {loyer.tp_hedera}")
-        
-    except Exception as e:
-        # En cas d'échec (ex: Testnet trop lent ou transaction jamais trouvée)
-        print(f"❌ Échec de la récupération du Timestamp pour Loyer ID {loyer_id}: {e}")
 def calculate_file_hash(request,file_path_on_disk): # Renommé l'argument pour la clarté
     hasher = hashlib.sha256()
     try:
@@ -378,6 +341,31 @@ def calculate_file_hash(request,file_path_on_disk): # Renommé l'argument pour l
         # CORRECTION : Retourner un message d'erreur Django
         messages.error(request, f"Erreur: Le fichier '{file_path_on_disk}' n'a pas été trouvé.")
         return None
+    
+
+
+
+
+HEDERA_CLIENT_READY = False
+try:
+    
+
+    HCS_TOPIC_ID = settings.HCS_TOPIC_ID 
+    OPERATOR_ID = settings.OPERATOR_ID 
+    OPERATOR_KEY = settings.OPERATOR_KEY 
+    # Récupérer le réseau pour la construction du lien HashScan
+    NETWORK = os.environ.get("NETWORK", "testnet") 
+
+    # 2. Configuration du Client
+    client = Client.forTestnet() if NETWORK == "testnet" else Client.forMainnet()
+    client.setOperator(OPERATOR_ID, OPERATOR_KEY)
+    HEDERA_CLIENT_READY = True
+
+
+except Exception as e:
+    print(f"❌ Erreur de configuration du client Hedera. L'ancrage ne fonctionnera pas : {e}")
+
+
     
 def ancre_hedera(request, loyer):
 
@@ -395,16 +383,32 @@ def ancre_hedera(request, loyer):
         
     document_hash = calculate_file_hash(request,document_file_path) 
 
-    document_hash = calculate_file_hash(request,document_file_path) 
+    
     
     mois_map = {"1":'Janvier','2':'Février','3':'Mars','4':'Avril','5':'Mai','6':'Juin','7':'Juillet','8':'Août','9':'Séptembre','10':'Octobre','11':'Novembre','12':'Décembre'}
         
 
     if document_hash:
+
+        loyer.document_hash_sha256 = document_hash
+        loyer.signataire= request.user
+        loyer.hedera_timestamp="PENDING"
+        loyer.hedera_transaction_id="PENDING"
+        loyer.lien_verification_hedera=None
+        loyer.statut="SIGNÉ"
+                
+        loyer.save() 
+
+
+
+    
+        try:
+            mois_annee_str = mois_map[str(loyer.mois)] + ' ' + str(loyer.annee)
         
-        mois_annee_str = mois_map[str(loyer.mois)] + ' ' + str(loyer.annee)
         
-        payload = {
+            mois_annee_str = mois_map[str(loyer.mois)] + ' ' + str(loyer.annee)
+
+            payload = {
             "hash": document_hash,
             "Locataire": loyer.property.nom_complet_occupant, 
             "description": 'Paiement du loyer ' + mois_annee_str,
@@ -412,85 +416,71 @@ def ancre_hedera(request, loyer):
             "bailleur": loyer.property.user.username 
         }
 
-        message_to_send = json.dumps(payload, ensure_ascii=False).encode('utf-8')
-
-        
-        transaction = (
-            TopicMessageSubmitTransaction()
-            .setTopicId(HCS_TOPIC_ID)
-            .setMessage(message_to_send)
-        
-            
-        )
-       
-
-        try:
+            message_to_send = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+           
+                    
+            transaction = (
+                        TopicMessageSubmitTransaction()
+                        .setTopicId(HCS_TOPIC_ID)
+                        .setMessage(message_to_send)
+                    )
 
             tx_response = transaction.execute(client)
-    
-            record = tx_response.getRecord(client)
-            
+            # Attendre le record pour obtenir l'horodatage de consensus
+            record = tx_response.getRecord(client) 
+                    
             if record.receipt.status == Status.SUCCESS:
-                
-                consensus_time = record.consensusTimestamp.toString()
-                loyer.ancre_hedera = document_hash
-                loyer.tp_hedera = consensus_time
-                loyer.signer = True
-                loyer.save() 
-                
-
-            
-
-                return True 
+                    consensus_time = record.consensusTimestamp.toString()
+                    tx_id = tx_response.transactionId.toString()
+                        
+                    
+                    explorer_link = f"https://hashscan.io/{NETWORK}/transaction/{tx_id}"
+                        
+                    # 4. Mise à jour de l'objet si succès
+                    loyer.hedera_timestamp = consensus_time
+                    loyer.hedera_transaction_id = tx_id
+                    loyer.lien_verification_hedera = explorer_link
+                    loyer.statut = "SIGNÉ & ANCRÉ"
+                    loyer.document_hash_sha256 = document_hash
+                    hcs_success = True
+                        
+                        # Sauvegarde des champs mis à jour uniquement
+                    loyer.save(update_fields=['hedera_timestamp','document_hash_sha256', 'hedera_transaction_id', 'lien_verification_hedera', 'statut'])
+                        
+                        
+            else:
+                    loyer.statut = "SIGNÉ (Échec Ancrage HCS)"
+                    loyer.save(update_fields=['statut'])
+                    messages.error(request, f"❌ ÉCHEC HCS. Statut : {record.receipt.status.toString()}")
+            return True             
         except Exception as e:
-            messages.error(request, f"❌ Erreur lors de l'envoi de la transaction Hedera : {e}")
-            return False        
-        
+            loyer.statut = "SIGNÉ (Erreur de connexion HCS)"
+            loyer.save(update_fields=['statut'])
+            messages.error(request, f"❌ Exception lors de l'appel HCS: {e}")
 
-    return False # Retourne False si le hash n'a pas pu être calculé
+            return False
+        
+           
 
-
-def update_consensus_timestmp(loyer_id, tx_timestamp_for_link):
-    """
-    Exécute l'appel bloquant TransactionRecord.newQuery en arrière-plan.
-    Met à jour le champ 'tp_hedera' avec le véritable Horodatage de Consensus.
-    """
-    try:
-        loyer = Loyer.objects.get(id=loyer_id)
-        
-        # 1. Configurer le client
-        client = Client.forTestnet()
-        # OPERATOR_ID est nécessaire pour reconstruire le TxID complet
-        client.setOperator(settings.OPERATOR_ID, settings.OPERATOR_KEY) 
-        
-        # 2. Reconstruire l'ID de Transaction complet (Ex: 0.0.X@1762263256.202613000)
-        full_tx_id_str = f"{settings.OPERATOR_ID.toString()}@{tx_timestamp_for_link}" 
-        tx_id = TransactionId.fromString(full_tx_id_str)
-        
-        # 3. Exécuter l'opération LENTE et bloquante
-        record = TransactionRecord.newQuery().setTransactionId(tx_id).execute(client)
-        
-        if record and record.receipt.status == Status.SUCCESS:
-            
-            # 4. Stocker l'Horodatage de CONSENSUS (la preuve finale)
-            # Ceci met à jour le champ tp_hedera dans la base de données après la latence du réseau
-            loyer.tp_hedera = record.consensusTimestamp.toString() 
-            loyer.save()
-            print(f"✅ Horodatage de Consensus mis à jour pour Loyer ID {loyer_id}: {loyer.tp_hedera}")
-        
-    except Loyer.DoesNotExist:
-        print(f"Loyer ID {loyer_id} non trouvé pour mise à jour.")
-    except Exception as e:
-        print(f"❌ Échec de la récupération du Record en arrière-plan pour Loyer ID {loyer_id}: {e}")
-
-
+   
 
 
 @login_required    
 def view_quittance(request,id):
-    
-        quittance = Loyer.objects.get(id=int(id))
-        if quittance.signer:
+        
+        
+        
+        try:
+            quittance = Loyer.objects.get(id=int(id))
+        except:
+            return redirect('accueil')  
+        try: 
+            download = quittance.url_document.url
+            
+        except:
+            download = None
+        
+        if quittance.statut ==  'SIGNÉ & ANCRÉ':
             quittance_signer = True
         else:
             quittance_signer = False
@@ -542,7 +532,7 @@ def view_quittance(request,id):
             montant_text = convertir_nombre_en_texte_francais(montant)
             recus['montant_text'] = montant_text
 
-        return render(request,'immobilier/apercu_quittance.html', {'recus': recus,
+        return render(request,'immobilier/apercu_quittance.html', {'recus': recus,'download': download,
      'has_security': has_security,'quittance_signer': quittance_signer})   
 
    
@@ -598,16 +588,18 @@ def verification_facial(path1, path2):
         if os.path.exists(path2):
             os.unlink(path2)
 
-
 def generate_receipt_pdf_in_memory(data):
     """
-    Génère le PDF de la quittance de loyer dans un buffer BytesIO.
+    Génère le PDF de la quittance de loyer dans un buffer BytesIO,
+    intégrant la signature et la certification sur une seule page.
     """
     buffer = io.BytesIO()
     
+    # Horodatage dynamique
+    now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
     # Configuration du Document
-    doc = SimpleDocTemplate(
-        buffer,  # Écrit dans le buffer
+    doc = SimpleDocTemplate(buffer,
         pagesize=A4,
         rightMargin=50, leftMargin=50,
         topMargin=50, bottomMargin=50
@@ -615,22 +607,41 @@ def generate_receipt_pdf_in_memory(data):
     elements = []
     styles = getSampleStyleSheet()
 
-    # Définition des Styles Personnalisés (Utilisant FONT_NAME et BOLD_FONT_NAME)
+    # Définition des Styles Personnalisés (Réutilisation des styles existants)
     styles.add(ParagraphStyle(name='DefaultText', parent=styles['Normal'], fontName=FONT_NAME))
     styles.add(ParagraphStyle(name='TitleStyle', parent=styles['Heading1'], fontSize=28, alignment=1, spaceAfter=15, fontName=BOLD_FONT_NAME, textColor=colors.HexColor('#000')))
     styles.add(ParagraphStyle(name='SubtitleStyle', parent=styles['DefaultText'], fontSize=13, alignment=1, spaceAfter=30, textColor=colors.HexColor('#666666')))
     styles.add(ParagraphStyle(name='MainText', parent=styles['DefaultText'], fontSize=15, alignment=4, leading=22, spaceAfter=30))
     styles.add(ParagraphStyle(name='InfoSection', parent=styles['DefaultText'], fontSize=13, leading=18))
-    styles.add(ParagraphStyle(
-        name='SignatureTextStyle',
-        parent=styles['DefaultText'],
-        fontSize=12, 
-        fontName=BOLD_FONT_NAME 
-    ))
-    qr_text_style = styles['DefaultText']
-    qr_text_style.alignment = 1 
-    qr_text_style.fontSize = 8 
     
+    # Style pour les labels de la section de certification
+    styles.add(ParagraphStyle(
+        name='CertLabel',
+        parent=styles['DefaultText'],
+        fontSize=10, 
+        fontName=BOLD_FONT_NAME,
+        textColor=colors.HexColor('#111')
+    ))
+    # Style pour les valeurs de la section de certification
+    styles.add(ParagraphStyle(
+        name='CertValue',
+        parent=styles['DefaultText'],
+        fontSize=10, 
+        textColor=colors.HexColor('#333')
+    ))
+    # Style pour le message de sécurité centré (Inspiré du style d'Helvetica)
+    styles.add(ParagraphStyle(
+        name='SecurityText',
+        parent=styles['Normal'], # Utiliser Normal pour un style de base similaire à l'exemple
+        fontSize=9, 
+        alignment=1, # Centré
+        spaceBefore=12,
+        spaceAfter=0,
+        fontName=FONT_NAME,
+        textColor=colors.HexColor('#333333')
+    ))
+    
+    # --- Contenu principal ---
     elements.append(Paragraph(data["titre"], styles['TitleStyle']))
     elements.append(Paragraph(data["sous_titre"], styles['SubtitleStyle']))
     
@@ -650,7 +661,6 @@ def generate_receipt_pdf_in_memory(data):
         f'</font>'
     )
 
-
     body_text_1 = (
         f'Le soussigné, bailleur, déclare avoir reçu de <b>{data["nom_locataire"]}</b>, locataire du bien '
         f'mentionné ci-dessus, la somme de {amount_text} pour le paiement du loyer du '
@@ -660,60 +670,86 @@ def generate_receipt_pdf_in_memory(data):
     body_text_2 = '<font size="12" color="#000">Cette quittance a été établie pour servir et faire valoir ce que de droit.</font>'
     
     elements.append(Paragraph(body_text_1, styles['MainText']))
-    elements.append(Paragraph(body_text_2, styles['MainText'])) # L'erreur se produit ici
-
-
+    elements.append(Paragraph(body_text_2, styles['MainText']))
     
-    elements.append(Paragraph(f'Fait à <b>{data["ville_fait"]}</b>, le {data["date_fait"]}', styles['DefaultText']))
-    elements.append(Spacer(1, 0.2 * inch))
+    
 
-    # --- Section Signature ---
+    # --- Section Signature (Bailleur seulement) et Certification ---
+    
+   
     try:
-        
-        signature_image = Image(get_font_path(data["signature"]), width=2*inch, height=0.8*inch)
+        signature_image = Image(get_font_path(data["signature"]), width=2.5*inch, height=1*inch)
     except Exception:
-        signature_image = Paragraph('Pas de signature (Image manquante)', styles['SignatureTextStyle'])
+        signature_image = Paragraph('Signature manquante', styles['CertValue'])
 
-    COL_WIDTH_LOCATAIRE = 3.5 * inch
-    COL_WIDTH_BAILLEUR = 3.5 * inch
+    try:
+        qr_code_image = Image(get_font_path(data["qr"]), width=1.5*inch, height=1.5*inch) 
+    except Exception:
+        qr_code_image = Paragraph("QR Code non trouvé.", styles['CertValue'])
+
+    # 3. Tableau de Certification (QR Code à gauche, Infos de signature à droite)
+    COL_WIDTH_QR = 2.5 * inch 
+    COL_WIDTH_INFO = 4.5 * inch
+
+    # Construction des lignes d'information 
+    platform_info = Paragraph("Plateforme: EsikaGo Authentify", styles['CertValue'])
+    signer_info = Paragraph(f"Signataire: <b>{data['nom_bailleur']}</b>", styles['CertValue'])
+    datetime_info = Paragraph(f"Date et heure: {now}", styles['CertValue'])
+    link_info = Paragraph(f"Lien de vérification: <font color='blue'><u>{data['lien']}</u></font>", styles['CertValue'])
     
-    signature_table_data = [
-        ["", signature_image],
-        [Paragraph("Signature du Locataire", styles['SignatureTextStyle']), 
-         Paragraph("Signature du Bailleur", styles['SignatureTextStyle'])],
+  
+    info_sub_table_data = [
+        [platform_info],
+        [signer_info],
+        [datetime_info],
+        [link_info]
+    ]
+    info_sub_table = Table(info_sub_table_data, colWidths=[COL_WIDTH_INFO])
+    info_sub_table.setStyle(TableStyle([('LEFTPADDING', (0,0), (-1,-1), 0)]))
+
+
+    signature_qr_table_data = [
+        [qr_code_image, signature_image], # Ligne 1: Images (QR et Signature)
+        [
+            Paragraph("Certification EsikaGo", styles['CertLabel']), 
+            Paragraph(f"Signature du Bailleur: <b>{data['nom_bailleur']}</b>", styles['CertLabel'])
+        ], # Ligne 2: Labels
+        [
+            info_sub_table, 
+            Paragraph("", styles['DefaultText'])
+        ], # Ligne 3: Informations détaillées et espacement
     ]
     
-    signature_table = Table(signature_table_data, 
-                            colWidths=[COL_WIDTH_LOCATAIRE, COL_WIDTH_BAILLEUR], 
-                            rowHeights=[0.8*inch, None]) 
-                            
-    signature_table.setStyle(TableStyle([
-        ('ALIGN', (0,0), (0,-1), 'CENTER'),
-        ('ALIGN', (1,0), (1,-1), 'RIGHT'), 
-        ('VALIGN', (0,0), (-1,0), 'BOTTOM'),
-        ('VALIGN', (0,1), (-1,1), 'TOP'),
-        ('LINEABOVE', (0,1), (0,1), 1, colors.black),
-        ('LINEABOVE', (1,1), (1,1), 1, colors.black),
-        ('TOPPADDING', (1,0), (1,1), 1),
-        ('BOTTOMPADDING', (1,0), (1,1), 1),
+    signature_qr_table = Table(
+        signature_qr_table_data, 
+        colWidths=[COL_WIDTH_QR, COL_WIDTH_INFO], 
+        rowHeights=[1.5 * inch, None, None]
+    )
+    
+    signature_qr_table.setStyle(TableStyle([
+        # Alignement pour la colonne QR
+        ('ALIGN', (0,0), (0,0), 'CENTER'), 
+        ('VALIGN', (0,0), (0,0), 'TOP'),
+        # Alignement pour la colonne Signature
+        ('ALIGN', (1,0), (1,0), 'RIGHT'), 
+        ('VALIGN', (1,0), (1,0), 'BOTTOM'),
+        # Alignement général des textes
+        ('VALIGN', (0,1), (-1,-1), 'TOP'),
+        ('LINEABOVE', (1,1), (1,1), 1, colors.black), # Ligne au-dessus du texte de signature
+        ('TOPPADDING', (1,1), (1,1), 1),
     ]))
     
-    elements.append(signature_table)
-    elements.append(Spacer(1, 0.2 * inch)) 
-    
-    # --- Section QR Code ---
-    try:
-        
-        qr_code_image = Image(get_font_path(data["qr"]), width=0.8*inch, height=0.8*inch) 
-        qr_code_image.hAlign = 'CENTER'
-        elements.append(qr_code_image)
-    except Exception:
-        elements.append(Paragraph("Erreur: QR Code non trouvé.", qr_text_style))
+    elements.append(signature_qr_table)
+    elements.append(Spacer(1, 0.5 * inch)) 
 
-    verification_link = data["lien"]
-    elements.append(Paragraph(verification_link, qr_text_style))
-    elements.append(Spacer(1, 0.1 * inch))
-   
+    # --- Message de Sécurité Centré ---
+    security_message = (
+        f'Ce document est certifié électroniquement via EsikaGo Authentify. '
+        f'L\'empreinte cryptographique est ancrée sur Hedera Hashgraph. '
+        f'Toute modification du contenu invalidera cette certification.'
+    )
+    elements.append(Paragraph(security_message, styles['SecurityText']))
+
     # Ligne d'enregistrement : construit le PDF dans le buffer
     doc.build(elements)
     
@@ -909,16 +945,16 @@ def enregistrer_quittance(request, id=None):
                     except Exception:
                         pass
         else:
-            # --------------------------------------------------------
-            # ÉCHEC DE LA VÉRIFICATION FACIALE
-            # --------------------------------------------------------
+            
             messages.error(request, "❌ Échec de la vérification faciale. Accès refusé.")
             return redirect(reverse('view_quittance', kwargs={'id': id}))
 
-    # --------------------------------------------------------
-    # Requête GET
-    # --------------------------------------------------------
+    
     return redirect(reverse('view_quittance', kwargs={'id': id}))
+
+
+
+
 
 
 
@@ -936,32 +972,172 @@ def succes_enregistrement_quittance(request, id):
     
     return render(request, 'immobilier/succes_quittance.html', context)
 
-@login_required(login_url='login')
-def succes_enregistrement_quittancee(request,id):
+
+
+def verify_document_or_user(request, verification_code):
     """
-    Récupère la dernière quittance enregistrée par l'utilisateur
-    et passe son URL au template.
+    Gère la logique de vérification basée sur l'identifiant unique fourni.
     """
+    if request.method == 'POST':
+        return
+    
     try:
+        loyer = Loyer.objects.get(code=verification_code)
         
-        # 🚨 ON RÉCUPÈRE LE DERNIER DOCUMENT CRÉÉ PAR L'UTILISATEUR 🚨
-        derniere_quittance = Loyer.objects.get(id=id)
+
+
+        context = {
+            'verification_id': verification_code,
+            'status': 'SUCCESS',
+            'message': 'The document or user identity has been successfully verified on the Hedera DLT.',
+            'loyer': loyer,
+            'is_valid': True,
+            'document':loyer
+        }
+        return render(request, 'immobilier/verification_success.html', context)
+    
+    except Exception as e:
+    
+        context = {
+            'verification_id': verification_code,
+            'status': 'FAILED',
+            'message': 'Verification failed. The link is expired or invalid. Error: ' + str(e),
+        'is_valid': False,
+        }
+        return render(request, 'immobilier/verification_success.html', context)
+    
+        
+
+
+
+def normalize_pem(pem_str):
+    """Supprime les espaces et sauts de ligne pour comparaison fiable."""
+    return "".join(pem_str.strip().split())
+
+def verifier_certificat_pdf(request):
+    results = []  # Liste qui contiendra le résultat de chaque signature
+
+    if request.method == "POST" and request.FILES.get("document"):
+        pdf_file = request.FILES["document"]
+
         try:
-            topic_id_str = settings.HCS_TOPIC_ID.toString() # <-- UTILISER .toString()
-        except AttributeError:
-        # Si HCS_TOPIC_ID est déjà une string, on la garde.
-            topic_id_str = settings.HCS_TOPIC_ID
+            reader = PdfFileReader(pdf_file)
+            sigs = list(reader.embedded_signatures)
+            if not sigs:
+                messages.info(request,"⚠️ Aucune signature trouvée dans le PDF.")
+            
+                return render(request, "immobilier/verifier_pdf.html", {"error": True})
+
+            # Pour chaque signature dans le PDF
+            for idx, sig in enumerate(sigs, start=1):
+                result = {"signature_number": idx}
+                try:
+                    # 🔹 Extraction du certificat
+                    signer_cert = sig.signer_cert
+                    der_bytes = signer_cert.dump()
+                    b64_cert = base64.encodebytes(der_bytes)
+                    pem_bytes = (
+                        b"-----BEGIN CERTIFICATE-----\n"
+                        + b64_cert
+                        + b"-----END CERTIFICATE-----\n"
+                    )
+                    pem_extrait_norm = normalize_pem(pem_bytes.decode("utf-8"))
+
+                    # 🔹 Recherche du certificat dans la base
+                    trouve = None
+                    for s in Secutity.objects.all():
+                        try:
+                            # Si c’est un FileField
+                            if hasattr(s.cle_publique, "path"):
+                                with s.cle_publique.open("r") as f:
+                                    pem_base = f.read()
+                            else:
+                                pem_base = str(s.cle_publique)
+                        except Exception:
+                            continue
+
+                        pem_base_norm = normalize_pem(pem_base)
+                        if pem_base_norm == pem_extrait_norm:
+                            trouve = s
+                            break
+
+                    if not trouve:
+                        result.update({
+                            "cert_trouve": False,
+                            "utilisateur": None,
+                            "hash_pdf": None,
+                            "hash_stocke": None,
+                            "status": "❌ Certificat non trouvé"
+                        })
+                        results.append(result)
+                        continue
+
+                    utilisateur = trouve.user
+                    result["cert_trouve"] = True
+                    result["utilisateur"] = utilisateur.username
+
+                    # 🔹 Calcul du hash du PDF
+                    pdf_file.seek(0)
+                    pdf_bytes = pdf_file.read()
+                    pdf_hash = hashlib.sha256(pdf_bytes).hexdigest()
+                    result["hash_pdf"] = pdf_hash
+
+                    # 🔹 Vérification du hash dans Loyer
+                    # Attention : Loyer est lié à SaveProperty via property.user = utilisateur
+                    
+                    try:
+                        loyer_obj = Loyer.objects.get(document_hash_sha256=pdf_hash, property__user=utilisateur)
+                        
+                        result.update({
+                            "hash_stocke": loyer_obj.document_hash_sha256,
+                            "status": "✅ Vérification réussie",
+                            "loyer_id": loyer_obj.id,
+                            "hedera_timestamp": loyer_obj.hedera_timestamp,
+                            "type_document": loyer_obj.type_document + " de loyer pour " + str(loyer_obj.mois) + "/" + str(loyer_obj.annee),
+                            "lien": loyer_obj.lien_verification_hedera,
+                            
+                        })
+                        
+                    except Loyer.DoesNotExist:
+                        
+
+                        try:
+                        
+                            document = DocumentSigne.objects.get(document_hash_sha256=pdf_hash, signataire=utilisateur)
+                        
+                            result.update({
+                            "hash_stocke": document.document_hash_sha256,
+                            "status": "✅ Vérification réussie",
+                            "loyer_id": document.id,
+                            "hedera_timestamp": document.hedera_timestamp,
+                            "type_document": document.type_document ,
+                            "lien": document.lien_verification_hedera,
+                            
+                        })
+                        except DocumentSigne.DoesNotExist:
+                    
+
+                            result.update({
+                            "hash_stocke": "Non trouver",
+                            "status": "❌ Ce document n'est pas authentifié par notre system"
+                        })
+
+                except Exception as e:
+                    result.update({
+                        "cert_trouve": 'Aucun',
+                        "utilisateur": 'Aucun',
+                        "hash_pdf": 'Aucun',
+                        "hash_stocke": 'Aucun',
+                        "status": f"❌ Ce document n'est pas authentifié par notre system"
+                    })
+
+                results.append(result)
+
+        except Exception as e:
+            return HttpResponse(f"❌ Erreur lors de la lecture du PDF : {e}")
         
-        context = {
-            # Passe l'URL relative du fichier (ex: /media/quittances/...)
-            'pdf_url': derniere_quittance.url_document.url,
-            'filename': derniere_quittance.url_document.name.split('/')[-1] # Nom du fichier pour le bouton
-        }
-    except Loyer.DoesNotExist:
-        
-        context = {
-            'pdf_url': None,
-            'message_erreur': "Aucune quittance n'a été trouvée."
-        }
-        
-    return render(request, 'immobilier/succes_quittance.html', context)
+       # return HttpResponse(results)
+        return render(request, "immobilier/verifier_pdf.html", {"results": results})
+
+    return render(request, "immobilier/verifier_pdf.html")
+

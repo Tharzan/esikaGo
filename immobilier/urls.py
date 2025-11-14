@@ -21,5 +21,6 @@ urlpatterns = [
          views.succes_enregistrement_quittance, 
          name='succes_enregistrement_quittance'), # <-- Cette vue doit être créée
     
-    # ... (Autres URLs de votre application) ...
+    path('verify/<slug:verification_code>/', views.verify_document_or_user, name='verify_identity'),
+path('api/verify/', views.verifier_certificat_pdf, name='verify_pdf'),
 ]

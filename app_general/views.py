@@ -10,6 +10,16 @@ from app_general.forms import FormConnexion
 import re
 from .forms import *
 
+from hedera import (
+    Client, PrivateKey, AccountId, TopicId,
+    TopicMessageQuery
+)
+import os
+import hashlib
+from dotenv import load_dotenv
+import datetime
+
+
 
 
 def index(request):
@@ -52,7 +62,12 @@ def login_view(request):
 
 @login_required
 def accueil(request):
+        
+        today = datetime.date.today()
+        day = today.strftime('%d')
+        month = today.strftime('%b').upper()
 
+        date = str(month) + ' ' + str(day)
 
         user = request.user
         request.session['has_page'] = False
@@ -67,6 +82,31 @@ def accueil(request):
         except:
             has_blog = False
         return render(request, 'app_general/accueil.html', locals())
+
+
+
+@login_required
+def message(request):
+        
+        today = datetime.date.today()
+        day = today.strftime('%d')
+        month = today.strftime('%b').upper()
+
+        date = str(month) + ' ' + str(day)
+
+        user = request.user
+        request.session['has_page'] = False
+        liste_blog= list()
+        try:
+            administre  = BlogAdministrateur.objects.filter(user=user)
+            for objet in administre:
+                liste_blog.append(objet.blog)
+            request.session['has_page']  = True
+            
+
+        except:
+            has_blog = False
+        return render(request, 'app_general/message.html', locals())
 
 
 
@@ -113,11 +153,7 @@ def traveaux(request,page=None):
     
 
 
-        user = request.user
-        request.session['has_page'] = False
-        
-        return render(request, 'app_general/traveaux.html', locals())
-
+      
 
 
 @login_required     
@@ -158,4 +194,69 @@ def saveproduit(request,page=None):
                 return render(request,'app_general/saveproduit.html', {'formError':True, 'page': page})
         return render(request, 'app_general/saveproduit.html', {'page': page})
     
-  
+def calculate_file_hash(filename):
+    hasher = hashlib.sha256()
+    try:
+        with open(filename, 'rb') as file:
+            buf = file.read()
+            hasher.update(buf)
+        return hasher.hexdigest()
+    except FileNotFoundError:
+        print(f"❌ Erreur: Le fichier '{filename}' n'a pas été trouvé.")
+        return None
+
+def verify(request, code=None):
+   
+
+    HCS_TOPIC_ID = TopicId.fromString("0.0.7132193") 
+    DOCUMENT_FILE_NAME = "document.pdf"
+    PROOF_FILE_NAME = "proofs.txt" 
+
+    if request.method == 'POST':
+
+        # 1. Configuration du Client (inchangée)
+        OPERATOR_ID = AccountId.fromString(os.environ["MY_ACCOUNT_ID"])
+        OPERATOR_KEY = PrivateKey.fromString(os.environ["MY_PRIVATE_KEY"])
+        client = Client.forTestnet()
+        client.setOperator(OPERATOR_ID, OPERATOR_KEY)
+
+        # 2. Calcul du HASH SHA-256 du document actuel (inchangé)
+
+
+        current_document_hash = calculate_file_hash(DOCUMENT_FILE_NAME)
+
+        if not current_document_hash:
+            exit()
+            
+        # 3. 🚨 Récupération du HASH ANCRÉ à partir du fichier
+        last_anchored_hash = None
+        anchored_time = None
+        try:
+            with open(PROOF_FILE_NAME, "r") as f:
+                # On lit toutes les lignes et on prend la dernière pour l'exemple
+                lines = f.readlines()
+                if lines:
+                    # La dernière ligne contient: consensus_time,hash,transaction_id
+                    last_line = lines[-1].strip()
+                    parts = last_line.split(',')
+                    anchored_time = parts[0]
+                    last_anchored_hash = parts[1]
+                else:
+                    print(f"❌ Erreur: Le fichier '{PROOF_FILE_NAME}' est vide. Veuillez d'abord envoyer un hash.")
+                    exit()
+        except FileNotFoundError:
+            print(f"❌ Erreur: Le fichier '{PROOF_FILE_NAME}' n'existe pas. Veuillez d'abord exécuter send_hcs_hash.py.")
+            exit()
+
+        # 4. Comparaison des Hashs
+        print(f"Document vérifié par rapport à la preuve enregistrée à : {anchored_time}")
+        print("\n---------------------------------------")
+        print(f"HASH ANCRÉ (Hedera) : {last_anchored_hash}")
+        print(f"HASH ACTUEL (Fichier) : {current_document_hash}")
+        print("---------------------------------------")
+
+        if current_document_hash == last_anchored_hash:
+            print("✅ VÉRIFICATION RÉUSSIE : L'empreinte numérique du document est INTACTE.")
+            print("   Le document est PROUVÉ comme étant celui ancré sur Hedera à la date du Consensus Time.")
+        else:
+            print("❌ ÉCHEC DE LA VÉRIFICATION : Le document a été MODIFIÉ (ou le mauvais fichier a été vérifié).")

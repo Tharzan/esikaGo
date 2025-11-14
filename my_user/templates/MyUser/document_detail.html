@@ -1,0 +1,170 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/accueil_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/document_detail.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    
+    
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+
+        <div id="cacher"></div>
+        {% include 'petit_menu_ordi_user.html' %}
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Tableau de Bord</h2>
+
+                
+            </div>
+            
+            <div class="sidebar-nav">
+                
+                <ol>
+                    <li class="active" onclick="showTab('apercu')">
+                        <a href="#">Aperçu Général</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Rendez-vous</a>
+                    </li>
+                    
+                    <li onclick="showTab('salaires')">
+                        <a href="#">Alertes</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Travaux</a>
+                    </li>
+                    <li onclick="showTab('revenus')">
+                        <a href="#">Actions</a>
+                    </li>
+                    
+                </ol>
+            </div>
+        </aside>
+    <div class="container">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Document Certifié avec succès !
+        </h1> 
+
+    
+        <div class="intro-message">
+        
+            <p>
+            Le document {{ document.type_document }} a été signé électroniquement et l'empreinte cryptographique est en cours d'ancrage sur Hedera Hashgraph.</p>
+    
+            </p>
+        </div>
+
+        
+    
+        <hr style="border: 1px solid #eee; margin: 30px 0;">
+ <div class="box">
+    <div class="box-flex-1">
+    <div class="box-flex">
+        <div class="info-group">
+            <strong>Type de Document</strong>
+            <p>{{ document.type_document }}</p>
+        </div>
+
+        <div class="info-group">
+            <strong>Signataire</strong>
+            <p>{{ document.signataire.get_full_name|default:document.signataire.username }}</p>
+        </div>
+</div>
+       
+<div class="box-flex">
+        <!--div class="info-group">
+            <strong>Hash (Empreinte SHA-256)</strong>
+            <p>{{ document.document_hash_sha256 }}</p>
+        </div-->
+
+        <div class="info-group">
+            <strong>Statut d'Ancrage</strong>
+            {% if document.statut == 'SIGNÉ & ANCRÉ' %}
+                <p><span class="status-badge status-signed">{{ document.statut }}</span></p>
+            {% else %}
+                <p><span class="status-badge status-pending">{{ document.statut }} (En attente Hedera)</span></p>
+            {% endif %}
+        </div>
+        
+        <div class="info-group">
+            <strong>Horodatage Hedera (Consensus Time)</strong>
+            <p>{{ document.hedera_timestamp }}</p>
+        </div>
+</div>
+</div>
+        {% if document.lien_verification_hedera %}
+        <div class="info-group">
+            <strong>Lien de Vérification Hedera</strong>
+            <p><a href="{{ document.lien_verification_hedera }}" target="_blank">{{ document.lien_verification_hedera }}</a></p>
+        </div>
+        {% endif %}
+        
+        <hr style="border: 1px solid #eee; margin: 30px 0;">
+
+        <div class="action-buttons">
+            <a href="{{ document.document_signe.url }}" class="btn-download" target="_blank">
+                Télécharger le PDF Signé
+            </a>
+            
+            {% comment %} 
+                Lien de vérification via le QR code.
+                Ceci suppose que vous avez un champ 'code_uuid' stockant l'UUID pour l'URL /authentify/.
+                Comme ce champ n'est pas dans le modèle, j'utilise le hash pour l'exemple. 
+            {% endcomment %}
+            <!--a href="{% url 'authentify_document' code=document.document_hash_sha256 %}" class="btn-verify" target="_blank">
+                Vérifier l'Authenticité
+            </a-->
+        </div>
+    </div>   
+        
+        
+     </div>       
+                           
+    </div>
+    
+    <script src="{% static 'java/jquery.js' %}"></script>
+    <script src="{% static 'java/java_all.js' %}"></script>
+    <script src="{% static 'app_general/java/app_general.js' %}"></script>
+    <script>
+       
+        $(document).ready(function() 
+        {
+            
+            var dashbord = $('#icon-dashbord');
+             //.css('width','50px').css('height','50px');
+    
+            dashbord.attr('fill', '#f39c12');
+
+            var svg_profile =$('.svg_programme');
+
+        svg_profile.attr('fill','#f39c12')
+        svg_profile.css('width','40px').css('height','40px').css('background-color','#eee').css('padding','5px');
+            
+        });
+        
+
+    </script>
+   
+</body>
+</html>

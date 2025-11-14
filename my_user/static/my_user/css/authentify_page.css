@@ -1,0 +1,95 @@
+html, body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif,'Candara','Comic Sans MS';
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    
+}
+* {box-sizing: inherit;}
+
+#page_
+{
+    
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+  .container {
+            width: 100%;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-height: 100vh;
+            text-align: center;
+        }
+        .status-box {
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-fail {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .bloc-info
+        {
+            
+            margin: 40px;padding: 40px;
+            font-family: 'Poppins', sans-serif;
+            
+            border-radius: 12px;
+        }
+        h1 {
+            font-size: 1.8em;
+            margin-top: 0;
+        }
+        .info-group {
+            text-align: left;
+            margin-top: 20px;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+            color:rgb(0,0,125);
+        }
+        .info-group:last-child {
+            border-bottom: 1px solid #eee;
+        }
+        .info-group strong {
+            display: inline-block;
+            width: 180px;
+            color: #555;
+        }
+        .info-group span, .info-group a {
+            font-weight: bold;
+        }
+        .btn-action {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        .btn-success { background-color: #007bff; }
+        .btn-fail { background-color: #6c757d; }

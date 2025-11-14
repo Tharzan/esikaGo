@@ -90,6 +90,7 @@ animation-delay: 0.5s; /* Délai avant que l'animation ne commence (après le ch
     margin: 0 0 20px 0;
     font-weight: 400;
     font-style: italic;
+    
 }
 
 .card-content button, .cta-button button, .btn-dossiers button {

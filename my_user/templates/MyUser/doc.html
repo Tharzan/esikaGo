@@ -1,0 +1,117 @@
+{% comment %}
+    Ce template est utilisé pour la vue sign_and_anchor_document.
+    Il envoie le fichier PDF et le type de document à la vue.
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature et Certification de Document</title>
+    <style>
+        /* Styles CSS simples pour l'exemple */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f7f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Assure que le padding n'ajoute pas à la largeur totale */
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .errorlist {
+            color: #dc3545;
+            list-style: none;
+            padding-left: 0;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🖊️ Signer et Ancrer un Document</h1>
+
+        {% comment %}
+            L'attribut 'enctype="multipart/form-data"' est OBLIGATOIRE
+            pour l'upload de fichiers.
+        {% endcomment %}
+        <form method="post" enctype="multipart/form-data" action="{% url 'sign_and_anchor_document' %}">
+            {% csrf_token %} 
+            
+            {% comment %} 
+                Généralement, on passe l'objet 'form' de la vue au template.
+                Si vous avez défini les champs 'document_file' et 'type_document' 
+                dans votre DocumentUploadForm, cela les affichera automatiquement.
+            {% endcomment %}
+
+            {% comment %} 
+                Option 1: Rendu automatique simple (Si 'form' est un objet valide)
+                Si vous souhaitez un rendu rapide et facile:
+            {% endcomment %}
+            
+            {# {{ form.as_p }} #}
+
+            {% comment %}
+                Option 2: Rendu manuel pour le contrôle du style (Mieux)
+            {% endcomment %}
+
+            <div class="form-group">
+                <label for="{{ form.document_file.id_for_label }}">Fichier PDF à signer :</label>
+                {{ form.document_file }}
+                {{ form.document_file.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.type_document.id_for_label }}">Type de Document (ex: Contrat de bail, Quittance, etc.) :</label>
+                {{ form.type_document }}
+                {{ form.type_document.errors }}
+            </div>
+
+            <button type="submit">Signer et Certifier (EsikaGo)</button>
+
+        </form>
+    </div>
+
+</body>
+</html>

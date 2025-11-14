@@ -352,18 +352,22 @@ animation-delay: 0.5s; /* Délai avant que l'animation ne commence (après le ch
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
+    background-color: #f4f4f4;
+     font-family: 'Poppins', sans-serif;
+     padding: 10px;
 }
 .stat-card {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
-    border: 1px solid #e0e0e0;
+    
 }
 .stat-card h3 {
-    color: #555;
+    color: #333;
     margin: 0 0 10px 0;
-    font-size: 1em;
+    font-size: 1.1em;
+   
 }
 .stat-card p {
     font-size: 2em;

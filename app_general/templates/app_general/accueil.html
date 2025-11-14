@@ -63,20 +63,26 @@
     <div class="container">
         <h1>Programme de la Journée</h1> 
 
+    
         <div class="intro-message">
             <div class="event-date">
                 
-                        <span>25</span>
-                        <p>OCT</p>
+                        <span>{{ day }}</span>
+                        <p>{{ month }}</p>
                     </div>
-            <p>Bonjour ! Voici un aperçu des activités et des indicateurs clés pour la journée du <span id="current-date"></span>.</p>
+            <p>
+                Gerez vos biens ou maison de location, vos documents, 
+            
+            <span style="text-decoration: line-through;color: red;font-weight: 600;">"je ne sais pas comment j'ai dépensé l'argent?</span> Gerez 
+            vos revenus, dépenses
+         et dettes.</p>
         </div>
 
         <div class="reservation-container">
             <section class="reservation-section">
                 
                     <div class="section-header">
-                        <h3>Rendez-vous et réservations</h3>
+                        <h3>Rendez-vous et vu Géneral</h3>
                     </div>
 
                     <p>
@@ -90,21 +96,18 @@
     
                 <div class="stats-grid">
                     <div class="stat-card total-confirmed">
-                        <h3>Confirmées</h3>
+                        <h3>Rendez-vous</h3>
                         <p>45</p>
                     </div>
                     <div class="stat-card total-cancelled">
-                        <h3>Annulées</h3>
+                        <h3>Documments</h3>
                         <p>8</p>
                     </div>
                     <div class="stat-card total-pending">
-                        <h3>En attente</h3>
+                        <h3>Traveaux</h3>
                         <p>12</p>
                     </div>
-                    <div class="stat-card total-pending">
-                        <h3>Total</h3>
-                        <p>65</p>
-                    </div>
+                
                 </div>
                 
                

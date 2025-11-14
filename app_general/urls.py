@@ -12,5 +12,6 @@ urlpatterns = [
    re_path(r'apropos/$', views.about,name='about'),
     re_path(r'connexion/$', views.login_view,name='login'),
     re_path(r'traveaux/$', views.traveaux,name='traveaux'),
+      re_path(r'messages/$', views.message,name='message'),
     re_path(r'traveaux/(?P<page>[a-z]{4})$', views.traveaux,name='traveaux_page'),
 ]

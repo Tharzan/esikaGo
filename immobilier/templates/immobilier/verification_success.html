@@ -1,0 +1,92 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'app_general/css/accueil_mobile.css' %}">
+    <link rel="stylesheet"  media="(min-width:900px)"  href="{% static 'my_user/css/authentify_page.css' %}">
+    
+    <link rel="stylesheet"   media="(min-width:900px)" href="{% static 'css/menu_desktop.css' %}">
+    
+    <link rel="stylesheet"   media="(max-width:900px)" href="{% static 'css/menu_mobile.css' %}">
+    
+    
+    
+    <title>EsikaApp</title>
+    
+</head>
+<body>
+
+    <div id="page_">
+
+        {% include 'menu_desktop.html' %}
+        {% include 'menu_mobile.html' %}
+ <div id="cacher"></div>
+         <div class="container">
+        
+        {% if is_valid %}
+            
+            <div class="status-box status-success">
+                <h1>✅ Document Authentifié</h1>
+                <p>Ce code correspond à un document unique Authentifié par notre systeme et 
+                     ancré sur Hedera Hashgraph.</p>
+            </div>
+            <div class="bloc-info">
+            
+            <h2>Détails de Certification</h2>
+            
+            <div class="info-group">
+                <strong>Type de Document :</strong>
+                <span>{{ document.type_document }}</span>
+            </div>
+            
+            <div class="info-group">
+                <strong>Signataire :</strong>
+                <span>{{ results.utilisateur }}</span>
+            </div>
+
+            <div class="info-group">
+                <strong>lien de verification hedera:</strong>
+                <a href="{{ document.lien_verification_hedera }}" target="_blank" style="margin-left: 15px;">
+            Voir l preuve sur hedera 
+            </a>
+            </div>
+            
+            <div class="info-group">
+                <strong>Horodatage Hedera :</strong>
+                <span>{{ document.hedera_timestamp }}</span>
+            </div>
+
+           
+
+            <a href="" class="btn-action btn-success" target="_blank">
+                Télécharger et Vérifier le PDF Original
+            </a>
+            
+            
+            
+        {% else %}
+        
+            <div class="status-box status-fail">
+                <h1>❌ Vérification Échouée {{ status }}</h1>
+                <p>Le code de vérification suivant n'a été trouvé dans aucune de nos bases de données de documents certifiés :</p>
+                <p style="font-size: 1.2em; font-weight: bold; color: #721c24;">{{ verification_code }}</p>
+            </div>
+            
+            <p>Cela peut indiquer que le document est altéré, que le code est erroné.</p>
+            
+            
+            
+        {% endif %}
+
+    </div>
+    </div>
+    </div>
+   
+</body>
+</html>

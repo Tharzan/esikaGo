@@ -85,13 +85,10 @@ class Loyer(models.Model):
         on_delete=models.CASCADE)
     
     annee = models.IntegerField(default=2025)
-    tp_hedera = models.CharField(max_length=50,blank=True, default='')
-    ancre_hedera = models.CharField(max_length=500,blank=True, default='')
-    sequence_number_hedera = models.IntegerField(
-        blank=True, 
-        null=True) 
+    
+    
     code = models.CharField(
-        max_length=255,
+        max_length=500,
         blank=True,
          default='')
 
@@ -107,6 +104,71 @@ class Loyer(models.Model):
         null=True, 
         blank=True
     )
+
+    
+    type_document = models.CharField(
+        max_length=100,
+        verbose_name="Type de Document",
+        blank=True,
+        default='quittance'
+    )
+    
+    document_hash_sha256 = models.CharField(
+        max_length=64, 
+        verbose_name="Hash SHA-256 (Ancrage)",
+        blank=True,
+        default='PENDING'
+    )
+    
+    # --- Preuve Hedera Hashgraph (HCS) ---
+
+    # Le Consensus Time d'Hedera (preuve temporelle)
+    hedera_timestamp = models.CharField(
+        max_length=255, 
+        
+        verbose_name="Horodatage Hedera (Consensus Time)",
+        blank=True,
+        default='PENDING'
+
+    )
+    
+    # L'ID de la transaction Hedera (pour la vérification en ligne)
+    hedera_transaction_id = models.CharField(
+        max_length=255,
+        verbose_name="ID de Transaction Hedera",
+        null=True,
+        blank=True,
+    )
+    
+    # Lien public pour vérifier la transaction Hedera 
+    lien_verification_hedera = models.URLField(
+        max_length=500,
+        blank=True,
+        null=True,
+        verbose_name="Lien de Vérification Hedera"
+    )
+    
+    # --- Liens avec l'Utilisateur ---
+    
+    signataire = models.ForeignKey(
+        MyUser, 
+        related_name='quittance_signes',
+        on_delete=models.CASCADE,
+        verbose_name="Signataire",
+        null=True,
+    )
+    
+    statut = models.CharField(
+        max_length=50,
+        default='',
+        verbose_name="Statut du Document"
+    )
+    
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    
+
+
     
     def __str__(self):
         return f"Moid de {self.mois} id: {self.id} et adresse {self.property.adresse}"
@@ -166,8 +228,6 @@ class Document(models.Model):
         verbose_name=_("Bailleur / Émetteur")
     )
     
-    # Vous pouvez ajouter un champ pour la personne qui reçoit le document si nécessaire
-    # locataire = models.CharField(max_length=255, verbose_name=_("Nom du Locataire"))
 
     # 3. Champs d'information et de date
     montant_paye = models.DecimalField(

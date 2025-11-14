@@ -69,4 +69,40 @@ class FormSecurity(forms.ModelForm):
             first_name = cleaned_data.get('signature')
             
             return cleaned_data
+        
+
+
+class DocumentUploadForm(forms.Form):
+    """
+    Formulaire utilisé pour uploader un document PDF et spécifier son type 
+    avant le processus de signature et d'ancrage.
+    """
+    
+    document_file = forms.FileField(
+        label='Sélectionner le Document PDF',
+        help_text='Seuls les fichiers PDF sont acceptés.',
+        # Optionnel: Vous pouvez ajouter une validation personnalisée ici
+    )
+    
+    type_document = forms.CharField(
+        label='Type de Document',
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Ex: Contrat de Bail, Facture, Quittance de Loyer'})
+    )
+
+    def clean_document_file(self):
+        """Validation personnalisée pour s'assurer que le fichier est bien un PDF."""
+        data = self.cleaned_data['document_file']
+        
+        # Vérification simple du type de fichier
+        if not data.name.lower().endswith('.pdf'):
+            raise forms.ValidationError("Le fichier doit être au format PDF.")
+        
+        # Vous pouvez ajouter ici d'autres validations (taille, etc.)
+        
+        return data
+
+# Note: Assurez-vous d'importer ce formulaire dans votre fichier views.py :
+# from .forms import DocumentUploadForm
 

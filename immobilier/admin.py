@@ -7,8 +7,8 @@ class SavePropertyAdmin(admin.ModelAdmin):
                    'montant', 'id_maison','nom_complet_occupant','tel_occupant', 'date_entrer',
                      'garantie','contratBail')
 class LoyerAdmin(admin.ModelAdmin):
-    list_display =('id','property','montant','mois','date_payement','observation',
-    'annee','tp_hedera', 'ancre_hedera','sequence_number_hedera','url_document','qr_document')
+    list_display =('id','property','montant','mois','date_payement','observation','date_creation',
+    'annee','url_document','qr_document')
 admin.site.register(PostMaison)
 admin.site.register(SaveProperty,SavePropertyAdmin)
 admin.site.register(ImageMaisons)
